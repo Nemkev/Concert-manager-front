@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import { PhotoCarousel } from "./PhotoCarousel";
 
 const GET_BUILDINGS = gql`
   {
@@ -28,9 +29,10 @@ export default function Example() {
 
   console.log(data);
   return (
-    <div>
-      <p>You click counter is {count} </p>
-      <button onClick={() => setCount(count + 1)}>Click on me</button>
-    </div>
+    // <div>
+    //   <p>You click counter is {count} </p>
+    //   <button onClick={() => setCount(count + 1)}>Click on me</button>
+    // </div>
+    <PhotoCarousel />
   );
 }
