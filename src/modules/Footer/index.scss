@@ -1,0 +1,29 @@
+footer {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.logo {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.link-bar {
+  flex-grow: 5;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  align-items: center;
+
+  a {
+    margin: 0 10px;
+  }
+}
