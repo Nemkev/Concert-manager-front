@@ -13,14 +13,14 @@ export const PhotoCarousel = () => {
     <main>
       <AutoplaySlider
         cssModule={AwesomeSliderStyles}
-        play={true}
+        play
         cancelOnInteraction={false}
         interval={6000}
         organicArrows={false}
         bullets={false}
       >
-        <div data-src={ConcertOne} alt=""></div>
-        <div data-src={ConcertTwo} alt="" />
+        <div data-src={ConcertOne} alt="image"></div>
+        <div data-src={ConcertTwo} alt="image" />
       </AutoplaySlider>
     </main>
   );

@@ -6,24 +6,18 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import { Header } from "./modules/Header";
-import { Footer } from "./modules/Footer";
 
 import "./App.css";
 
-function App() {
+export const Routers = () => {
   return (
     <Router>
-      <Header />
-      <div className="App">
-        <Switch>
-          <Route exact path="/Home" component={Example} />
-          <Redirect from="/" to="Home" />
-        </Switch>
-      </div>
-      <Footer />
+      <Switch>
+        <Route exact path="/Home" component={Example} />
+        <Redirect from="/" to="Home" />
+      </Switch>
     </Router>
   );
-}
+};
 
-export default App;
+export default Routers;
