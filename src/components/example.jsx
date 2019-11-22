@@ -18,7 +18,7 @@ const GET_BUILDINGS = gql`
   }
 `;
 
-export default function Example() {
+export const Example = () => {
   const [count, setCount] = useState(0);
 
   const { loading, error, data } = useQuery(GET_BUILDINGS);
@@ -35,4 +35,4 @@ export default function Example() {
     // </div>
     <PhotoCarousel />
   );
-}
+};
