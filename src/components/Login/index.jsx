@@ -1,49 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-
-const LOGIN = gql`
-  mutation Login($email: String!, $hashPassword: String!) {
-    login(email: $email, hashPassword: $hashPassword) {
-      id
-      email
-      hashPassword
-    }
-  }
-`;
+import { LOGIN } from "../../mutation/LOGIN";
+import { useCookies } from "react-cookie";
 
 export const Login = () => {
-  let input;
-  const [
-    login,
-    { loading: mutationLoading, error: mutationError }
-  ] = useMutation(LOGIN);
+  let [email, setEmail] = useState("");
+  let [hashPassword, setHashPassword] = useState("");
+  let [cookies, setCookies] = useCookies(["access-token"]);
+  const [login, { error }] = useMutation(LOGIN, {
+    variables: { email, hashPassword }
+  });
 
+  const handleSubmit = async () => {
+    const data = await login();
+    setCookies("access-token", data.data.login.accessToken);
+    setCookies("refresh-token", data.data.login.refreshToken);
+    console.log(data);
+  };
+
+  if (error) {
+    console.log("error: ", error);
+  }
   return (
-    <div>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          login({
-            variables: { email: input.value, hashPassword: input.value }
-          });
-          input.value = "";
-        }}
-      >
-        <input
-          ref={node => {
-            input = node;
-          }}
-        />
-        <input
-          ref={node => {
-            input = node;
-          }}
-        />
-        <button type="submit">Login</button>
-      </form>
-      {mutationLoading && <p>Loading...</p>}
-      {mutationError && <p>Error :( Please try again</p>}
-    </div>
+    <>
+      <input type="text" onChange={e => setEmail(e.target.value)} />
+      <input type="text" onChange={e => setHashPassword(e.target.value)} />
+      <button onClick={handleSubmit}>Login</button>
+    </>
   );
 };
