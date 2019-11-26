@@ -1,5 +1,6 @@
 import React from "react";
-import Example from "./components/example";
+import { Example } from "./components/example";
+import { Login } from "./components/Login";
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +15,7 @@ export const Routers = () => {
     <Router>
       <Switch>
         <Route exact path="/Home" component={Example} />
+        <Route exact path="/Login" component={Login} />
         <Redirect from="/" to="Home" />
       </Switch>
     </Router>
