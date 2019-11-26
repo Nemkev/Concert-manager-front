@@ -3,7 +3,6 @@ import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../../mutation/LOGIN";
 import { useCookies } from "react-cookie";
 import { Redirect } from "react-router-dom";
-import Routers from "../../Router";
 
 export const Login = () => {
   let [email, setEmail] = useState("");

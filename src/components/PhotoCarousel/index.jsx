@@ -5,8 +5,6 @@ import "./index.scss";
 import ConcertOne from "../../assets/1.jpeg";
 import ConcertTwo from "../../assets/2.jpeg";
 
-// import Lettering from "react-awesome-slider/src/hoc/animated-lettering";
-
 const content = [
   {
     title: "Lorem ipsum",
