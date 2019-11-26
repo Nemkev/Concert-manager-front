@@ -7,19 +7,11 @@ export const REGISTER = gql`
     $firstName: String!
     $lastName: String!
   ) {
-    registration(
+    register(
       email: $email
       hashPassword: $hashPassword
       firstName: $firstName
       lastName: $lastName
-    ) {
-      id
-      email
-      hashPassword
-      firstName
-      lastName
-      accessToken
-      refreshToken
-    }
+    )
   }
 `;

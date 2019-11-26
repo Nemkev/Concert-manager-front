@@ -1,6 +1,7 @@
 import React from "react";
 import { Example } from "./components/example";
 import { Login } from "./components/Login";
+import { Registration } from "./components/Registration";
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,6 +17,7 @@ export const Routers = () => {
       <Switch>
         <Route exact path="/Home" component={Example} />
         <Route exact path="/Login" component={Login} />
+        <Route exact path="/Registration" component={Registration} />
         <Redirect from="/" to="Home" />
       </Switch>
     </Router>
