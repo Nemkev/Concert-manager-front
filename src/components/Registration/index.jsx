@@ -11,7 +11,7 @@ export const Registration = () => {
   let [firstName, setFirstName] = useState("");
   let [lastName, setLastName] = useState("");
   let [isLoged, setLogin] = useState("");
-  let [cookies, setCookies] = useCookies(["access-token"]);
+  let [cookies, setCookies] = useCookies("");
 
   const [registration, { error }] = useMutation(REGISTER, {
     variables: { email, hashPassword, firstName, lastName }

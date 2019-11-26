@@ -8,7 +8,7 @@ export const Login = () => {
   let [email, setEmail] = useState("");
   let [hashPassword, setHashPassword] = useState("");
   let [isLoged, setLogin] = useState("");
-  let [cookies, setCookies] = useCookies(["access-token"]);
+  let [cookies, setCookies] = useCookies("");
   const [login, { error }] = useMutation(LOGIN, {
     variables: { email, hashPassword }
   });
