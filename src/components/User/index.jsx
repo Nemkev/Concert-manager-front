@@ -13,38 +13,38 @@ export const User = () => {
   return (
     <>
       {!data.auth && <Redirect to="/Login" />}
-      <main>
+      <main className="user-page">
         <div className="tickets-list">
           <ul>
-            <li>
+            <li className="ticket-item">
               <div>
                 <p>Name of Concert</p>
                 <p>date</p>
                 <p>status</p>
               </div>
             </li>
-            <li>
+            <li className="ticket-item">
               <div>
                 <p>Name of Concert</p>
                 <p>date</p>
                 <p>status</p>
               </div>
             </li>
-            <li>
+            <li className="ticket-item">
               <div>
                 <p>Name of Concert</p>
                 <p>date</p>
                 <p>status</p>
               </div>
             </li>
-            <li>
+            <li className="ticket-item">
               <div>
                 <p>Name of Concert</p>
                 <p>date</p>
                 <p>status</p>
               </div>
             </li>
-            <li>
+            <li className="ticket-item">
               <div>
                 <p>Name of Concert</p>
                 <p>date</p>
@@ -56,9 +56,9 @@ export const User = () => {
         <div className="user-info">
           <div className="user-avatar"></div>
           <div className="user-description">
-            <p>firstName</p>
-            <p>secondName</p>
-            <p>Rating</p>
+            <p className="user-info-item">firstName</p>
+            <p className="user-info-item">secondName</p>
+            <p className="user-info-item">Rating</p>
           </div>
         </div>
       </main>
