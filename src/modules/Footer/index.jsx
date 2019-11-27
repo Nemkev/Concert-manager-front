@@ -3,13 +3,19 @@ import "./index.scss";
 
 export const Footer = () => {
   return (
-    <footer>
+    <footer className="footer">
       <div className="logo">
-        <a href="">About us </a>
+        <a className="link" href="">
+          About us{" "}
+        </a>
       </div>
       <div className="link-bar">
-        <a href="">lorem</a>
-        <a href="">ipsum</a>
+        <a className="link" href="">
+          lorem
+        </a>
+        <a className="link" href="">
+          ipsum
+        </a>
       </div>
     </footer>
   );
