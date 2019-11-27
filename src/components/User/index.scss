@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css?family=Anton&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  font-family: "Anton", sans-serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 87.5vh;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: linear-gradient(0deg, #ab00ff 0%, #e44d4d 100%);
+}
+
+.user-avatar {
+  width: 150px;
+  height: 150px;
+  background: url(../../assets/3.jpg);
+}
+
+li {
+  list-style-type: none;
+  padding-bottom: 10px;
+}
+
+.user-info {
+  margin-right: 30px;
+
+  p {
+    padding-bottom: 10px;
+  }
+}
+
+.tickets-list {
+  margin-left: 30px;
+}

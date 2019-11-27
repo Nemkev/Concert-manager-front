@@ -4,6 +4,8 @@ import { LOGIN } from "../../mutation/LOGIN";
 import { useCookies } from "react-cookie";
 import { Redirect } from "react-router-dom";
 
+import "./index.scss";
+
 export const Login = () => {
   let [email, setEmail] = useState("");
   let [hashPassword, setHashPassword] = useState("");
