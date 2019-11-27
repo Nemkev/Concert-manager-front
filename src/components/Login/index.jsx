@@ -29,7 +29,7 @@ export const Login = () => {
 
   return (
     <>
-      {isLoged && <Redirect to="/Home" />}
+      {isLoged && <Redirect to="/User" />}
       <input type="text" onChange={e => setEmail(e.target.value)} />
       <input type="text" onChange={e => setHashPassword(e.target.value)} />
       <button onClick={handleSubmit}>Login</button>
