@@ -16,7 +16,6 @@ const httpLink = createHttpLink({
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: httpLink
-  // credentials: "include"
 });
 
 ReactDOM.render(
