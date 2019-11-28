@@ -5,3 +5,39 @@
 .slide {
   position: absolute;
 }
+
+.article {
+}
+
+.description {
+  width: 200px;
+  margin-top: 20vh;
+  max-height: 300px;
+}
+
+.concert-info-wrapper {
+  margin-top: 10vh;
+  margin-left: 5vh;
+  font-size: 25px;
+  color: white;
+}
+
+.concert-button {
+  position: absolute;
+  bottom: 120px;
+  right: 5vh;
+}
+
+.button-decoration {
+  display: flex;
+  color: white;
+  padding: 7px;
+  border: 2px solid white;
+  font-size: 25px;
+}
+
+// @media screen and (max-height: 850px) {
+//   .concert-button {
+//     margin-top: 10vh;
+//   }
+// }
