@@ -1,38 +1,18 @@
-import React, { useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import { PhotoCarousel } from "./PhotoCarousel";
+import React from "react";
+import { Redirect } from "react-router-dom";
 
-const GET_BUILDINGS = gql`
-  {
-    getBuildings {
-      name
-      city
-      id
-      concerts {
-        date
-        id
-        name
-      }
-    }
-  }
-`;
+import { AUTH } from "../query/AUTH";
+import { PhotoCarousel } from "./PhotoCarousel";
+import { useQuery } from "@apollo/react-hooks";
 
 export const Example = () => {
-  const [count, setCount] = useState(0);
-
-  const { loading, error, data } = useQuery(GET_BUILDINGS);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  console.log(data);
+  const { loading, error, data } = useQuery(AUTH);
+  if (loading) return <p>Loading ...</p>;
+  console.log(data.auth, 11);
   return (
-    // <div>
-    //   <p>You click counter is {count} </p>
-    //   <button onClick={() => setCount(count + 1)}>Click on me</button>
-    // </div>
-    <PhotoCarousel />
+    <>
+      {!data.auth && <Redirect to="/Login" />}
+      <PhotoCarousel />
+    </>
   );
 };

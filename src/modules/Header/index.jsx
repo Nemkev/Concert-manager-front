@@ -3,14 +3,18 @@ import "./index.scss";
 
 export const Header = () => {
   return (
-    <header>
+    <header className="header">
       <div className="logo">
         <h1>Ticket paradise</h1>
       </div>
       <div className="link-bar">
-        <a href="">Home</a>
-        <a href="">Concerts</a>
-        <a href="" className="authorization">
+        <a className="link" href="">
+          Home
+        </a>
+        <a className="link" href="">
+          Concerts
+        </a>
+        <a className="link" href="">
           Sign in
         </a>
       </div>

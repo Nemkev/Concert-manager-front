@@ -4,11 +4,13 @@ import { LOGIN } from "../../mutation/LOGIN";
 import { useCookies } from "react-cookie";
 import { Redirect } from "react-router-dom";
 
+import "./index.scss";
+
 export const Login = () => {
   let [email, setEmail] = useState("");
   let [hashPassword, setHashPassword] = useState("");
   let [isLoged, setLogin] = useState("");
-  let [cookies, setCookies] = useCookies(["access-token"]);
+  let [cookies, setCookies] = useCookies("");
   const [login, { error }] = useMutation(LOGIN, {
     variables: { email, hashPassword }
   });
@@ -27,7 +29,7 @@ export const Login = () => {
 
   return (
     <>
-      {isLoged && <Redirect to="/Home" />}
+      {isLoged && <Redirect to="/User" />}
       <input type="text" onChange={e => setEmail(e.target.value)} />
       <input type="text" onChange={e => setHashPassword(e.target.value)} />
       <button onClick={handleSubmit}>Login</button>

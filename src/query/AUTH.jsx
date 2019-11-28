@@ -1,0 +1,9 @@
+import { gql } from "apollo-boost";
+
+export const AUTH = gql`
+  {
+    auth {
+      email
+    }
+  }
+`;

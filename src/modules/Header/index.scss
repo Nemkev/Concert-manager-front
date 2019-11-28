@@ -1,11 +1,19 @@
-header {
+.header {
   display: flex;
   justify-content: space-between;
-  background-color: #f0f0f0;
+  align-items: center;
+  background: #e44d4d;
+  border-bottom: 1px black solid;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 h1 {
   font-size: 1.3em;
+}
+
+.link {
+  text-decoration: none;
 }
 
 .logo {
@@ -20,7 +28,7 @@ h1 {
   margin-right: 20px;
   align-items: center;
 
-  a {
+  .link {
     margin: 0 10px;
   }
 }
