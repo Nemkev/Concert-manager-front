@@ -22,7 +22,7 @@ const content = [
 
 export const PhotoCarousel = () => {
   return (
-    <main>
+    <main className="slider">
       <Slider
         autoplay={3000}
         previousButton={false}
@@ -34,8 +34,11 @@ export const PhotoCarousel = () => {
             className="slide"
             key={index}
             style={{
-              background: `url('${article.image}')no-repeat center center`,
-              backgroundSize: `100%`
+              background: `url('${article.image}') no-repeat center center`,
+              //
+              width: `100vw`,
+              height: `100vh`,
+              objectFit: `cover`
             }}
           >
             <h2>{article.title}</h2>
