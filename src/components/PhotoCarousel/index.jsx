@@ -2,8 +2,9 @@ import React from "react";
 import Slider from "react-animated-slider";
 import "react-animated-slider/build/horizontal.css";
 import "./index.scss";
-import ConcertOne from "../../assets/1.jpeg";
-import ConcertTwo from "../../assets/2.jpeg";
+import ConcertOne from "../../assets/6.jpg";
+import ConcertTwo from "../../assets/7.jpeg";
+import ConcertThree from "../../assets/8.jpeg";
 
 const content = [
   {
@@ -11,20 +12,30 @@ const content = [
     description: "dollor sir ammet",
     image: `${ConcertOne}`
   },
-  { title: "Curriculum", description: "Vitae", image: `${ConcertTwo}` }
+  { title: "Curriculum", description: "Vitae", image: `${ConcertTwo}` },
+  {
+    title: "Concert",
+    description: "Show must go on",
+    image: `${ConcertThree}`
+  }
 ];
 
 export const PhotoCarousel = () => {
   return (
     <main>
-      <Slider>
+      <Slider
+        autoplay={3000}
+        previousButton={false}
+        nextButton={false}
+        infinite
+      >
         {content.map((article, index) => (
           <div
             className="slide"
             key={index}
             style={{
               background: `url('${article.image}')no-repeat center center`,
-              width: "100%"
+              backgroundSize: `100%`
             }}
           >
             <h2>{article.title}</h2>

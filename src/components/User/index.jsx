@@ -12,7 +12,7 @@ export const User = () => {
   console.log(data.auth, 11);
   return (
     <>
-      {!data.auth && <Redirect to="/Login" />}
+      {!data.auth && <Redirect to="/login" />}
       <main className="user-page">
         <div className="tickets-list">
           <ul>

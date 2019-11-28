@@ -16,11 +16,11 @@ export const Routers = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/Home" component={Example} />
-        <Route exact path="/Login" component={Login} />
-        <Route exact path="/Registration" component={Registration} />
-        <Route exact path="/User" component={User} />
-        <Redirect from="/" to="Home" />
+        <Route exact path="/home" component={Example} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/registration" component={Registration} />
+        <Route exact path="/user" component={User} />
+        <Redirect from="/" to="home" />
       </Switch>
     </Router>
   );
