@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-animated-slider";
 import "react-animated-slider/build/horizontal.css";
 import "./index.scss";
-import ConcertOne from "../../assets/6.jpg";
+import ConcertOne from "../../assets/10.png";
 import ConcertTwo from "../../assets/7.jpeg";
 import ConcertThree from "../../assets/8.jpeg";
 
@@ -31,7 +31,7 @@ export const PhotoCarousel = () => {
   return (
     <main className="slider">
       <Slider
-        autoplay={60000}
+        autoplay={10000}
         previousButton={false}
         nextButton={false}
         infinite
@@ -42,7 +42,7 @@ export const PhotoCarousel = () => {
             key={index}
             style={{
               background: `url('${article.image}') no-repeat center center`,
-              width: `100vw`,
+              width: `100%`,
               height: `100vh`,
               objectFit: `cover`
             }}
