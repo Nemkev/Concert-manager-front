@@ -25,3 +25,18 @@
   border-radius: 3px;
   box-shadow: 0 1px 3px darkgray;
 }
+
+.filter-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-input {
+  margin: 10px;
+  width: 80vw;
+}
+
+.overlap {
+  background: linear-gradient(0deg, #ab00ff 0%, #e44d4d 100%);
+}
