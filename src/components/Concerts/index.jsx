@@ -5,7 +5,7 @@ import "./index.scss";
 
 export const Concerts = () => {
   return (
-    <XMasonry>
+    <XMasonry maxColumns={5}>
       <XBlock>
         <div className="card">
           <h1>Simple Card</h1>
@@ -13,6 +13,54 @@ export const Concerts = () => {
         </div>
       </XBlock>
       <XBlock width={2}>
+        <div className="card">
+          <h1>Wider card</h1>
+          <p>Any text!</p>
+        </div>
+      </XBlock>
+      <XBlock>
+        <div className="card">
+          <h1>Simple Card</h1>
+          <p>Any text!</p>
+        </div>
+      </XBlock>
+      <XBlock width={3}>
+        <div className="card">
+          <h1>Wider card</h1>
+          <p>Any text!</p>
+        </div>
+      </XBlock>
+      <XBlock>
+        <div className="card">
+          <h1>Simple Card</h1>
+          <p>Any text!</p>
+        </div>
+      </XBlock>
+      <XBlock width={2}>
+        <div className="card">
+          <h1>Wider card</h1>
+          <p>Any text!</p>
+        </div>
+      </XBlock>
+      <XBlock>
+        <div className="card">
+          <h1>Simple Card</h1>
+          <p>Any text!</p>
+        </div>
+      </XBlock>
+      <XBlock width={2}>
+        <div className="card">
+          <h1>Wider card</h1>
+          <p>Any text!</p>
+        </div>
+      </XBlock>
+      <XBlock>
+        <div className="card">
+          <h1>Simple Card</h1>
+          <p>Any text!</p>
+        </div>
+      </XBlock>
+      <XBlock width={5}>
         <div className="card">
           <h1>Wider card</h1>
           <p>Any text!</p>
@@ -84,7 +132,7 @@ export const Concerts = () => {
           <p>Any text!</p>
         </div>
       </XBlock>
-      <XBlock width={2}>
+      <XBlock width={1}>
         <div className="card">
           <h1>Wider card</h1>
           <p>Any text!</p>
@@ -120,7 +168,7 @@ export const Concerts = () => {
           <p>Any text!</p>
         </div>
       </XBlock>
-      <XBlock width={2}>
+      <XBlock width={4}>
         <div className="card">
           <h1>Wider card</h1>
           <p>Any text!</p>
@@ -144,55 +192,7 @@ export const Concerts = () => {
           <p>Any text!</p>
         </div>
       </XBlock>
-      <XBlock width={2}>
-        <div className="card">
-          <h1>Wider card</h1>
-          <p>Any text!</p>
-        </div>
-      </XBlock>
-      <XBlock>
-        <div className="card">
-          <h1>Simple Card</h1>
-          <p>Any text!</p>
-        </div>
-      </XBlock>
-      <XBlock width={2}>
-        <div className="card">
-          <h1>Wider card</h1>
-          <p>Any text!</p>
-        </div>
-      </XBlock>
-      <XBlock>
-        <div className="card">
-          <h1>Simple Card</h1>
-          <p>Any text!</p>
-        </div>
-      </XBlock>
-      <XBlock width={2}>
-        <div className="card">
-          <h1>Wider card</h1>
-          <p>Any text!</p>
-        </div>
-      </XBlock>
-      <XBlock>
-        <div className="card">
-          <h1>Simple Card</h1>
-          <p>Any text!</p>
-        </div>
-      </XBlock>
-      <XBlock width={2}>
-        <div className="card">
-          <h1>Wider card</h1>
-          <p>Any text!</p>
-        </div>
-      </XBlock>
-      <XBlock>
-        <div className="card">
-          <h1>Simple Card</h1>
-          <p>Any text!</p>
-        </div>
-      </XBlock>
-      <XBlock width={2}>
+      <XBlock width={3}>
         <div className="card">
           <h1>Wider card</h1>
           <p>Any text!</p>
