@@ -37,9 +37,9 @@
     list-style-type: none;
     padding-bottom: 10px;
     border-bottom: 2px black dotted;
-  }
 
-  .ticket-item:last-child {
-    border-bottom: none;
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }

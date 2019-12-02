@@ -1,0 +1,42 @@
+@keyframes comeIn {
+  0% {
+    transform: scale(0);
+  }
+  75% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.xmasonry .xblock {
+  animation: comeIn ease 0.5s;
+  animation-iteration-count: 1;
+  transition: left 0.3s ease, top 0.3s ease;
+}
+
+.card {
+  background: url(../../assets/9.jpg);
+  height: 200px;
+  border: solid 2px black;
+  margin: 7px;
+  padding: 5px;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px darkgray;
+}
+
+.filter-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-input {
+  margin: 10px;
+  width: 80vw;
+}
+
+.overlap {
+  background: linear-gradient(0deg, #ab00ff 0%, #e44d4d 100%);
+}

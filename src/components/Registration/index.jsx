@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { useCookies } from "react-cookie";
 import { Redirect } from "react-router-dom";
@@ -6,16 +6,28 @@ import { REGISTER } from "../../mutation/REGISTER";
 import { LOGIN } from "../../mutation/LOGIN";
 
 export const Registration = () => {
-  let [email, setEmail] = useState("");
-  let [hashPassword, setHashPassword] = useState("");
-  let [firstName, setFirstName] = useState("");
-  let [lastName, setLastName] = useState("");
-  let [isLoged, setLogin] = useState("");
-  let [cookies, setCookies] = useCookies("");
+  const [
+    { email, hashPassword, firstName, lastName, isLoged },
+    setState
+  ] = useReducer((s, a) => ({ ...s, ...a }), {
+    email: "",
+    hashPassword: "",
+    firstName: "",
+    lastName: "",
+    isLoged: false
+  });
+
+  const handleChange = ({ target: { value, name } }) =>
+    setState({
+      [name]: value
+    });
+
+  const [cookies, setCookies] = useCookies("");
 
   const [registration, { error }] = useMutation(REGISTER, {
     variables: { email, hashPassword, firstName, lastName }
   });
+
   const [login] = useMutation(LOGIN, {
     variables: { email, hashPassword }
   });
@@ -26,20 +38,32 @@ export const Registration = () => {
       const { data } = await login();
       setCookies("access-token", data.login.accessToken);
       setCookies("refresh-token", data.login.refreshToken);
-      setLogin(true);
+      setState({
+        isLoged: true
+      });
     } catch (error) {
-      setLogin(false);
+      setState({
+        isLoged: false
+      });
       console.log(error);
     }
   };
 
+  if (isLoged) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <>
-      {isLoged && <Redirect to="/Home" />}
-      <input type="text" onChange={e => setEmail(e.target.value)} />
-      <input type="text" onChange={e => setHashPassword(e.target.value)} />
-      <input type="text" onChange={e => setFirstName(e.target.value)} />
-      <input type="text" onChange={e => setLastName(e.target.value)} />
+      <input value={email} name="email" onChange={handleChange} />
+      <input
+        type="password"
+        name="hashPassword"
+        value={hashPassword}
+        onChange={handleChange}
+      />
+      <input name="firstName" value={firstName} onChange={handleChange} />
+      <input name="lastName" value={lastName} onChange={handleChange} />
       <button onClick={handleSubmit}>Register</button>
     </>
   );

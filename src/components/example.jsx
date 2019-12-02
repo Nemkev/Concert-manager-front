@@ -11,7 +11,7 @@ export const Example = () => {
   console.log(data.auth, 11);
   return (
     <>
-      {!data.auth && <Redirect to="/Login" />}
+      {!data.auth && <Redirect to="/login" />}
       <PhotoCarousel />
     </>
   );
