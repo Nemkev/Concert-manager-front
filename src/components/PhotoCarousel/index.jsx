@@ -42,9 +42,10 @@ export const PhotoCarousel = () => {
             key={index}
             style={{
               background: `url('${article.image}') no-repeat center center`,
-              width: `100%`,
+              width: `100vw`,
               height: `100vh`,
-              objectFit: `cover`
+              backgroundSize: `cover`
+              // objectFit: `cover`
             }}
           >
             <div className="concert-info-wrapper">
