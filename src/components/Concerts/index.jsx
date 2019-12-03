@@ -20,6 +20,8 @@ export const Concerts = () => {
   if (loading) return <p>Loading ...</p>;
   console.log(data, 11);
 
+  //ToDo make check and block buttons
+
   return (
     <div className="overlap">
       <div className="filter-zone">
@@ -41,22 +43,27 @@ export const Concerts = () => {
           </XBlock>
         ))}
       </XMasonry>
-      <button
-        onClick={e => {
-          e.preventDefault();
-          setSkip(skip - 8);
-        }}
-      >
-        Get back
-      </button>
-      <button
-        onClick={e => {
-          e.preventDefault();
-          setSkip(skip + 8);
-        }}
-      >
-        Show more
-      </button>
+      {skip !== 0 && (
+        <button
+          onClick={e => {
+            e.preventDefault();
+            setSkip(skip - 8);
+          }}
+        >
+          Get back
+        </button>
+      )}
+
+      {data.getConcerts.length >= limit && (
+        <button
+          onClick={e => {
+            e.preventDefault();
+            setSkip(skip + 8);
+          }}
+        >
+          Show more
+        </button>
+      )}
     </div>
   );
 };
