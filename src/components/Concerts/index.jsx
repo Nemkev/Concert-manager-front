@@ -16,7 +16,7 @@ export const Concerts = () => {
   });
 
   if (loading) return <p>Loading ...</p>;
-  console.log(data.getConcerts, 11);
+  console.log(data, 11);
 
   return (
     <div className="overlap">
@@ -31,7 +31,7 @@ export const Concerts = () => {
 
       <XMasonry maxColumns={4}>
         {data.getConcerts.map(item => (
-          <XBlock key={item.name}>
+          <XBlock key={item.id}>
             <div className="card">
               <h2>Simple Card</h2>
               <p>{item.name}</p>
