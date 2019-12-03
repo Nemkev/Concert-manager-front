@@ -1,11 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
 
 .slider {
-  height: 90vh;
+  height: 100%;
+  width: 100%;
 }
 
 .slide {
   position: absolute;
+  height: 100vh;
+  width: 100vw;
 }
 
 .article {
@@ -32,22 +35,15 @@
 
 .concert-button {
   position: absolute;
-  bottom: 120px;
-  right: 5vh;
+  bottom: 20px;
+  right: 20px;
   font-family: "Nanum Gothic", sans-serif;
   cursor: pointer;
 }
 
 .button-decoration {
-  display: flex;
   color: white;
   padding: 7px;
   border: 2px solid white;
   font-size: 25px;
 }
-
-// @media screen and (max-height: 850px) {
-//   .concert-button {
-//     margin-top: 10vh;
-//   }
-// }

@@ -4,12 +4,13 @@
   font-family: "Anton", sans-serif;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  height: 87.5vh;
+  justify-content: space-around;
+  height: 100%;
   align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
-  background: linear-gradient(0deg, #ab00ff 0%, #e44d4d 100%);
+  background: #ebedf5;
+  overflow: auto;
 }
 
 .user-avatar {
@@ -22,6 +23,7 @@
   margin-right: 30px;
   border: 2px black solid;
   padding: 7px;
+  background: #fff;
 
   .user-info-item {
     padding-bottom: 10px;
@@ -29,17 +31,36 @@
 }
 
 .tickets-list {
+  display: flex;
   margin-left: 30px;
   border: 2px black solid;
   padding: 7px;
+  background: #fff;
 
   .ticket-item {
+    display: flex;
     list-style-type: none;
     padding-bottom: 10px;
     border-bottom: 2px black dotted;
+    max-width: 650px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:last-child {
       border-bottom: none;
     }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .user-page {
+    flex-direction: column-reverse;
+  }
+  .user-info {
+    margin-right: 0px;
+    margin-bottom: 10px;
+  }
+  .tickets-list {
+    margin-left: 0px;
   }
 }
