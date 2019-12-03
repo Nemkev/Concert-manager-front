@@ -31,7 +31,7 @@ export const Concerts = () => {
 
       <XMasonry maxColumns={4}>
         {data.getConcerts.map(item => (
-          <XBlock>
+          <XBlock key={item.name}>
             <div className="card">
               <h2>Simple Card</h2>
               <p>{item.name}</p>
