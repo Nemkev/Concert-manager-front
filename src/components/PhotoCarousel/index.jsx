@@ -45,7 +45,6 @@ export const PhotoCarousel = () => {
               width: `100vw`,
               height: `100vh`,
               backgroundSize: `cover`
-              // objectFit: `cover`
             }}
           >
             <div className="concert-info-wrapper">

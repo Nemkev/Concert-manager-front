@@ -18,9 +18,9 @@ export const User = () => {
           <ul>
             <li className="ticket-item">
               <div className="item-description">
-                <p>wegwegwegwegwegewgwegweg</p>
-                <p>wegwegwegwegewgwegwegwegweg</p>
-                <p>wegwegwegwegwegwegweg</p>
+                <p>Name of Concert</p>
+                <p>date</p>
+                <p>status</p>
               </div>
             </li>
             <li className="ticket-item">
