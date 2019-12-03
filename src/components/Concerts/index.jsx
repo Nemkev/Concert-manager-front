@@ -20,6 +20,10 @@ export const Concerts = () => {
   if (loading) return <p>Loading ...</p>;
   console.log(data, 11);
 
+  const widthRandomize = max => {
+    return Math.floor(Math.random() * Math.floor(max));
+  };
+
   //ToDo make check and block buttons
 
   return (
@@ -28,14 +32,17 @@ export const Concerts = () => {
         <input
           type="text"
           name="concerts"
-          onChange={e => debouncedCallback(e.target.value)}
+          onChange={e => {
+            debouncedCallback(e.target.value);
+            setSkip(0);
+          }}
           className="filter-input"
         ></input>
       </div>
 
-      <XMasonry maxColumns={4}>
+      <XMasonry maxColumns={3}>
         {data.getConcerts.map(item => (
-          <XBlock key={item.id}>
+          <XBlock width={widthRandomize(3)} key={item.id}>
             <div className="card">
               <h2>Simple Card</h2>
               <p>{item.name}</p>
@@ -47,7 +54,7 @@ export const Concerts = () => {
         <button
           onClick={e => {
             e.preventDefault();
-            setSkip(skip - 8);
+            setSkip(skip - limit);
           }}
         >
           Get back
@@ -58,7 +65,7 @@ export const Concerts = () => {
         <button
           onClick={e => {
             e.preventDefault();
-            setSkip(skip + 8);
+            setSkip(skip + limit);
           }}
         >
           Show more
