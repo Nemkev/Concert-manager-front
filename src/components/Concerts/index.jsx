@@ -8,11 +8,13 @@ import "./index.scss";
 
 export const Concerts = () => {
   const [concerts, setConcerts] = useState("");
+  const [skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(8);
   const [debouncedCallback] = useDebouncedCallback(concerts => {
     setConcerts(concerts);
   }, 400);
   const { loading, error, data } = useQuery(GET_CONCERTS, {
-    variables: { name: concerts }
+    variables: { name: concerts, limit: limit, skip: skip }
   });
 
   if (loading) return <p>Loading ...</p>;
@@ -39,6 +41,22 @@ export const Concerts = () => {
           </XBlock>
         ))}
       </XMasonry>
+      <button
+        onClick={e => {
+          e.preventDefault();
+          setSkip(skip - 8);
+        }}
+      >
+        Get back
+      </button>
+      <button
+        onClick={e => {
+          e.preventDefault();
+          setSkip(skip + 8);
+        }}
+      >
+        Show more
+      </button>
     </div>
   );
 };
