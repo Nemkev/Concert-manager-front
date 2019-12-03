@@ -11,6 +11,7 @@ export const Concerts = () => {
   });
   if (loading) return <p>Loading ...</p>;
   console.log(data, 11);
+
   return (
     <div className="overlap">
       <div className="filter-zone">
@@ -20,85 +21,85 @@ export const Concerts = () => {
       <XMasonry maxColumns={5}>
         <XBlock>
           <div className="card">
-            <h1>Simple Card</h1>
+            <h2>Simple Card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock width={2}>
           <div className="card">
-            <h1>Wider card</h1>
+            <h2>Wider card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock>
           <div className="card">
-            <h1>Simple Card</h1>
+            <h2>Simple Card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock width={3}>
           <div className="card">
-            <h1>Wider card</h1>
+            <h2>Wider card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock>
           <div className="card">
-            <h1>Simple Card</h1>
+            <h2>Simple Card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock width={2}>
           <div className="card">
-            <h1>Wider card</h1>
+            <h2>Wider card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock>
           <div className="card">
-            <h1>Simple Card</h1>
+            <h2>Simple Card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock width={2}>
           <div className="card">
-            <h1>Wider card</h1>
+            <h2>Wider card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock>
           <div className="card">
-            <h1>Simple Card</h1>
+            <h2>Simple Card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock width={5}>
           <div className="card">
-            <h1>Wider card</h1>
+            <h2>Wider card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock>
           <div className="card">
-            <h1>Simple Card</h1>
+            <h2>Simple Card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock width={2}>
           <div className="card">
-            <h1>Wider card</h1>
+            <h2>Wider card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock>
           <div className="card">
-            <h1>Simple Card</h1>
+            <h2>Simple Card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
         <XBlock width={2}>
           <div className="card">
-            <h1>Wider card</h1>
+            <h2>Wider card</h2>
             <p>Any text!</p>
           </div>
         </XBlock>
