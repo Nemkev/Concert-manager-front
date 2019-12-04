@@ -8,15 +8,18 @@ import "./index.scss";
 
 export const Concerts = () => {
   const [concerts, setConcerts] = useState("");
+  const [skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(8);
   const [debouncedCallback] = useDebouncedCallback(concerts => {
     setConcerts(concerts);
   }, 400);
   const { loading, error, data } = useQuery(GET_CONCERTS, {
-    variables: { name: concerts }
+    variables: { name: concerts, limit, skip }
   });
 
-  if (loading) return <p>Loading ...</p>;
-  console.log(data.getConcerts, 11);
+  const widthRandomize = max => {
+    return Math.floor(Math.random() * Math.floor(max));
+  };
 
   return (
     <div className="overlap">
@@ -24,21 +27,50 @@ export const Concerts = () => {
         <input
           type="text"
           name="concerts"
-          onChange={e => debouncedCallback(e.target.value)}
+          onChange={e => {
+            debouncedCallback(e.target.value);
+            setSkip(0);
+          }}
           className="filter-input"
         ></input>
       </div>
 
-      <XMasonry maxColumns={4}>
-        {data.getConcerts.map(item => (
-          <XBlock>
-            <div className="card">
-              <h2>Simple Card</h2>
-              <p>{item.name}</p>
-            </div>
-          </XBlock>
-        ))}
-      </XMasonry>
+      {loading ? (
+        <p>Loading ...</p>
+      ) : (
+        <XMasonry maxColumns={3}>
+          {data.getConcerts.map(item => (
+            <XBlock width={widthRandomize(3)} key={item.id}>
+              <div className="card">
+                <h2>Simple Card</h2>
+                <p>{item.name}</p>
+              </div>
+            </XBlock>
+          ))}
+        </XMasonry>
+      )}
+
+      {skip !== 0 && (
+        <button
+          onClick={e => {
+            e.preventDefault();
+            setSkip(skip - limit);
+          }}
+        >
+          Get back
+        </button>
+      )}
+
+      {!loading && data.getConcerts.length >= limit && (
+        <button
+          onClick={e => {
+            e.preventDefault();
+            setSkip(skip + limit);
+          }}
+        >
+          Show more
+        </button>
+      )}
     </div>
   );
 };
