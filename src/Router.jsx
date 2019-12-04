@@ -15,16 +15,18 @@ import "./App.css";
 
 export const Routers = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/home" component={Example} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/registration" component={Registration} />
-        <Route exact path="/user" component={User} />
-        <Route exact path="/concerts" component={Concerts} />
-        <Redirect from="/" to="home" />
-      </Switch>
-    </Router>
+    <div className="wrapper">
+      <Router>
+        <Switch>
+          <Route exact path="/home" component={Example} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/registration" component={Registration} />
+          <Route exact path="/user" component={User} />
+          <Route exact path="/concerts" component={Concerts} />
+          <Redirect from="/" to="home" />
+        </Switch>
+      </Router>
+    </div>
   );
 };
 

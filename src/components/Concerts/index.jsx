@@ -14,17 +14,12 @@ export const Concerts = () => {
     setConcerts(concerts);
   }, 400);
   const { loading, error, data } = useQuery(GET_CONCERTS, {
-    variables: { name: concerts, limit: limit, skip: skip }
+    variables: { name: concerts, limit, skip }
   });
-
-  if (loading) return <p>Loading ...</p>;
-  console.log(data, 11);
 
   const widthRandomize = max => {
     return Math.floor(Math.random() * Math.floor(max));
   };
-
-  //ToDo make check and block buttons
 
   return (
     <div className="overlap">
@@ -40,16 +35,21 @@ export const Concerts = () => {
         ></input>
       </div>
 
-      <XMasonry maxColumns={3}>
-        {data.getConcerts.map(item => (
-          <XBlock width={widthRandomize(3)} key={item.id}>
-            <div className="card">
-              <h2>Simple Card</h2>
-              <p>{item.name}</p>
-            </div>
-          </XBlock>
-        ))}
-      </XMasonry>
+      {loading ? (
+        <p>Loading ...</p>
+      ) : (
+        <XMasonry maxColumns={3}>
+          {data.getConcerts.map(item => (
+            <XBlock width={widthRandomize(3)} key={item.id}>
+              <div className="card">
+                <h2>Simple Card</h2>
+                <p>{item.name}</p>
+              </div>
+            </XBlock>
+          ))}
+        </XMasonry>
+      )}
+
       {skip !== 0 && (
         <button
           onClick={e => {
@@ -61,7 +61,7 @@ export const Concerts = () => {
         </button>
       )}
 
-      {data.getConcerts.length >= limit && (
+      {!loading && data.getConcerts.length >= limit && (
         <button
           onClick={e => {
             e.preventDefault();
