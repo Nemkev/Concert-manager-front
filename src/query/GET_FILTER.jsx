@@ -21,6 +21,7 @@ export const GET_FILTER = gql`
       concerts {
         name
         date
+        id
       }
     }
   }

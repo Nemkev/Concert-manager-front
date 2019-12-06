@@ -10,7 +10,7 @@ import { GET_FILTER } from "../../query/GET_FILTER";
 export const Concerts = () => {
   const [concerts, setConcerts] = useState("");
   const [city, setCity] = useState("");
-  const [date, setDate] = useState(":");
+  const [date, setDate] = useState("");
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(8);
   const [debouncedCallback] = useDebouncedCallback(concerts => {
@@ -18,6 +18,14 @@ export const Concerts = () => {
   }, 400);
   const { loading, error, data } = useQuery(GET_FILTER, {
     variables: { name: concerts, date, city, limit, skip }
+  });
+
+  const {
+    loading: loadingAdditionalFilters,
+    error: additionalFiltersError,
+    data: additionalFiltersData
+  } = useQuery(GET_FILTER, {
+    variables: { name: "", date: "", city: "", limit, skip }
   });
 
   const handleChangeCity = event => {
@@ -32,6 +40,8 @@ export const Concerts = () => {
     return Math.floor(Math.random() * Math.floor(max));
   };
 
+  console.log(additionalFiltersData, 123234234);
+
   return (
     <div className="overlap">
       <div className="filter-zone">
@@ -45,21 +55,35 @@ export const Concerts = () => {
           className="filter-input"
         ></input>
       </div>
-      <select name="city" value="city" onChange={handleChangeCity}>
-        <option value="Minsk">Minsk</option>
-        <option value="Pinsk">Pinsk</option>
-        <option value="Gomel">Gomel</option>
-        <option value="Polotsk">Polotsk</option>
-      </select>
-      <select name="date" value="date" onChange={handleChangeDate}>
-        <option value="2022">2022</option>
-        <option value="2001">2001</option>
-        <option value="2025">2025</option>
-      </select>
 
-      {/*Bug with date, if you write date like "2012-11-12", filter work incorrect*/}
+      {loading || loadingAdditionalFilters ? (
+        <p>Loading ...</p>
+      ) : (
+        <select name="city" value="city" onChange={handleChangeCity}>
+          {additionalFiltersData.getFilter.map(item => (
+            <option value={item.city}>{item.city}</option>
+          ))}
+        </select>
+      )}
+      {loading || loadingAdditionalFilters ? (
+        <p>Loading ...</p>
+      ) : (
+        <select name="date" value="date" onChange={handleChangeDate}>
+          {[
+            ...new Set(
+              ...new Set(
+                additionalFiltersData.getFilter.map(item => {
+                  return item.concerts.map(secondItem => (
+                    <option value={secondItem.date}>{secondItem.date}</option>
+                  ));
+                })
+              )
+            )
+          ]}
+        </select>
+      )}
 
-      {loading ? (
+      {loading || loadingAdditionalFilters ? (
         <p>Loading ...</p>
       ) : (
         <XMasonry maxColumns={3}>
