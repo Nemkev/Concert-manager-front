@@ -25,7 +25,7 @@ export const Concerts = () => {
     error: additionalFiltersError,
     data: additionalFiltersData
   } = useQuery(GET_FILTER, {
-    variables: { name: "", date: "", city: "", limit, skip }
+    variables: { name: "", date, city, limit, skip }
   });
 
   const handleChangeCity = event => {
@@ -39,8 +39,6 @@ export const Concerts = () => {
   const widthRandomize = max => {
     return Math.floor(Math.random() * Math.floor(max));
   };
-
-  console.log(additionalFiltersData, 123234234);
 
   return (
     <div className="overlap">
@@ -60,9 +58,11 @@ export const Concerts = () => {
         <p>Loading ...</p>
       ) : (
         <select name="city" value="city" onChange={handleChangeCity}>
-          {additionalFiltersData.getFilter.map(item => (
-            <option value={item.city}>{item.city}</option>
-          ))}
+          {[
+            additionalFiltersData.getFilter.map(item => (
+              <option value={item.city}>{item.city}</option>
+            ))
+          ]}
         </select>
       )}
       {loading || loadingAdditionalFilters ? (
