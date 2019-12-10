@@ -1,5 +1,5 @@
 import React from "react";
-import { Example } from "./components/example";
+import { Home } from "./components/Home";
 import { Login } from "./components/Login";
 import { Registration } from "./components/Registration";
 import { User } from "./components/User";
@@ -18,7 +18,7 @@ export const Routers = () => {
     <div className="wrapper">
       <Router>
         <Switch>
-          <Route exact path="/home" component={Example} />
+          <Route exact path="/home" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/registration" component={Registration} />
           <Route exact path="/user" component={User} />

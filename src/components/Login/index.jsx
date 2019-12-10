@@ -37,37 +37,33 @@ export const Login = () => {
     }
   };
 
-  if (isLoged) {
-    return <Redirect to="/user" />;
-  }
-
-  return (
-    <>
-      <main className="login">
-        <div className="form-wrapper">
-          <h2 className="form-tagline">Enjoy us</h2>
-          <p className="form-description">
-            Wanna see you in the concert, lets bye the ticket now
-          </p>
-          <input
-            className="input-item"
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
-          <input
-            className="input-item"
-            type="password"
-            name="hashPassword"
-            value={hashPassword}
-            onChange={handleChange}
-          />
-          <button className="login-button" onClick={handleSubmit}>
-            Login
-          </button>
-        </div>
-      </main>
-    </>
+  return isLoged ? (
+    <Redirect to="/user" />
+  ) : (
+    <main className="login">
+      <div className="form-wrapper">
+        <h2 className="form-tagline">Enjoy us</h2>
+        <p className="form-description">
+          Wanna see you in the concert, lets bye the ticket now
+        </p>
+        <input
+          className="input-item"
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+        />
+        <input
+          className="input-item"
+          type="password"
+          name="hashPassword"
+          value={hashPassword}
+          onChange={handleChange}
+        />
+        <button className="login-button" onClick={handleSubmit}>
+          Login
+        </button>
+      </div>
+    </main>
   );
 };
