@@ -1,44 +1,104 @@
 @import url("https://fonts.googleapis.com/css?family=Tomorrow&display=swap");
 
-.login {
-  background: #ebedf5;
+@mixin input-animation($time, $colorBefore, $colorAfter) {
+  &:hover {
+    transition: $time;
+    border-color: $colorAfter;
+  }
+  &:not(:hover) {
+    transition: $time;
+    border-color: $colorBefore;
+  }
 }
 
-.form-wrapper {
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+.layer {
   display: flex;
-  align-items: center;
+  height: 100vh;
   justify-content: center;
+  align-items: center;
+  background: url(../../assets/2.jpeg) no-repeat center center;
+  background-size: cover;
+}
+.registration-form {
+  display: flex;
+  text-align: center;
+  width: 40%;
+  justify-content: flex-start;
   flex-direction: column;
-  margin: 20vh 20vw;
-  background-color: #000;
-  height: 50vh;
-  padding: 7px;
-  border: double 10px white;
-  font-family: "Tomorrow", sans-serif;
+  padding: 4% 4% 4% 4%;
+  background: #f0f0f0;
 }
 
-.login-button {
-  width: 80%;
-  background: black;
-  color: white;
-  margin-top: 10px;
-  border: 2px solid white;
-  padding: 7px;
+.email-input {
+  margin-top: 30px;
+  background: #e6e6e600;
+  color: black;
+  border: 0px;
+  border-bottom: 2px solid black;
   font-size: 20px;
+  @include input-animation(0.3s, #e6e6e6, #ff8b38);
 }
 
-.input-item {
-  margin-top: 10px;
-  width: 78.5%;
+.title {
+  font-size: 25px;
+  color: gray;
+}
+
+.password-input {
+  border: 0px;
+  margin-top: 30px;
+  color: black;
+  background: #e6e6e600;
+  border-bottom: 2px solid black;
+  font-size: 20px;
+  @include input-animation(0.3s, #e6e6e6, #ff8b38);
+}
+
+.first-name-input {
+  border: 0px;
+  margin-top: 30px;
+  color: black;
+  background: #e6e6e600;
+  border-bottom: 2px solid black;
+  font-size: 20px;
+  @include input-animation(0.3s, #e6e6e6, #ff8b38);
+}
+.last-name-input {
+  border: 0px;
+  margin-top: 30px;
+  color: black;
+  background: #e6e6e600;
+  border-bottom: 2px solid black;
+  font-size: 20px;
+  @include input-animation(0.3s, #e6e6e6, #ff8b38);
+}
+.login-button {
+  margin-top: 30px;
+  color: black;
   padding: 7px;
-  border: double 8px black;
+  border: 2px solid black;
+  background: #e6e6e600;
+  font-size: 25px;
+  cursor: pointer;
+  &:hover {
+    transition: 0.3s;
+    border-color: #ff8b38;
+    color: #ff8b38;
+  }
+  &:not(:hover) {
+    transition: 0.3s;
+    border-color: #e6e6e6;
+    color: grey;
+  }
 }
 
-.form-description {
-  color: white;
-  padding: 10px;
-}
-
-.form-tagline {
-  color: white;
+@media screen and (max-width: 415px) {
+  .registration-form {
+    width: 80%;
+    padding: 5% 5% 5% 5%;
+  }
 }
