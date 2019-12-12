@@ -4,6 +4,7 @@ import { Login } from "./components/Login";
 import { Registration } from "./components/Registration";
 import { User } from "./components/User";
 import { Concerts } from "./components/Concerts";
+import { Booking } from "./components/Booking";
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,6 +24,7 @@ export const Routers = () => {
           <Route exact path="/registration" component={Registration} />
           <Route exact path="/user" component={User} />
           <Route exact path="/concerts" component={Concerts} />
+          <Route exact path="/booking" component={Booking} />
           <Redirect from="/" to="home" />
         </Switch>
       </Router>
