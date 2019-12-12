@@ -56,7 +56,7 @@ export const Registration = () => {
   }
 
   return (
-    <div className="layer">
+    <div className="registration-layer">
       <form action="" className="registration-form">
         <h2 className="title">Registration</h2>
         <input

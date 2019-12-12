@@ -40,7 +40,7 @@ export const Login = () => {
   return isLoged ? (
     <Redirect to="/user" />
   ) : (
-    <main className="layer">
+    <main className="login-layer">
       <form className="registration-form" action="">
         <h2 className="title">Login</h2>
         <input
