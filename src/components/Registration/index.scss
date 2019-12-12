@@ -1,3 +1,14 @@
+@keyframes animation-input {
+  0% {
+    color: black;
+    border-color: black;
+  }
+  100% {
+    border-color: #ff8b38;
+    color: #ff8b38;
+  }
+}
+
 .layer {
   display: flex;
   height: 100vh;
@@ -13,7 +24,7 @@
   justify-content: flex-start;
   flex-direction: column;
   padding: 1% 1% 1% 1%;
-  //   background: #e6e6e64d;
+  background: #e6e6e6cc;
 }
 
 .email-input {
@@ -23,6 +34,14 @@
   border: 0px;
   border-bottom: 2px solid black;
   font-size: 20px;
+  &:hover {
+    transition: 0.4s;
+    border-color: #ff8b38;
+  }
+  &:not(:hover) {
+    transition: 0.4s;
+    border-color: black;
+  }
 }
 
 .password-input {
@@ -32,6 +51,14 @@
   background: #e6e6e600;
   border-bottom: 2px solid black;
   font-size: 20px;
+  &:hover {
+    transition: 0.4s;
+    border-color: #ff8b38;
+  }
+  &:not(:hover) {
+    transition: 0.4s;
+    border-color: black;
+  }
 }
 .first-name-input {
   border: 0px;
@@ -40,6 +67,14 @@
   background: #e6e6e600;
   border-bottom: 2px solid black;
   font-size: 20px;
+  &:hover {
+    transition: 0.4s;
+    border-color: #ff8b38;
+  }
+  &:not(:hover) {
+    transition: 0.4s;
+    border-color: black;
+  }
 }
 .last-name-input {
   border: 0px;
@@ -48,6 +83,14 @@
   background: #e6e6e600;
   border-bottom: 2px solid black;
   font-size: 20px;
+  &:hover {
+    transition: 0.4s;
+    border-color: #ff8b38;
+  }
+  &:not(:hover) {
+    transition: 0.4s;
+    border-color: black;
+  }
 }
 .register-button {
   margin-top: 20px;
@@ -57,4 +100,19 @@
   background: #e6e6e600;
   font-size: 25px;
   cursor: pointer;
+  &:hover {
+    transition: 0.4s;
+    border-color: #ff8b38;
+    color: #ff8b38;
+  }
+  &:not(:hover) {
+    transition: 0.5s;
+    border-color: black;
+    color: black;
+  }
+}
+
+@media screen and (min-width: 320px) {
+  .first-name-input {
+  }
 }
