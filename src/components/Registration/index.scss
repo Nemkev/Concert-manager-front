@@ -29,50 +29,50 @@
   width: 40%;
   justify-content: flex-start;
   flex-direction: column;
-  padding: 1% 1% 1% 1%;
-  background: #ffffffcc;
+  padding: 4% 4% 4% 4%;
+  background: #f0f0f0;
 }
 
 .email-input {
-  margin-top: 20px;
+  margin-top: 30px;
   background: #e6e6e600;
   color: black;
   border: 0px;
   border-bottom: 2px solid black;
   font-size: 20px;
-  @include input-animation(0.3s, black, #ff8b38);
+  @include input-animation(0.3s, #e6e6e6, #ff8b38);
 }
 
 .password-input {
   border: 0px;
-  margin-top: 20px;
+  margin-top: 30px;
   color: black;
   background: #e6e6e600;
   border-bottom: 2px solid black;
   font-size: 20px;
-  @include input-animation(0.3s, black, #ff8b38);
+  @include input-animation(0.3s, #e6e6e6, #ff8b38);
 }
 
 .first-name-input {
   border: 0px;
-  margin-top: 20px;
+  margin-top: 30px;
   color: black;
   background: #e6e6e600;
   border-bottom: 2px solid black;
   font-size: 20px;
-  @include input-animation(0.3s, black, #ff8b38);
+  @include input-animation(0.3s, #e6e6e6, #ff8b38);
 }
 .last-name-input {
   border: 0px;
-  margin-top: 20px;
+  margin-top: 30px;
   color: black;
   background: #e6e6e600;
   border-bottom: 2px solid black;
   font-size: 20px;
-  @include input-animation(0.3s, black, #ff8b38);
+  @include input-animation(0.3s, #e6e6e6, #ff8b38);
 }
 .register-button {
-  margin-top: 20px;
+  margin-top: 30px;
   color: black;
   padding: 7px;
   border: 2px solid black;
@@ -86,12 +86,12 @@
   }
   &:not(:hover) {
     transition: 0.3s;
-    border-color: black;
-    color: black;
+    border-color: #e6e6e6;
+    color: grey;
   }
 }
 
-@media screen and (min-width: 320px) {
+@media screen and (max-width: 400px) {
   .registration-form {
     width: 80%;
     padding: 5% 5% 5% 5%;
