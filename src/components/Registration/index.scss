@@ -1,12 +1,18 @@
-@keyframes animation-input {
-  0% {
-    color: black;
-    border-color: black;
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+@mixin input-animation($time, $colorBefore, $colorAfter) {
+  &:hover {
+    transition: $time;
+    border-color: $colorAfter;
   }
-  100% {
-    border-color: #ff8b38;
-    color: #ff8b38;
+  &:not(:hover) {
+    transition: $time;
+    border-color: $colorBefore;
   }
+}
+
+* {
+  font-family: "Roboto", sans-serif;
 }
 
 .layer {
@@ -24,7 +30,7 @@
   justify-content: flex-start;
   flex-direction: column;
   padding: 1% 1% 1% 1%;
-  background: #e6e6e6cc;
+  background: #ffffffcc;
 }
 
 .email-input {
@@ -34,14 +40,7 @@
   border: 0px;
   border-bottom: 2px solid black;
   font-size: 20px;
-  &:hover {
-    transition: 0.4s;
-    border-color: #ff8b38;
-  }
-  &:not(:hover) {
-    transition: 0.4s;
-    border-color: black;
-  }
+  @include input-animation(0.3s, black, #ff8b38);
 }
 
 .password-input {
@@ -51,15 +50,9 @@
   background: #e6e6e600;
   border-bottom: 2px solid black;
   font-size: 20px;
-  &:hover {
-    transition: 0.4s;
-    border-color: #ff8b38;
-  }
-  &:not(:hover) {
-    transition: 0.4s;
-    border-color: black;
-  }
+  @include input-animation(0.3s, black, #ff8b38);
 }
+
 .first-name-input {
   border: 0px;
   margin-top: 20px;
@@ -67,14 +60,7 @@
   background: #e6e6e600;
   border-bottom: 2px solid black;
   font-size: 20px;
-  &:hover {
-    transition: 0.4s;
-    border-color: #ff8b38;
-  }
-  &:not(:hover) {
-    transition: 0.4s;
-    border-color: black;
-  }
+  @include input-animation(0.3s, black, #ff8b38);
 }
 .last-name-input {
   border: 0px;
@@ -83,14 +69,7 @@
   background: #e6e6e600;
   border-bottom: 2px solid black;
   font-size: 20px;
-  &:hover {
-    transition: 0.4s;
-    border-color: #ff8b38;
-  }
-  &:not(:hover) {
-    transition: 0.4s;
-    border-color: black;
-  }
+  @include input-animation(0.3s, black, #ff8b38);
 }
 .register-button {
   margin-top: 20px;
@@ -101,18 +80,20 @@
   font-size: 25px;
   cursor: pointer;
   &:hover {
-    transition: 0.4s;
+    transition: 0.3s;
     border-color: #ff8b38;
     color: #ff8b38;
   }
   &:not(:hover) {
-    transition: 0.5s;
+    transition: 0.3s;
     border-color: black;
     color: black;
   }
 }
 
 @media screen and (min-width: 320px) {
-  .first-name-input {
+  .registration-form {
+    width: 80%;
+    padding: 5% 5% 5% 5%;
   }
 }
