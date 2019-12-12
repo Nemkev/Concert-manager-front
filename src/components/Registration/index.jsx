@@ -5,6 +5,8 @@ import { Redirect } from "react-router-dom";
 import { REGISTER } from "../../mutation/REGISTER";
 import { LOGIN } from "../../mutation/LOGIN";
 
+import "./index.scss";
+
 export const Registration = () => {
   const [
     { email, hashPassword, firstName, lastName, isLoged },
@@ -54,17 +56,44 @@ export const Registration = () => {
   }
 
   return (
-    <>
-      <input value={email} name="email" onChange={handleChange} />
-      <input
-        type="password"
-        name="hashPassword"
-        value={hashPassword}
-        onChange={handleChange}
-      />
-      <input name="firstName" value={firstName} onChange={handleChange} />
-      <input name="lastName" value={lastName} onChange={handleChange} />
-      <button onClick={handleSubmit}>Register</button>
-    </>
+    <div className="layer">
+      <form action="" className="registration-form">
+        <input
+          placeholder="email"
+          className="email-input"
+          type="email"
+          value={email}
+          name="email"
+          onChange={handleChange}
+        />
+        <input
+          placeholder="password"
+          className="password-input"
+          type="password"
+          name="hashPassword"
+          value={hashPassword}
+          onChange={handleChange}
+        />
+        <input
+          placeholder="first name"
+          className="first-name-input"
+          type="text"
+          name="firstName"
+          value={firstName}
+          onChange={handleChange}
+        />
+        <input
+          placeholder="second name"
+          className="last-name-input"
+          type="text"
+          name="lastName"
+          value={lastName}
+          onChange={handleChange}
+        />
+        <button className="register-button" onClick={handleSubmit}>
+          Register
+        </button>
+      </form>
+    </div>
   );
 };
