@@ -43,6 +43,11 @@
   @include input-animation(0.3s, #e6e6e6, #ff8b38);
 }
 
+.title {
+  font-size: 25px;
+  color: gray;
+}
+
 .password-input {
   border: 0px;
   margin-top: 30px;

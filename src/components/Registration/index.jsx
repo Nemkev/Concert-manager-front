@@ -58,6 +58,7 @@ export const Registration = () => {
   return (
     <div className="layer">
       <form action="" className="registration-form">
+        <h2 className="title">Registration</h2>
         <input
           placeholder="email"
           className="email-input"
@@ -91,7 +92,7 @@ export const Registration = () => {
           onChange={handleChange}
         />
         <button className="register-button" onClick={handleSubmit}>
-          Register
+          Submit
         </button>
       </form>
     </div>
