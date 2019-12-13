@@ -2,9 +2,6 @@ import React from "react";
 import "./index.scss";
 
 export const Header = () => {
-  const activeRoute = window.location.href;
-
-  // console.log(document.getElementsByClassName("router-bar"));
   return (
     <header className="header">
       <div className="logo">
