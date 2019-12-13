@@ -1,0 +1,10 @@
+@mixin modules-animation($time, $colorBefore, $colorAfter) {
+  &:hover {
+    transition: $time;
+    color: $colorAfter;
+  }
+  &:not(:hover) {
+    transition: $time;
+    color: $colorBefore;
+  }
+}
