@@ -14,7 +14,6 @@ export const Booking = () => {
     }
     return rows;
   });
-  console.log(grid);
 
   return (
     <div

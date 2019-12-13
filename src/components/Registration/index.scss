@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Tomorrow&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 
 @mixin input-animation($time, $colorBefore, $colorAfter) {
   &:hover {
@@ -15,12 +15,12 @@
   font-family: "Roboto", sans-serif;
 }
 
-.login-layer {
+.registration-layer {
   display: flex;
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url(../../assets/3.jpg) no-repeat center center;
+  background: url(../../assets/6.jpg) no-repeat center center;
   background-size: cover;
 }
 .registration-form {
@@ -76,7 +76,7 @@
   font-size: 20px;
   @include input-animation(0.3s, #e6e6e6, #ff8b38);
 }
-.login-button {
+.register-button {
   margin-top: 30px;
   color: black;
   padding: 7px;

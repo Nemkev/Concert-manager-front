@@ -40,30 +40,29 @@ export const Login = () => {
   return isLoged ? (
     <Redirect to="/user" />
   ) : (
-    <main className="login">
-      <div className="form-wrapper">
-        <h2 className="form-tagline">Enjoy us</h2>
-        <p className="form-description">
-          Wanna see you in the concert, lets bye the ticket now
-        </p>
+    <main className="login-layer">
+      <form className="registration-form" action="">
+        <h2 className="title">Login</h2>
         <input
-          className="input-item"
+          placeholder="email"
+          className="email-input"
           type="email"
           name="email"
           value={email}
           onChange={handleChange}
         />
         <input
-          className="input-item"
+          placeholder="password"
+          className="password-input"
           type="password"
           name="hashPassword"
           value={hashPassword}
           onChange={handleChange}
         />
         <button className="login-button" onClick={handleSubmit}>
-          Login
+          Submit
         </button>
-      </div>
+      </form>
     </main>
   );
 };
