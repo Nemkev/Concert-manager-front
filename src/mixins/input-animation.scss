@@ -1,9 +1,9 @@
 @mixin input-animation($time, $colorBefore, $colorAfter) {
-  &:hover {
+  &:focus {
     transition: $time;
     border-color: $colorAfter;
   }
-  &:not(:hover) {
+  &:not(:focus) {
     transition: $time;
     border-color: $colorBefore;
   }
