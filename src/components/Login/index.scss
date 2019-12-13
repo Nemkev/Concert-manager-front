@@ -1,15 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Tomorrow&display=swap");
-
-@mixin input-animation($time, $colorBefore, $colorAfter) {
-  &:hover {
-    transition: $time;
-    border-color: $colorAfter;
-  }
-  &:not(:hover) {
-    transition: $time;
-    border-color: $colorBefore;
-  }
-}
+@import "../../mixins/input-animation.scss";
 
 * {
   font-family: "Roboto", sans-serif;
@@ -23,13 +13,14 @@
   background: url(../../assets/3.jpg) no-repeat center center;
   background-size: cover;
 }
-.registration-form {
+.login-form {
   display: flex;
   text-align: center;
   width: 40%;
   justify-content: flex-start;
   flex-direction: column;
   padding: 4% 4% 4% 4%;
+  border-radius: 1.7%;
   background: #f0f0f0;
 }
 
