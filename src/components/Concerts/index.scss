@@ -1,3 +1,4 @@
+@import "../../mixins/input-animation.scss";
 @keyframes comeIn {
   0% {
     transform: scale(0);
@@ -34,7 +35,12 @@
 
 .filter-input {
   margin: 10px;
-  width: 80vw;
+  width: 30vw;
+  border: 0px;
+  color: black;
+  background: #e6e6e600;
+  border-bottom: 2px solid black;
+  @include input-animation(0.3s, #e6e6e6, #ff8b38);
 }
 
 .overlap {
@@ -47,4 +53,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.city-select {
+  appearance: none;
+  border: 1px solid black;
+}
+
+.date-select {
+  appearance: none;
+  border: 1px solid black;
 }

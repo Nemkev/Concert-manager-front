@@ -57,7 +57,12 @@ export const Concerts = () => {
         {loading || loadingAdditionalFilters ? (
           <p>Loading ...</p>
         ) : (
-          <select name="city" value="city" onChange={handleChangeCity}>
+          <select
+            className="city-select"
+            name="city"
+            value="city"
+            onChange={handleChangeCity}
+          >
             {additionalFiltersData.getFilter.map(item => (
               <option value={item.city}>{item.city}</option>
             ))}
@@ -66,7 +71,12 @@ export const Concerts = () => {
         {loading || loadingAdditionalFilters ? (
           <p>Loading ...</p>
         ) : (
-          <select name="date" value="date" onChange={handleChangeDate}>
+          <select
+            className="date-select"
+            name="date"
+            value="date"
+            onChange={handleChangeDate}
+          >
             {[
               ...new Set(
                 ...new Set(
