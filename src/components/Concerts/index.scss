@@ -40,4 +40,11 @@
 .overlap {
   background: #ebedf5;
   height: 100vh;
+  overflow: auto;
+}
+
+.select-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
