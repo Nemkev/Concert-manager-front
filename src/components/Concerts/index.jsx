@@ -28,6 +28,12 @@ export const Concerts = () => {
     variables: { name: "", date, city, limit, skip }
   });
 
+  const clearFilters = () => {
+    setCity("");
+    setDate("");
+    setConcerts("");
+  };
+
   const handleChangeCity = event => {
     setCity(event.target.value);
   };
@@ -90,6 +96,14 @@ export const Concerts = () => {
             ]}
           </select>
         )}
+        <button
+          onClick={e => {
+            e.preventDefault();
+            clearFilters();
+          }}
+        >
+          Clean filters
+        </button>
       </div>
 
       {loading || loadingAdditionalFilters ? (
