@@ -37,7 +37,7 @@
   margin: 10px;
   width: 30vw;
   border: 0px;
-  color: black;
+  color: gray;
   background: #e6e6e600;
   border-bottom: 2px solid black;
   @include input-animation(0.3s, #e6e6e6, #ff8b38);
@@ -63,4 +63,10 @@
 .date-select {
   appearance: none;
   border: 1px solid black;
+}
+
+@media screen and (max-width: 415px) {
+  .filter-input {
+    width: 70vw;
+  }
 }
