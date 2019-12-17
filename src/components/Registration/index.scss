@@ -1,15 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
-
-@mixin input-animation($time, $colorBefore, $colorAfter) {
-  &:hover {
-    transition: $time;
-    border-color: $colorAfter;
-  }
-  &:not(:hover) {
-    transition: $time;
-    border-color: $colorBefore;
-  }
-}
+@import "../../mixins/input-animation.scss";
 
 * {
   font-family: "Roboto", sans-serif;
@@ -31,6 +21,7 @@
   flex-direction: column;
   padding: 4% 4% 4% 4%;
   background: #f0f0f0;
+  border-radius: 1.7%;
 }
 
 .email-input {

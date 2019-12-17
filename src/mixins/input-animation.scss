@@ -1,0 +1,10 @@
+@mixin input-animation($time, $colorBefore, $colorAfter) {
+  &:focus {
+    transition: $time;
+    border-color: $colorAfter;
+  }
+  &:not(:focus) {
+    transition: $time;
+    border-color: $colorBefore;
+  }
+}

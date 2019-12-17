@@ -41,7 +41,7 @@ export const Login = () => {
     <Redirect to="/user" />
   ) : (
     <main className="login-layer">
-      <form className="registration-form" action="">
+      <form className="login-form" action="">
         <h2 className="title">Login</h2>
         <input
           placeholder="email"
