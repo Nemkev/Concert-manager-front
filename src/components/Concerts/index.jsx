@@ -28,6 +28,12 @@ export const Concerts = () => {
     variables: { name: "", date, city, limit, skip }
   });
 
+  const clearFilters = () => {
+    setCity("");
+    setDate("");
+    setConcerts("");
+  };
+
   const handleChangeCity = event => {
     setCity(event.target.value);
   };
@@ -53,38 +59,57 @@ export const Concerts = () => {
           className="filter-input"
         ></input>
       </div>
-
-      {loading || loadingAdditionalFilters ? (
-        <p>Loading ...</p>
-      ) : (
-        <select name="city" value="city" onChange={handleChangeCity}>
-          {additionalFiltersData.getFilter.map(item => (
-            <option value={item.city}>{item.city}</option>
-          ))}
-        </select>
-      )}
-      {loading || loadingAdditionalFilters ? (
-        <p>Loading ...</p>
-      ) : (
-        <select name="date" value="date" onChange={handleChangeDate}>
-          {[
-            ...new Set(
+      <div className="select-bar">
+        {loading || loadingAdditionalFilters ? (
+          <p>Loading ...</p>
+        ) : (
+          <select
+            className="city-select"
+            name="city"
+            value="city"
+            onChange={handleChangeCity}
+          >
+            {additionalFiltersData.getFilter.map(item => (
+              <option value={item.city}>{item.city}</option>
+            ))}
+          </select>
+        )}
+        {loading || loadingAdditionalFilters ? (
+          <p>Loading ...</p>
+        ) : (
+          <select
+            className="date-select"
+            name="date"
+            value="date"
+            onChange={handleChangeDate}
+          >
+            {[
               ...new Set(
-                additionalFiltersData.getFilter.map(item => {
-                  return item.concerts.map(secondItem => (
-                    <option value={secondItem.date}>{secondItem.date}</option>
-                  ));
-                })
+                ...new Set(
+                  additionalFiltersData.getFilter.map(item => {
+                    return item.concerts.map(secondItem => (
+                      <option value={secondItem.date}>{secondItem.date}</option>
+                    ));
+                  })
+                )
               )
-            )
-          ]}
-        </select>
-      )}
+            ]}
+          </select>
+        )}
+        <button
+          onClick={e => {
+            e.preventDefault();
+            clearFilters();
+          }}
+        >
+          Clean filters
+        </button>
+      </div>
 
       {loading || loadingAdditionalFilters ? (
         <p>Loading ...</p>
       ) : (
-        <XMasonry maxColumns={3}>
+        <XMasonry maxColumns={3} className="masonry">
           {data.getFilter.map(item => (
             <XBlock width={widthRandomize(3)} key={item.id}>
               <div className="card">
