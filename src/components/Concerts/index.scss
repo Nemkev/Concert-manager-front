@@ -55,20 +55,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 8px;
 }
 
 .city-select {
   appearance: none;
   background-color: white;
-  border: 1px solid black;
-  padding: 4px;
+  border: 2px solid #e6e6e6;
+  color: gray;
   margin-right: 20px;
+  padding: 3px;
 }
 
 .date-select {
   appearance: none;
   background-color: white;
-  border: 1px solid black;
+  border: 2px solid #e6e6e6;
+  color: gray;
+  margin-right: 20px;
+  padding: 3px;
+}
+
+.clear-button {
+  appearance: none;
+  background-color: white;
+  border: 2px solid #e6e6e6;
+  color: gray;
   padding: 4px;
 }
 

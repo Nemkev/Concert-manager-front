@@ -87,7 +87,7 @@ export const Concerts = () => {
             {/* <i class="arrow-down"></i> */}
             {[
               ...new Set(
-                ...new Set(
+                ...new Set( //
                   additionalFiltersData.getFilter.map(item => {
                     return item.concerts.map(secondItem => (
                       <option key={item.id} value={secondItem.date}>
@@ -95,12 +95,13 @@ export const Concerts = () => {
                       </option>
                     ));
                   })
-                )
+                ) //
               )
             ]}
           </select>
         )}
         <button
+          className="clear-button"
           onClick={e => {
             e.preventDefault();
             clearFilters();
