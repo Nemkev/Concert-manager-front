@@ -19,10 +19,33 @@ export const Registration = () => {
     isLoged: false
   });
 
-  const handleChange = ({ target: { value, name } }) =>
+  const handleChange = e => {
+    const value = e.target.value;
+    const name = e.target.name;
     setState({
       [name]: value
     });
+    if (name === "email") {
+      value.length !== 5 && value.length <= 5
+        ? console.log(`You should write ${5 - value.length}`)
+        : console.log("Correct");
+    }
+    if (name === "hashPassword") {
+      value.length !== 8 && value.length <= 8
+        ? console.log(`You should write ${8 - value.length}`)
+        : console.log("Correct");
+    }
+    if (name === "firstName") {
+      value.length !== 2 && value.length < 2
+        ? console.log(`You should write ${8 - value.length}`)
+        : console.log("Correct");
+    }
+    if (name === "lastName") {
+      value.length !== 2 && value.length < 2
+        ? console.log(`You should write ${8 - value.length}`)
+        : console.log("Correct");
+    }
+  };
 
   const [cookies, setCookies] = useCookies("");
 
@@ -66,6 +89,11 @@ export const Registration = () => {
           value={email}
           name="email"
           onChange={handleChange}
+          // onBlur={e => {
+          //   if (e.currentTarget.defaultValue.length !== 5) {
+          //     console.log("Hell");
+          //   }
+          // }}
         />
         <input
           placeholder="password"
@@ -87,6 +115,7 @@ export const Registration = () => {
           placeholder="second name"
           className="last-name-input"
           type="text"
+          pattern="[A-Za-z]{2,}"
           name="lastName"
           value={lastName}
           onChange={handleChange}
