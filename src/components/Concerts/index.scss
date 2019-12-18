@@ -59,13 +59,17 @@
 
 .city-select {
   appearance: none;
+  background-color: white;
   border: 1px solid black;
+  padding: 4px;
   margin-right: 20px;
 }
 
 .date-select {
   appearance: none;
+  background-color: white;
   border: 1px solid black;
+  padding: 4px;
 }
 
 @media screen and (max-width: 415px) {
