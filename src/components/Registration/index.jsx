@@ -9,20 +9,67 @@ import "./index.scss";
 
 export const Registration = () => {
   const [
-    { email, hashPassword, firstName, lastName, isLoged },
+    {
+      email,
+      hashPassword,
+      firstName,
+      lastName,
+      isLoged,
+      correctEmail,
+      correctFirstName,
+      correctLastName,
+      correctPassword
+    },
     setState
   ] = useReducer((s, a) => ({ ...s, ...a }), {
     email: "",
     hashPassword: "",
     firstName: "",
     lastName: "",
-    isLoged: false
+    isLoged: false,
+    correctEmail: "",
+    correctFirstName: "",
+    correctLastName: "",
+    correctPassword: ""
   });
 
-  const handleChange = ({ target: { value, name } }) =>
+  const handleChange = e => {
+    const value = e.target.value;
+    const name = e.target.name;
     setState({
       [name]: value
     });
+    if (name === "email") {
+      value.includes("@") !== true
+        ? setState({
+            correctEmail: 'You should write "@"'
+          })
+        : setState({
+            correctEmail: ""
+          });
+    }
+    if (name === "hashPassword") {
+      value.length !== 8 && value.length <= 8
+        ? setState({ correctPassword: `You should write ${8 - value.length}` })
+        : setState({
+            correctPassword: ""
+          });
+    }
+    if (name === "firstName") {
+      value.length !== 2 && value.length < 2
+        ? setState({ correctFirstName: `You should write ${2 - value.length}` })
+        : setState({
+            correctFirstName: ""
+          });
+    }
+    if (name === "lastName") {
+      value.length !== 2 && value.length < 2
+        ? setState({ correctLastName: `You should write ${2 - value.length}` })
+        : setState({
+            correctLastName: ""
+          });
+    }
+  };
 
   const [cookies, setCookies] = useCookies("");
 
@@ -67,6 +114,7 @@ export const Registration = () => {
           name="email"
           onChange={handleChange}
         />
+        {correctEmail && <p>{correctEmail}</p>}
         <input
           placeholder="password"
           className="password-input"
@@ -75,6 +123,7 @@ export const Registration = () => {
           value={hashPassword}
           onChange={handleChange}
         />
+        {correctPassword && <p>{correctPassword}</p>}
         <input
           placeholder="first name"
           className="first-name-input"
@@ -83,14 +132,17 @@ export const Registration = () => {
           value={firstName}
           onChange={handleChange}
         />
+        {correctFirstName && <p>{correctFirstName}</p>}
         <input
           placeholder="second name"
           className="last-name-input"
           type="text"
+          pattern="[A-Za-z]{2,}"
           name="lastName"
           value={lastName}
           onChange={handleChange}
         />
+        {correctLastName && <p>{correctLastName}</p>}
         <button className="register-button" onClick={handleSubmit}>
           Submit
         </button>

@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { XMasonry, XBlock } from "react-xmasonry";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_CONCERTS } from "../../query/GET_CONCERTS";
 import { useDebouncedCallback } from "use-debounce";
-
-import "./index.scss";
 import { GET_FILTER } from "../../query/GET_FILTER";
 
+import "./index.scss";
+
 export const Concerts = () => {
-  const [concerts, setConcerts] = useState("");
-  const [city, setCity] = useState("");
-  const [date, setDate] = useState("");
+  const [{ city, date, concerts }, setState] = useReducer(
+    (s, a) => ({ ...s, ...a }),
+    {
+      city: "",
+      date: "",
+      concerts: ""
+    }
+  );
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(8);
   const [debouncedCallback] = useDebouncedCallback(concerts => {
-    setConcerts(concerts);
+    setState({ concerts });
   }, 400);
   const { loading, error, data } = useQuery(GET_FILTER, {
     variables: { name: concerts, date, city, limit, skip }
@@ -28,18 +32,13 @@ export const Concerts = () => {
     variables: { name: "", date, city, limit, skip }
   });
 
+  const handleChange = ({ target: { value, name } }) =>
+    setState({
+      [name]: value
+    });
+
   const clearFilters = () => {
-    setCity("");
-    setDate("");
-    setConcerts("");
-  };
-
-  const handleChangeCity = event => {
-    setCity(event.target.value);
-  };
-
-  const handleChangeDate = event => {
-    setDate(event.target.value);
+    setState({ city: "", date: "", concerts: "" });
   };
 
   const widthRandomize = max => {
@@ -66,11 +65,13 @@ export const Concerts = () => {
           <select
             className="city-select"
             name="city"
-            value="city"
-            onChange={handleChangeCity}
+            value={city}
+            onChange={handleChange}
           >
             {additionalFiltersData.getFilter.map(item => (
-              <option value={item.city}>{item.city}</option>
+              <option key={item.id} value={item.city}>
+                {item.city}
+              </option>
             ))}
           </select>
         )}
@@ -80,23 +81,27 @@ export const Concerts = () => {
           <select
             className="date-select"
             name="date"
-            value="date"
-            onChange={handleChangeDate}
+            value={date}
+            onChange={handleChange}
           >
+            {/* <i class="arrow-down"></i> */}
             {[
               ...new Set(
-                ...new Set(
+                ...new Set( //
                   additionalFiltersData.getFilter.map(item => {
                     return item.concerts.map(secondItem => (
-                      <option value={secondItem.date}>{secondItem.date}</option>
+                      <option key={item.id} value={secondItem.date}>
+                        {secondItem.date}
+                      </option>
                     ));
                   })
-                )
+                ) //
               )
             ]}
           </select>
         )}
         <button
+          className="clear-button"
           onClick={e => {
             e.preventDefault();
             clearFilters();
