@@ -37,12 +37,12 @@ export const Registration = () => {
     }
     if (name === "firstName") {
       value.length !== 2 && value.length < 2
-        ? console.log(`You should write ${8 - value.length}`)
+        ? console.log(`You should write ${2 - value.length}`)
         : console.log("Correct");
     }
     if (name === "lastName") {
       value.length !== 2 && value.length < 2
-        ? console.log(`You should write ${8 - value.length}`)
+        ? console.log(`You should write ${2 - value.length}`)
         : console.log("Correct");
     }
   };
@@ -89,11 +89,6 @@ export const Registration = () => {
           value={email}
           name="email"
           onChange={handleChange}
-          // onBlur={e => {
-          //   if (e.currentTarget.defaultValue.length !== 5) {
-          //     console.log("Hell");
-          //   }
-          // }}
         />
         <input
           placeholder="password"
