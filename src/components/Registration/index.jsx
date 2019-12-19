@@ -40,9 +40,9 @@ export const Registration = () => {
       [name]: value
     });
     if (name === "email") {
-      value.length !== 5 && value.length < 5
+      value.includes("@") !== true
         ? setState({
-            correctEmail: `You should write ${5 - value.length}`
+            correctEmail: 'You should write "@"'
           })
         : setState({
             correctEmail: ""
