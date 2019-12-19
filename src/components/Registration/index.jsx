@@ -9,14 +9,28 @@ import "./index.scss";
 
 export const Registration = () => {
   const [
-    { email, hashPassword, firstName, lastName, isLoged },
+    {
+      email,
+      hashPassword,
+      firstName,
+      lastName,
+      isLoged,
+      correctEmail,
+      correctFirstName,
+      correctLastName,
+      correctPassword
+    },
     setState
   ] = useReducer((s, a) => ({ ...s, ...a }), {
     email: "",
     hashPassword: "",
     firstName: "",
     lastName: "",
-    isLoged: false
+    isLoged: false,
+    correctEmail: "",
+    correctFirstName: "",
+    correctLastName: "",
+    correctPassword: ""
   });
 
   const handleChange = e => {
@@ -26,24 +40,34 @@ export const Registration = () => {
       [name]: value
     });
     if (name === "email") {
-      value.length !== 5 && value.length <= 5
-        ? console.log(`You should write ${5 - value.length}`)
-        : console.log("Correct");
+      value.length !== 5 && value.length < 5
+        ? setState({
+            correctEmail: `You should write ${5 - value.length}`
+          })
+        : setState({
+            correctEmail: ""
+          });
     }
     if (name === "hashPassword") {
       value.length !== 8 && value.length <= 8
-        ? console.log(`You should write ${8 - value.length}`)
-        : console.log("Correct");
+        ? setState({ correctPassword: `You should write ${8 - value.length}` })
+        : setState({
+            correctPassword: ""
+          });
     }
     if (name === "firstName") {
       value.length !== 2 && value.length < 2
-        ? console.log(`You should write ${2 - value.length}`)
-        : console.log("Correct");
+        ? setState({ correctFirstName: `You should write ${2 - value.length}` })
+        : setState({
+            correctFirstName: ""
+          });
     }
     if (name === "lastName") {
       value.length !== 2 && value.length < 2
-        ? console.log(`You should write ${2 - value.length}`)
-        : console.log("Correct");
+        ? setState({ correctLastName: `You should write ${2 - value.length}` })
+        : setState({
+            correctLastName: ""
+          });
     }
   };
 
@@ -90,6 +114,7 @@ export const Registration = () => {
           name="email"
           onChange={handleChange}
         />
+        {correctEmail && <p>{correctEmail}</p>}
         <input
           placeholder="password"
           className="password-input"
@@ -98,6 +123,7 @@ export const Registration = () => {
           value={hashPassword}
           onChange={handleChange}
         />
+        {correctPassword && <p>{correctPassword}</p>}
         <input
           placeholder="first name"
           className="first-name-input"
@@ -106,6 +132,7 @@ export const Registration = () => {
           value={firstName}
           onChange={handleChange}
         />
+        {correctFirstName && <p>{correctFirstName}</p>}
         <input
           placeholder="second name"
           className="last-name-input"
@@ -115,6 +142,7 @@ export const Registration = () => {
           value={lastName}
           onChange={handleChange}
         />
+        {correctLastName && <p>{correctLastName}</p>}
         <button className="register-button" onClick={handleSubmit}>
           Submit
         </button>
