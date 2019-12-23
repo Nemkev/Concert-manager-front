@@ -36,37 +36,48 @@ export const Registration = () => {
   const handleChange = e => {
     const value = e.target.value;
     const name = e.target.name;
-    setState({
-      [name]: value
-    });
     if (name === "email") {
       value.includes("@") !== true
         ? setState({
-            correctEmail: 'You should write "@"'
+            correctEmail: 'You should write "@"',
+            [name]: value
           })
         : setState({
-            correctEmail: ""
+            correctEmail: "",
+            [name]: value
           });
     }
     if (name === "hashPassword") {
       value.length !== 8 && value.length <= 8
-        ? setState({ correctPassword: `You should write ${8 - value.length}` })
+        ? setState({
+            correctPassword: `You should write ${8 - value.length}`,
+            [name]: value
+          })
         : setState({
-            correctPassword: ""
+            correctPassword: "",
+            [name]: value
           });
     }
     if (name === "firstName") {
       value.length !== 2 && value.length < 2
-        ? setState({ correctFirstName: `You should write ${2 - value.length}` })
+        ? setState({
+            correctFirstName: `You should write ${2 - value.length}`,
+            [name]: value
+          })
         : setState({
-            correctFirstName: ""
+            correctFirstName: "",
+            [name]: value
           });
     }
     if (name === "lastName") {
       value.length !== 2 && value.length < 2
-        ? setState({ correctLastName: `You should write ${2 - value.length}` })
+        ? setState({
+            correctLastName: `You should write ${2 - value.length}`,
+            [name]: value
+          })
         : setState({
-            correctLastName: ""
+            correctLastName: "",
+            [name]: value
           });
     }
   };

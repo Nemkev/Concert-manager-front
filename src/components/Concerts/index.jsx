@@ -6,14 +6,15 @@ import { GET_FILTER } from "../../query/GET_FILTER";
 
 import "./index.scss";
 
+const mainData = {
+  city: "",
+  date: "",
+  concerts: ""
+};
 export const Concerts = () => {
   const [{ city, date, concerts }, setState] = useReducer(
     (s, a) => ({ ...s, ...a }),
-    {
-      city: "",
-      date: "",
-      concerts: ""
-    }
+    mainData
   );
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(8);
@@ -84,10 +85,9 @@ export const Concerts = () => {
             value={date}
             onChange={handleChange}
           >
-            {/* <i class="arrow-down"></i> */}
             {[
               ...new Set(
-                ...new Set( //
+                ...new Set(
                   additionalFiltersData.getFilter.map(item => {
                     return item.concerts.map(secondItem => (
                       <option key={item.id} value={secondItem.date}>
@@ -95,7 +95,7 @@ export const Concerts = () => {
                       </option>
                     ));
                   })
-                ) //
+                )
               )
             ]}
           </select>
