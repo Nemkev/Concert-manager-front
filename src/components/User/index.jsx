@@ -9,7 +9,6 @@ import "./index.scss";
 export const User = () => {
   const { loading, error, data } = useQuery(AUTH);
   if (loading) return <p>Loading ...</p>;
-  console.log(data.auth, 11);
   return (
     <>
       {!data.auth && <Redirect to="/login" />}
@@ -98,8 +97,8 @@ export const User = () => {
         <div className="user-info">
           <div className="user-avatar"></div>
           <div className="user-description">
-            <p className="user-info-item">firstName</p>
-            <p className="user-info-item">secondName</p>
+            <p className="user-info-item">{data.auth.firstName}</p>
+            <p className="user-info-item">{data.auth.lastName}</p>
             <p className="user-info-item">Rating</p>
           </div>
         </div>
