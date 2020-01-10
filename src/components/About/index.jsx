@@ -6,9 +6,10 @@ import "./index.scss";
 export const About = () => {
   const [description, setDescription] = useState({});
   const [placeSchema, setPlaceSchema] = useState({});
+
   useEffect(() => {
     axios
-      .get("http://localhost:8080/about")
+      .get("http://localhost:8080/about/:concertId")
       .then(res => {
         const description = res.data;
         setDescription(description);
@@ -24,6 +25,7 @@ export const About = () => {
       })
       .catch(console.log);
   }, []);
+
   return (
     <div className="about-overlap">
       <div className="place-schema-booking">
