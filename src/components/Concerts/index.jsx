@@ -18,12 +18,14 @@ export const Concerts = () => {
   );
   const [skip, setSkip] = useState(0);
   const [currentId, setCurrentId] = useState("");
-  const [limit, setLimit] = useState(0);
+  const [uniqCity, setUniqCity] = useState([]);
+  const [uniqDate, setUniqDate] = useState([]);
+  const [limit] = useState(8);
   const [concertArr, setConcertArr] = useState([]);
   const [debouncedCallback] = useDebouncedCallback(concerts => {
     setState({ concerts });
   }, 400);
-  const { loading, error, data } = useQuery(GET_FILTER, {
+  const { loading, data } = useQuery(GET_FILTER, {
     variables: { name: concerts, date, city, limit, skip }
   });
 
@@ -48,24 +50,33 @@ export const Concerts = () => {
   };
 
   useEffect(() => {
-    if (data !== undefined) {
-      const listOfConcerts = [];
-      const matrixOfConcert = data.getFilter.map(item => {
-        return item.concerts.map(secondItem => {
-          return secondItem;
-        });
-      });
-      for (let i = 0; i < matrixOfConcert.length; i++) {
-        for (let t = 0; t < matrixOfConcert[i].length; t++) {
-          listOfConcerts.push(matrixOfConcert[i][t]);
-        }
-      }
-      setConcertArr(listOfConcerts);
+    if (data) {
+      const matrixOfConcert = data.getFilter.reduce(
+        (acc, curr) => [
+          ...acc,
+          ...curr.concerts.map(concert => ({
+            ...concert,
+            buildingName: curr.name
+          }))
+        ],
+        []
+      );
+      const date = matrixOfConcert.map(item => item.date);
+
+      setUniqDate([...new Set(date)]);
+      setConcertArr(matrixOfConcert);
     }
   }, [data]);
 
-  // console.log(concertArr);
-  console.log(currentId);
+  useEffect(() => {
+    if (data) {
+      const city = data.getFilter.map(city => city.city);
+      setUniqCity(city);
+    }
+  }, [data]);
+
+  // console.log(uniqDate);
+  // console.log(uniqCity);
 
   return (
     <div className="overlap">
@@ -78,7 +89,7 @@ export const Concerts = () => {
             setSkip(0);
           }}
           className="filter-input"
-        ></input>
+        />
       </div>
       <div className="select-bar">
         {loading || loadingAdditionalFilters ? (
@@ -90,9 +101,9 @@ export const Concerts = () => {
             value={city}
             onChange={handleChange}
           >
-            {additionalFiltersData.getFilter.map(item => (
-              <option key={item.id} value={item.city}>
-                {item.city}
+            {uniqCity.map(city => (
+              <option key={city} value={city}>
+                {city}
               </option>
             ))}
           </select>
@@ -107,17 +118,11 @@ export const Concerts = () => {
             onChange={handleChange}
           >
             {[
-              ...new Set(
-                ...new Set(
-                  additionalFiltersData.getFilter.map(item => {
-                    return item.concerts.map(secondItem => (
-                      <option key={item.id} value={secondItem.date}>
-                        {secondItem.date}
-                      </option>
-                    ));
-                  })
-                )
-              )
+              uniqDate.map(date => (
+                <option value={date} key={date}>
+                  {date}
+                </option>
+              ))
             ]}
           </select>
         )}
@@ -143,26 +148,19 @@ export const Concerts = () => {
                 setCurrentId(item.id);
               }}
             >
-              <div className="card">
-                <h2>Simple Card</h2>
+              <div className="card" key={item.id}>
+                <h2>{item.buildingName}</h2>
                 <p>{item.name}</p>
               </div>
             </XBlock>
           ))}
         </XMasonry>
       )}
-
-      {/* {data.getFilter.map(item => {
-        item.concerts.map(concertItem => {
-          return concertItem.name;
-        });
-      })} */}
-      {/* data.map((item)=>{return item.concerts.map((secondItem)=>{return secondItem.name})}); */}
       {skip !== 0 && (
         <button
           onClick={e => {
             e.preventDefault();
-            setSkip(skip - 8);
+            setSkip(skip - limit);
           }}
         >
           Get back
@@ -173,7 +171,7 @@ export const Concerts = () => {
         <button
           onClick={e => {
             e.preventDefault();
-            setSkip(skip + 8);
+            setSkip(skip + limit);
           }}
         >
           Show more
