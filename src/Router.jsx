@@ -5,6 +5,7 @@ import { Registration } from "./components/Registration";
 import { User } from "./components/User";
 import { Concerts } from "./components/Concerts";
 import { Booking } from "./components/Booking";
+import { About } from "./components/About";
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,6 +26,7 @@ export const Routers = () => {
           <Route exact path="/user" component={User} />
           <Route exact path="/concerts" component={Concerts} />
           <Route exact path="/booking" component={Booking} />
+          <Route exact path="/about" component={About} />
           <Redirect from="/" to="home" />
         </Switch>
       </Router>

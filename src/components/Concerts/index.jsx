@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { XMasonry, XBlock } from "react-xmasonry";
 import { useQuery } from "@apollo/react-hooks";
 import { useDebouncedCallback } from "use-debounce";
@@ -17,7 +17,9 @@ export const Concerts = () => {
     mainData
   );
   const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(8);
+  const [currentId, setCurrentId] = useState("");
+  const [limit, setLimit] = useState(0);
+  const [concertArr, setConcertArr] = useState([]);
   const [debouncedCallback] = useDebouncedCallback(concerts => {
     setState({ concerts });
   }, 400);
@@ -27,10 +29,9 @@ export const Concerts = () => {
 
   const {
     loading: loadingAdditionalFilters,
-    error: additionalFiltersError,
     data: additionalFiltersData
   } = useQuery(GET_FILTER, {
-    variables: { name: "", date, city, limit, skip }
+    variables: { name: "", date: "", city: "", limit: 0, skip: 0 }
   });
 
   const handleChange = ({ target: { value, name } }) =>
@@ -45,6 +46,26 @@ export const Concerts = () => {
   const widthRandomize = max => {
     return Math.floor(Math.random() * Math.floor(max));
   };
+
+  useEffect(() => {
+    if (data !== undefined) {
+      const listOfConcerts = [];
+      const matrixOfConcert = data.getFilter.map(item => {
+        return item.concerts.map(secondItem => {
+          return secondItem;
+        });
+      });
+      for (let i = 0; i < matrixOfConcert.length; i++) {
+        for (let t = 0; t < matrixOfConcert[i].length; t++) {
+          listOfConcerts.push(matrixOfConcert[i][t]);
+        }
+      }
+      setConcertArr(listOfConcerts);
+    }
+  }, [data]);
+
+  // console.log(concertArr);
+  console.log(currentId);
 
   return (
     <div className="overlap">
@@ -110,13 +131,18 @@ export const Concerts = () => {
           Clean filters
         </button>
       </div>
-
       {loading || loadingAdditionalFilters ? (
         <p>Loading ...</p>
       ) : (
         <XMasonry maxColumns={3} className="masonry">
-          {data.getFilter.map(item => (
-            <XBlock width={widthRandomize(3)} key={item.id}>
+          {concertArr.map(item => (
+            <XBlock
+              width={widthRandomize(3)}
+              onClick={e => {
+                e.preventDefault();
+                setCurrentId(item.id);
+              }}
+            >
               <div className="card">
                 <h2>Simple Card</h2>
                 <p>{item.name}</p>
@@ -126,11 +152,17 @@ export const Concerts = () => {
         </XMasonry>
       )}
 
+      {/* {data.getFilter.map(item => {
+        item.concerts.map(concertItem => {
+          return concertItem.name;
+        });
+      })} */}
+      {/* data.map((item)=>{return item.concerts.map((secondItem)=>{return secondItem.name})}); */}
       {skip !== 0 && (
         <button
           onClick={e => {
             e.preventDefault();
-            setSkip(skip - limit);
+            setSkip(skip - 8);
           }}
         >
           Get back
@@ -141,7 +173,7 @@ export const Concerts = () => {
         <button
           onClick={e => {
             e.preventDefault();
-            setSkip(skip + limit);
+            setSkip(skip + 8);
           }}
         >
           Show more

@@ -12,7 +12,7 @@ export const Login = () => {
     (s, a) => ({ ...s, ...a }),
     { email: "", hashPassword: "", isLoged: false }
   );
-  const [login, { error }] = useMutation(LOGIN, {
+  const [login] = useMutation(LOGIN, {
     variables: { email, hashPassword }
   });
 
@@ -21,7 +21,9 @@ export const Login = () => {
       [name]: value
     });
 
-  const handleSubmit = async () => {
+  const handleSubmit = async e => {
+    e.preventDefault();
+
     try {
       const { data } = await login();
       setCookies("access-token", data.login.accessToken);
