@@ -3,6 +3,7 @@ import { XMasonry, XBlock } from "react-xmasonry";
 import { useQuery } from "@apollo/react-hooks";
 import { useDebouncedCallback } from "use-debounce";
 import { GET_FILTER } from "../../query/GET_FILTER";
+import { useParams } from "react-dom";
 
 import "./index.scss";
 
@@ -16,6 +17,8 @@ export const Concerts = () => {
     (s, a) => ({ ...s, ...a }),
     mainData
   );
+
+  let { slug } = useParams();
   const [skip, setSkip] = useState(0);
   const [currentId, setCurrentId] = useState("");
   const [uniqCity, setUniqCity] = useState([]);
@@ -29,10 +32,7 @@ export const Concerts = () => {
     variables: { name: concerts, date, city, limit, skip }
   });
 
-  const {
-    loading: loadingAdditionalFilters,
-    data: additionalFiltersData
-  } = useQuery(GET_FILTER, {
+  const { loading: loadingAdditionalFilters } = useQuery(GET_FILTER, {
     variables: { name: "", date: "", city: "", limit: 0, skip: 0 }
   });
 

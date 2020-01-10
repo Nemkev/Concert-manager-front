@@ -6,10 +6,9 @@ import "./index.scss";
 export const About = () => {
   const [description, setDescription] = useState({});
   const [placeSchema, setPlaceSchema] = useState({});
-
   useEffect(() => {
     axios
-      .get("http://localhost:8080/about/:concertId")
+      .get(`http://localhost:8080/about/`)
       .then(res => {
         const description = res.data;
         setDescription(description);
@@ -18,7 +17,7 @@ export const About = () => {
   }, []);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/place/:roomId")
+      .get("http://localhost:8080/place/")
       .then(res => {
         const placeSchema = res.data;
         setPlaceSchema(placeSchema);
