@@ -75,9 +75,6 @@ export const Concerts = () => {
     }
   }, [data]);
 
-  // console.log(uniqDate);
-  // console.log(uniqCity);
-
   return (
     <div className="overlap">
       <div className="filter-zone">

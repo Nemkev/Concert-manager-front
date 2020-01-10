@@ -111,8 +111,6 @@ export const Registration = () => {
     }
   };
 
-  console.log(isLoged);
-
   if (isLoged) {
     return <Redirect to="/home" />;
   }

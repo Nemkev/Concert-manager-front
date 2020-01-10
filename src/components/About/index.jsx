@@ -24,7 +24,6 @@ export const About = () => {
       })
       .catch(console.log);
   }, []);
-  console.log(description);
   return (
     <div className="about-overlap">
       <div className="place-schema-booking">
