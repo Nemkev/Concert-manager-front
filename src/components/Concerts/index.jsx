@@ -18,7 +18,6 @@ export const Concerts = () => {
     mainData
   );
 
-  let { slug } = useParams();
   const [skip, setSkip] = useState(0);
   const [currentId, setCurrentId] = useState("");
   const [uniqCity, setUniqCity] = useState([]);

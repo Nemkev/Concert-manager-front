@@ -26,7 +26,7 @@ export const Routers = () => {
           <Route exact path="/user" component={User} />
           <Route exact path="/concerts" component={Concerts} />
           <Route exact path="/booking" component={Booking} />
-          <Route exact path="/about" component={About} />
+          <Route exact path="/about/:concertId" component={About} />
           <Redirect from="/" to="home" />
         </Switch>
       </Router>
