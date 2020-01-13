@@ -3,7 +3,6 @@ import { XMasonry, XBlock } from "react-xmasonry";
 import { useQuery } from "@apollo/react-hooks";
 import { useDebouncedCallback } from "use-debounce";
 import { GET_FILTER } from "../../query/GET_FILTER";
-import { useParams } from "react-dom";
 
 import "./index.scss";
 
@@ -18,7 +17,6 @@ export const Concerts = () => {
     mainData
   );
 
-  let { slug } = useParams();
   const [skip, setSkip] = useState(0);
   const [currentId, setCurrentId] = useState("");
   const [uniqCity, setUniqCity] = useState([]);
@@ -66,11 +64,8 @@ export const Concerts = () => {
       setUniqDate([...new Set(date)]);
       setConcertArr(matrixOfConcert);
     }
-  }, [data]);
-
-  useEffect(() => {
     if (data) {
-      const city = data.getFilter.map(city => city.city);
+      const city = data.getFilter.map(build => build.city);
       setUniqCity(city);
     }
   }, [data]);
