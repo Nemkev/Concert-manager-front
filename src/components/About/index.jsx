@@ -14,7 +14,6 @@ export const About = () => {
         `http://localhost:8080/about/${queryUrl[1]}`
       );
       setDescription(concertData.data);
-
       const roomData = await axios.get(
         `http://localhost:8080/place/${concertData.data.concert.roomId}`
       );
