@@ -6,9 +6,10 @@ import "./index.scss";
 export const About = () => {
   const [description, setDescription] = useState({});
   const [placeSchema, setPlaceSchema] = useState({});
+  const queryUrl = window.location.href.split('/about/');
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/about/`)
+      .get(`http://localhost:8080/about/${queryUrl[1]}`)
       .then(res => {
         const description = res.data;
         setDescription(description);
@@ -31,7 +32,7 @@ export const About = () => {
         <p>Place Schema</p>
       </div>
       <div className="concert-description">
-        {description.concert && <p>{description.concert[33].description}</p>}
+        {description.concert && <p>{description.concert.description}</p>}
       </div>
     </div>
   );
