@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { useCookies } from "react-cookie";
 import { Redirect } from "react-router-dom";
@@ -82,9 +82,9 @@ export const Registration = () => {
     }
   };
 
-  const [cookies, setCookies] = useCookies("");
+  const [, setCookies] = useCookies("");
 
-  const [registration, { error }] = useMutation(REGISTER, {
+  const [registration] = useMutation(REGISTER, {
     variables: { email, hashPassword, firstName, lastName }
   });
 
@@ -92,7 +92,9 @@ export const Registration = () => {
     variables: { email, hashPassword }
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = async e => {
+    e.preventDefault();
+
     try {
       await registration();
       const { data } = await login();
@@ -110,12 +112,12 @@ export const Registration = () => {
   };
 
   if (isLoged) {
-    return <Redirect to="/" />;
+    return <Redirect to="/home" />;
   }
 
   return (
     <div className="registration-layer">
-      <form action="" className="registration-form">
+      <form className="registration-form">
         <h2 className="title">Registration</h2>
         <input
           placeholder="email"

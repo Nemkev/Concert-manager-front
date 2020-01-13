@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { XMasonry, XBlock } from "react-xmasonry";
 import { useQuery } from "@apollo/react-hooks";
 import { useDebouncedCallback } from "use-debounce";
@@ -16,21 +16,22 @@ export const Concerts = () => {
     (s, a) => ({ ...s, ...a }),
     mainData
   );
+
   const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(8);
+  const [currentId, setCurrentId] = useState("");
+  const [uniqCity, setUniqCity] = useState([]);
+  const [uniqDate, setUniqDate] = useState([]);
+  const [limit] = useState(8);
+  const [concertArr, setConcertArr] = useState([]);
   const [debouncedCallback] = useDebouncedCallback(concerts => {
     setState({ concerts });
   }, 400);
-  const { loading, error, data } = useQuery(GET_FILTER, {
+  const { loading, data } = useQuery(GET_FILTER, {
     variables: { name: concerts, date, city, limit, skip }
   });
 
-  const {
-    loading: loadingAdditionalFilters,
-    error: additionalFiltersError,
-    data: additionalFiltersData
-  } = useQuery(GET_FILTER, {
-    variables: { name: "", date, city, limit, skip }
+  const { loading: loadingAdditionalFilters } = useQuery(GET_FILTER, {
+    variables: { name: "", date: "", city: "", limit: 0, skip: 0 }
   });
 
   const handleChange = ({ target: { value, name } }) =>
@@ -46,6 +47,29 @@ export const Concerts = () => {
     return Math.floor(Math.random() * Math.floor(max));
   };
 
+  useEffect(() => {
+    if (data) {
+      const matrixOfConcert = data.getFilter.reduce(
+        (acc, curr) => [
+          ...acc,
+          ...curr.concerts.map(concert => ({
+            ...concert,
+            buildingName: curr.name
+          }))
+        ],
+        []
+      );
+      const date = matrixOfConcert.map(item => item.date);
+
+      setUniqDate([...new Set(date)]);
+      setConcertArr(matrixOfConcert);
+    }
+    if (data) {
+      const city = data.getFilter.map(build => build.city);
+      setUniqCity(city);
+    }
+  }, [data]);
+
   return (
     <div className="overlap">
       <div className="filter-zone">
@@ -57,7 +81,7 @@ export const Concerts = () => {
             setSkip(0);
           }}
           className="filter-input"
-        ></input>
+        />
       </div>
       <div className="select-bar">
         {loading || loadingAdditionalFilters ? (
@@ -69,9 +93,9 @@ export const Concerts = () => {
             value={city}
             onChange={handleChange}
           >
-            {additionalFiltersData.getFilter.map(item => (
-              <option key={item.id} value={item.city}>
-                {item.city}
+            {uniqCity.map(city => (
+              <option key={city} value={city}>
+                {city}
               </option>
             ))}
           </select>
@@ -86,17 +110,11 @@ export const Concerts = () => {
             onChange={handleChange}
           >
             {[
-              ...new Set(
-                ...new Set(
-                  additionalFiltersData.getFilter.map(item => {
-                    return item.concerts.map(secondItem => (
-                      <option key={item.id} value={secondItem.date}>
-                        {secondItem.date}
-                      </option>
-                    ));
-                  })
-                )
-              )
+              uniqDate.map(date => (
+                <option value={date} key={date}>
+                  {date}
+                </option>
+              ))
             ]}
           </select>
         )}
@@ -110,22 +128,26 @@ export const Concerts = () => {
           Clean filters
         </button>
       </div>
-
       {loading || loadingAdditionalFilters ? (
         <p>Loading ...</p>
       ) : (
         <XMasonry maxColumns={3} className="masonry">
-          {data.getFilter.map(item => (
-            <XBlock width={widthRandomize(3)} key={item.id}>
-              <div className="card">
-                <h2>Simple Card</h2>
+          {concertArr.map(item => (
+            <XBlock
+              width={widthRandomize(3)}
+              onClick={e => {
+                e.preventDefault();
+                setCurrentId(item.id);
+              }}
+            >
+              <div className="card" key={item.id}>
+                <h2>{item.buildingName}</h2>
                 <p>{item.name}</p>
               </div>
             </XBlock>
           ))}
         </XMasonry>
       )}
-
       {skip !== 0 && (
         <button
           onClick={e => {

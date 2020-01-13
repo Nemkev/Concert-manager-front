@@ -1,0 +1,24 @@
+.about-overlap {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  overflow: auto;
+}
+
+.place-schema-booking {
+  overflow: auto;
+  width: 40vw;
+  height: 40vh;
+  border: 1px solid black;
+}
+
+.concert-description {
+  width: 200px;
+  max-height: 320px;
+  background-color: #ffffffa6;
+  padding: 10px 5px 10px 20px;
+  box-shadow: 0 0 30px rgb(226, 209, 209);
+  border-radius: 1.5%;
+}
