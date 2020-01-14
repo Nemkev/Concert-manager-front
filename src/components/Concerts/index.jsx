@@ -3,6 +3,7 @@ import { XMasonry, XBlock } from "react-xmasonry";
 import { useQuery } from "@apollo/react-hooks";
 import { useDebouncedCallback } from "use-debounce";
 import { GET_FILTER } from "../../query/GET_FILTER";
+import { Link } from "react-router-dom";
 
 import "./index.scss";
 
@@ -143,6 +144,9 @@ export const Concerts = () => {
               <div className="card" key={item.id}>
                 <h2>{item.buildingName}</h2>
                 <p>{item.name}</p>
+                <Link className="concert-link" to={`/about/${currentId}`}>
+                  About
+                </Link>
               </div>
             </XBlock>
           ))}
