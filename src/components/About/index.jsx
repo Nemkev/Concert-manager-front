@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import produce from "immer";
 import openSocket from "socket.io-client";
 
 import "./index.scss";
@@ -8,10 +7,10 @@ import "./index.scss";
 export const About = () => {
   const [description, setDescription] = useState({});
   const [placeId, setPlaceId] = useState("");
-  const [matrix, setMatrix] = useState([[]]);
   const [placeSchema, setPlaceSchema] = useState({});
   const queryUrl = window.location.href.split("/about/");
   useEffect(() => {
+    const socket = openSocket("http://localhost:8080");
     const fetchData = async () => {
       const concertData = await axios.get(
         `http://localhost:8080/about/${queryUrl[1]}`
@@ -28,30 +27,20 @@ export const About = () => {
   const columns =
     placeSchema.schema && placeSchema.schema.rooms[0].placeSchema[0].length;
 
-  const rows =
-    placeSchema.schema && placeSchema.schema.rooms[0].placeSchema.length;
-
-  // const handleGrid = useCallback(() => {
-  //   const arr = placeSchema.schema && Array(Number(columns)).fill(0);
-  //   const rowsArr = [];
-  //   for (let i = 0; i < rows; i++) {
-  //     rowsArr.push(arr);
-  //   }
-  //   return rowsArr;
-  // }, [columns, rows]);
-
-  // const [grid, setGrid] = useState(handleGrid);
   console.log(
     placeSchema.schema && placeSchema.schema.rooms[0].placeSchema,
     11
   );
-  // console.log(grid, 22);
 
-  // useEffect(() => {
-  //   setGrid(handleGrid);
-  //   const socket = openSocket("http://localhost:8080");
-  // }, [handleGrid]);
+  const bookingPlaces =
+    placeSchema.schema &&
+    placeSchema.schema.rooms[0].placeSchema.map(item => {
+      return item.filter(place => {
+        return place.booked === false;
+      });
+    });
 
+  console.log(bookingPlaces);
   console.log(placeId);
 
   return (
@@ -79,10 +68,10 @@ export const About = () => {
                     height: 20,
                     backgroundColor:
                       placeSchema.schema.rooms[0].placeSchema[i][k] === 0
-                        ? "green"
+                        ? "gray"
                         : undefined ||
                           placeSchema.schema.rooms[0].placeSchema[i][k] !== 0
-                        ? "red"
+                        ? "green"
                         : undefined,
                     border: "solid 1px black"
                   }}
