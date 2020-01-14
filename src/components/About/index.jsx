@@ -8,6 +8,7 @@ import "./index.scss";
 export const About = () => {
   const socket = openSocket("http://localhost:8080");
   const [description, setDescription] = useState({});
+  const [placeId, setPlaceId] = useState("");
   const [placeSchema, setPlaceSchema] = useState({});
   const queryUrl = window.location.href.split("/about/");
   useEffect(() => {
@@ -25,9 +26,10 @@ export const About = () => {
   }, []);
 
   const columns =
-    placeSchema.schema && placeSchema.schema.rooms[0].placeSchema.length;
-  const rows =
     placeSchema.schema && placeSchema.schema.rooms[0].placeSchema[0].length;
+
+  const rows =
+    placeSchema.schema && placeSchema.schema.rooms[0].placeSchema.length;
 
   const handleGrid = useCallback(() => {
     const arr = placeSchema.schema && Array(Number(columns)).fill(0);
@@ -43,6 +45,17 @@ export const About = () => {
   useEffect(() => {
     setGrid(handleGrid);
   }, [handleGrid]);
+
+  // console.log(
+  //   placeSchema.schema && placeSchema.schema.rooms[0].placeSchema[0][2].id
+  // );
+  // for(let i = 0; i < columns; i++){
+  //   for(let t = 0; t < rows; t++){
+
+  //   }
+  // }
+
+  console.log(placeId);
 
   return (
     <div className="about-overlap">
@@ -60,10 +73,13 @@ export const About = () => {
                 <div
                   key={`${i}-${k}`}
                   onClick={() => {
-                    const newGrid = produce(grid, gridCopy => {
-                      gridCopy[i][k] = grid[i][k] ? 0 : 1;
-                    });
-                    setGrid(newGrid);
+                    // const newGrid = produce(grid, gridCopy => {
+                    //   gridCopy[i][k] = grid[i][k] ? 0 : 1;
+                    // });
+                    // setGrid(newGrid);
+                    setPlaceId(
+                      placeSchema.schema.rooms[0].placeSchema[i][k].id
+                    );
                   }}
                   style={{
                     width: 20,
