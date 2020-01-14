@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import produce from "immer";
+import openSocket from "socket.io-client";
 
 import "./index.scss";
 
 export const About = () => {
+  const socket = openSocket("http://localhost:8080");
   const [description, setDescription] = useState({});
   const [placeSchema, setPlaceSchema] = useState({});
   const queryUrl = window.location.href.split("/about/");
