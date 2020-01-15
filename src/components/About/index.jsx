@@ -36,9 +36,27 @@ export const About = () => {
         `http://localhost:8080/current/${concertData.data.concert.roomId}`,
         {
           placeSchema: [
-            [{}, {}, {}, {}, {}],
-            [0, {}, {}, {}, 0],
-            [{}, {}, {}, {}, {}]
+            [
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: true },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false }
+            ],
+            [
+              0,
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              0
+            ],
+            [
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
+              { price: 45, id: "434b4aa690a9030811e74c39", booked: false }
+            ]
           ]
         }
       );
@@ -90,8 +108,11 @@ export const About = () => {
                       placeSchema.schema.placeSchema[i][k] === 0
                         ? "gray"
                         : undefined ||
-                          placeSchema.schema.placeSchema[i][k] !== 0
+                          placeSchema.schema.placeSchema[i][k].booked === false
                         ? "green"
+                        : undefined ||
+                          placeSchema.schema.placeSchema[i][k].booked === true
+                        ? "blue"
                         : undefined,
                     border: "solid 1px black"
                   }}
