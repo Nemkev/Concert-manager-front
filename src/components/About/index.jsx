@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import openSocket from "socket.io-client";
 
@@ -8,6 +8,7 @@ export const About = () => {
   const [description, setDescription] = useState({});
   const [placeId, setPlaceId] = useState("");
   const [placeSchema, setPlaceSchema] = useState({});
+  const [test, setTest] = useState();
   const queryUrl = window.location.href.split("/about/");
   useEffect(() => {
     const socket = openSocket("http://localhost:8080");
@@ -20,28 +21,49 @@ export const About = () => {
         `http://localhost:8080/place/${concertData.data.concert.roomId}`
       );
       setPlaceSchema(roomData.data);
+      // const updateSchema = await axios({
+      //   method: "put",
+      //   url: `http://localhost:8080/current/${concertData.data.concert.roomId}`,
+      //   data: {
+      //     placeSchema: [
+      //       [1, 1, 1, 1, 1],
+      //       [0, 1, 1, 1, 0],
+      //       [1, 1, 1, 1, 1]
+      //     ]
+      //   }
+      // });
+      const updateSchema = await axios.put(
+        `http://localhost:8080/current/${concertData.data.concert.roomId}`,
+        {
+          placeSchema: [
+            [{}, {}, {}, {}, {}],
+            [0, {}, {}, {}, 0],
+            [{}, {}, {}, {}, {}]
+          ]
+        }
+      );
+      setTest(updateSchema);
     };
     fetchData();
   }, []);
 
   const columns =
-    placeSchema.schema && placeSchema.schema.rooms[0].placeSchema[0].length;
+    placeSchema.schema && placeSchema.schema.placeSchema[0].length;
 
-  console.log(
-    placeSchema.schema && placeSchema.schema.rooms[0].placeSchema,
-    11
-  );
+  console.log(placeSchema && placeSchema, 11);
+
+  console.log(test);
 
   const bookingPlaces =
     placeSchema.schema &&
-    placeSchema.schema.rooms[0].placeSchema.map(item => {
+    placeSchema.schema.placeSchema.map(item => {
       return item.filter(place => {
         return place.booked === false;
       });
     });
 
-  console.log(bookingPlaces);
-  console.log(placeId);
+  // console.log(bookingPlaces);
+  // console.log(placeId);
 
   return (
     <div className="about-overlap">
@@ -54,23 +76,21 @@ export const About = () => {
               gridTemplateColumns: `repeat(${columns},20px)`
             }}
           >
-            {placeSchema.schema.rooms[0].placeSchema.map((rowsArr, i) =>
+            {placeSchema.schema.placeSchema.map((rowsArr, i) =>
               rowsArr.map((_, k) => (
                 <div
                   key={`${i}-${k}`}
                   onClick={() => {
-                    setPlaceId(
-                      placeSchema.schema.rooms[0].placeSchema[i][k].id
-                    );
+                    setPlaceId(placeSchema.schema.placeSchema[i][k].id);
                   }}
                   style={{
                     width: 20,
                     height: 20,
                     backgroundColor:
-                      placeSchema.schema.rooms[0].placeSchema[i][k] === 0
+                      placeSchema.schema.placeSchema[i][k] === 0
                         ? "gray"
                         : undefined ||
-                          placeSchema.schema.rooms[0].placeSchema[i][k] !== 0
+                          placeSchema.schema.placeSchema[i][k] !== 0
                         ? "green"
                         : undefined,
                     border: "solid 1px black"
