@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import openSocket from "socket.io-client";
+import { AUTH } from "../../query/AUTH";
+import { useQuery } from "@apollo/react-hooks";
 
 import "./index.scss";
 
@@ -8,8 +10,8 @@ export const About = () => {
   const [description, setDescription] = useState({});
   const [placeId, setPlaceId] = useState("");
   const [placeSchema, setPlaceSchema] = useState({});
-  const [test, setTest] = useState();
   const queryUrl = window.location.href.split("/about/");
+  const { loading, error, data } = useQuery(AUTH);
   useEffect(() => {
     const socket = openSocket("http://localhost:8080");
     const fetchData = async () => {
@@ -20,73 +22,39 @@ export const About = () => {
       const roomData = await axios.get(
         `http://localhost:8080/place/${concertData.data.concert.roomId}`
       );
-      setPlaceSchema(roomData.data);
-      // const updateSchema = await axios({
-      //   method: "put",
-      //   url: `http://localhost:8080/current/${concertData.data.concert.roomId}`,
-      //   data: {
-      //     placeSchema: [
-      //       [1, 1, 1, 1, 1],
-      //       [0, 1, 1, 1, 0],
-      //       [1, 1, 1, 1, 1]
-      //     ]
-      //   }
-      // });
-      const updateSchema = await axios.put(
-        `http://localhost:8080/current/${concertData.data.concert.roomId}`,
-        {
-          placeSchema: [
-            [
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: true },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false }
-            ],
-            [
-              0,
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              0
-            ],
-            [
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false },
-              { price: 45, id: "434b4aa690a9030811e74c39", booked: false }
-            ]
-          ]
-        }
-      );
-      setTest(updateSchema);
+      setPlaceSchema(roomData.data.schema.placeSchema);
     };
     fetchData();
   }, []);
 
-  const columns =
-    placeSchema.schema && placeSchema.schema.placeSchema[0].length;
+  const handleSubmit = e => {
+    e.preventDefault();
+    const fetchData = async () => {
+      const concertData = await axios.get(
+        `http://localhost:8080/about/${queryUrl[1]}`
+      );
+      const updateSchema = await axios.put(
+        `http://localhost:8080/current/${concertData.data.concert.roomId}`,
+        {
+          placeSchema
+        }
+      );
+      const roomData = await axios.get(
+        `http://localhost:8080/place/${concertData.data.concert.roomId}`
+      );
+      const bindUserToTicket = await axios.put(
+        `http://localhost:8080/place/${data.auth.id}/${placeId}`
+      );
+    };
+    fetchData();
+  };
 
-  console.log(placeSchema && placeSchema, 11);
-
-  console.log(test);
-
-  const bookingPlaces =
-    placeSchema.schema &&
-    placeSchema.schema.placeSchema.map(item => {
-      return item.filter(place => {
-        return place.booked === false;
-      });
-    });
-
-  // console.log(bookingPlaces);
-  // console.log(placeId);
+  const columns = placeSchema[0] && placeSchema[0].length;
 
   return (
     <div className="about-overlap">
       <div className="place-schema-booking">
-        {placeSchema.schema && (
+        {placeSchema[0] && (
           <div
             style={{
               display: "grid",
@@ -94,26 +62,24 @@ export const About = () => {
               gridTemplateColumns: `repeat(${columns},20px)`
             }}
           >
-            {placeSchema.schema.placeSchema.map((rowsArr, i) =>
+            {placeSchema.map((rowsArr, i) =>
               rowsArr.map((_, k) => (
                 <div
                   key={`${i}-${k}`}
                   onClick={() => {
-                    setPlaceId(placeSchema.schema.placeSchema[i][k].id);
+                    setPlaceId(placeSchema[i][k].id);
+                    placeSchema[i][k].booked = true;
+                    setPlaceSchema(placeSchema);
                   }}
                   style={{
                     width: 20,
                     height: 20,
                     backgroundColor:
-                      placeSchema.schema.placeSchema[i][k] === 0
+                      placeSchema[i][k] === 0
                         ? "gray"
-                        : undefined ||
-                          placeSchema.schema.placeSchema[i][k].booked === false
+                        : !placeSchema[i][k].booked
                         ? "green"
-                        : undefined ||
-                          placeSchema.schema.placeSchema[i][k].booked === true
-                        ? "blue"
-                        : undefined,
+                        : placeSchema[i][k].booked && "blue",
                     border: "solid 1px black"
                   }}
                 />
@@ -121,6 +87,7 @@ export const About = () => {
             )}
           </div>
         )}
+        <button onClick={handleSubmit}>Book this place</button>
       </div>
       <div className="concert-description">
         {description.concert && <p>{description.concert.description}</p>}

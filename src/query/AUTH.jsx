@@ -6,6 +6,7 @@ export const AUTH = gql`
       email
       firstName
       lastName
+      id
     }
   }
 `;
