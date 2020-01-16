@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import openSocket from "socket.io-client";
+import { AUTH } from "../../query/AUTH";
+import { useQuery } from "@apollo/react-hooks";
 
 import "./index.scss";
 
@@ -8,8 +10,8 @@ export const About = () => {
   const [description, setDescription] = useState({});
   const [placeId, setPlaceId] = useState("");
   const [placeSchema, setPlaceSchema] = useState({});
-  const [matrix, setLocalMatrix] = useState([]);
   const queryUrl = window.location.href.split("/about/");
+  const { loading, error, data } = useQuery(AUTH);
   useEffect(() => {
     const socket = openSocket("http://localhost:8080");
     const fetchData = async () => {
@@ -36,6 +38,12 @@ export const About = () => {
         {
           placeSchema
         }
+      );
+      const roomData = await axios.get(
+        `http://localhost:8080/place/${concertData.data.concert.roomId}`
+      );
+      const bindUserToTicket = await axios.put(
+        `http://localhost:8080/place/${data.auth.id}/${placeId}`
       );
     };
     fetchData();
@@ -69,11 +77,9 @@ export const About = () => {
                     backgroundColor:
                       placeSchema[i][k] === 0
                         ? "gray"
-                        : undefined || placeSchema[i][k].booked === false
+                        : !placeSchema[i][k].booked
                         ? "green"
-                        : undefined || placeSchema[i][k].booked === true
-                        ? "blue"
-                        : undefined,
+                        : placeSchema[i][k].booked && "blue",
                     border: "solid 1px black"
                   }}
                 />
