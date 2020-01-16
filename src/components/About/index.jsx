@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+// import { subscribeToTimer } from "../../utils/socket";
+import Countdown from "react-countdown-now";
 import openSocket from "socket.io-client";
 import { AUTH } from "../../query/AUTH";
 import { useQuery } from "@apollo/react-hooks";
+import Modal from "react-modal";
 
 import "./index.scss";
 
@@ -10,6 +13,8 @@ export const About = () => {
   const [description, setDescription] = useState({});
   const [placeId, setPlaceId] = useState("");
   const [placeSchema, setPlaceSchema] = useState({});
+  const [modalStateBooking, setModalStateBooking] = useState(false);
+  // const [timestamp, setTimeStamp] = useState("no timestamp yet");
   const queryUrl = window.location.href.split("/about/");
   const { loading, error, data } = useQuery(AUTH);
   useEffect(() => {
@@ -51,8 +56,40 @@ export const About = () => {
 
   const columns = placeSchema[0] && placeSchema[0].length;
 
+  const Completionist = () => <div>Time is over</div>;
+
+  const renderer = ({ minutes, seconds, completed }) => {
+    if (completed) {
+      return <Completionist />;
+    } else {
+      return (
+        <div>
+          {minutes}:{seconds}
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="about-overlap">
+      <Modal isOpen={modalStateBooking} ariaHideApp={false}>
+        <form>
+          <Countdown date={Date.now() + 1000 * 60 * 15} renderer={renderer} />
+          <p>Current price : </p>
+          <select>
+            <option value="">Cola</option>
+            <option value="">Sprite</option>
+          </select>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              setModalStateBooking(false);
+            }}
+          >
+            Close
+          </button>
+        </form>
+      </Modal>
       <div className="place-schema-booking">
         {placeSchema[0] && (
           <div
@@ -70,6 +107,7 @@ export const About = () => {
                     setPlaceId(placeSchema[i][k].id);
                     placeSchema[i][k].booked = true;
                     setPlaceSchema(placeSchema);
+                    setModalStateBooking(true);
                   }}
                   style={{
                     width: 20,
