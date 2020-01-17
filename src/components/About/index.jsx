@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import { subscribeToTimer } from "../../utils/socket";
 import Countdown from "react-countdown-now";
-import openSocket from "socket.io-client";
 import { AUTH } from "../../query/AUTH";
 import { useQuery } from "@apollo/react-hooks";
 import Modal from "react-modal";
