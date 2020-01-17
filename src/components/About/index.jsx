@@ -124,12 +124,14 @@ export const About = () => {
                   key={`${i}-${k}`}
                   onClick={() => {
                     setPlaceId(placeSchema[i][k].id);
-                    placeSchema[i][k].booked = true;
                     setPlaceSchema(placeSchema);
-                    setPlaceColumn(i);
-                    setPlaceRow(k);
-                    setModalStateBooking(true);
-                    subscribeToTimer(placeSchema);
+                    if (!placeSchema[i][k].booked) {
+                      placeSchema[i][k].booked = true;
+                      setPlaceColumn(i);
+                      setPlaceRow(k);
+                      setModalStateBooking(true);
+                      subscribeToTimer(placeSchema);
+                    }
                   }}
                   style={{
                     width: 20,
