@@ -6,10 +6,11 @@ import openSocket from "socket.io-client";
 import { AUTH } from "../../query/AUTH";
 import { useQuery } from "@apollo/react-hooks";
 import Modal from "react-modal";
+import io from "socket.io-client";
 
 import "./index.scss";
 
-const socket = openSocket("http://localhost:8080");
+const socket = io.connect("http://localhost:8080");
 
 export const About = () => {
   const [description, setDescription] = useState({});
@@ -22,10 +23,7 @@ export const About = () => {
   // const [timestamp, setTimeStamp] = useState("no timestamp yet");
   const queryUrl = window.location.href.split("/about/");
   const { loading, error, data } = useQuery(AUTH);
-  const subscribeToTimer = placeSchema => {
-    socket.emit("subscribeToTimer", placeSchema);
-    console.log();
-  };
+
   useEffect(() => {
     const fetchData = async () => {
       const concertData = await axios.get(
@@ -40,12 +38,6 @@ export const About = () => {
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    socket.on("blockTimer", data => {
-      console.log(data, 123123121);
-    });
-  });
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -77,6 +69,9 @@ export const About = () => {
 
   const renderer = ({ minutes, seconds, completed }) => {
     if (completed) {
+      setModalStateBooking(false);
+      placeSchema[placeColumn][placeRow].booked = false;
+      socket.emit("updateSchema", placeSchema);
       return <Completionist />;
     } else {
       return (
@@ -86,12 +81,17 @@ export const About = () => {
       );
     }
   };
-
+  socket.on("updateSchema", data => {
+    setPlaceSchema(data);
+  });
   return (
     <div className="about-overlap">
+      <button onClick={() => socket.emit("updateSchema", placeSchema)}>
+        +
+      </button>
       <Modal isOpen={modalStateBooking} ariaHideApp={false}>
         <form>
-          <Countdown date={Date.now() + 1000 * 60 * 15} renderer={renderer} />
+          <Countdown date={Date.now() + 15000} renderer={renderer} />
           <p>Current price : </p>
           <select>
             <option value="">Cola</option>
@@ -103,6 +103,7 @@ export const About = () => {
               e.preventDefault();
               setModalStateBooking(false);
               placeSchema[placeColumn][placeRow].booked = false;
+              socket.emit("updateSchema", placeSchema);
             }}
           >
             Close
@@ -130,7 +131,7 @@ export const About = () => {
                       setPlaceColumn(i);
                       setPlaceRow(k);
                       setModalStateBooking(true);
-                      subscribeToTimer(placeSchema);
+                      socket.emit("updateSchema", placeSchema);
                     }
                   }}
                   style={{
