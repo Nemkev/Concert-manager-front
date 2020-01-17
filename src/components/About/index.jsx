@@ -53,29 +53,7 @@ export const About = () => {
         `http://localhost:8080/place/${concertData.data.concert.roomId}`
       );
       const bindUserToTicket = await axios.put(
-        `http://localhost:8080/place/${data.auth.id}/${placeId}`
-      );
-    };
-    fetchData();
-  };
-
-  const testQuery = e => {
-    e.preventDefault();
-    const fetchData = async () => {
-      const concertData = await axios.get(
-        `http://localhost:8080/about/${queryUrl[1]}`
-      );
-      const updateSchema = await axios.put(
-        `http://localhost:8080/current/${concertData.data.concert.roomId}`,
-        {
-          placeSchema
-        }
-      );
-      const roomData = await axios.get(
-        `http://localhost:8080/place/${concertData.data.concert.roomId}`
-      );
-      const bindUserToTicket = await axios.put(
-        `http://localhost:8080/test/${data.auth.id}`,
+        `http://localhost:8080/booked/${data.auth.id}`,
         {
           bookedPlaces
         }
@@ -129,7 +107,7 @@ export const About = () => {
             <option value="">Cola</option>
             <option value="">Sprite</option>
           </select>
-          <button onClick={testQuery}>Book this place</button>
+          <button onClick={handleSubmit}>Book this place</button>
           <button
             onClick={e => {
               e.preventDefault();
@@ -162,7 +140,6 @@ export const About = () => {
                       placeSchema[i][k].booked = true;
                       setPlaceColumn(i);
                       setPlaceRow(k);
-                      // setModalStateBooking(true);
                       socket.emit("updateSchema", placeSchema);
                     }
                     setBookedPlaces(state => [...state, placeSchema[i][k].id]);
