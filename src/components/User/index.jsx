@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { AUTH } from "../../query/AUTH";
 import { GET_USER_TICKETS } from "../../query/GET_USER_TICKETS";
@@ -9,10 +9,12 @@ import "./index.scss";
 
 export const User = () => {
   const { loading, data } = useQuery(AUTH);
+  const [skip, setSkip] = useState(0);
+  const [limit] = useState(8);
   const { loading: loadingUserData, data: userData } = useQuery(
     GET_USER_TICKETS,
     {
-      variables: { userId: data && data.auth.id, limit: 5, skip: 0 }
+      variables: { userId: data && data.auth.id, limit, skip }
     }
   );
   console.log(userData);
@@ -36,6 +38,27 @@ export const User = () => {
                     </div>
                   </li>
                 ))}
+                {skip !== 0 && (
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      setSkip(skip - limit);
+                    }}
+                  >
+                    Get back
+                  </button>
+                )}
+
+                {!loadingUserData && userData.getUserTickets.length >= limit && (
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      setSkip(skip + limit);
+                    }}
+                  >
+                    Show more
+                  </button>
+                )}
               </>
             )}
           </ul>
@@ -45,7 +68,6 @@ export const User = () => {
           <div className="user-description">
             <p className="user-info-item">{data.auth.firstName}</p>
             <p className="user-info-item">{data.auth.lastName}</p>
-            <p className="user-info-item">Rating</p>
           </div>
         </div>
       </main>
