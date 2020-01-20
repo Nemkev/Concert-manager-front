@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import openSocket from "socket.io-client";
+import Countdown from "react-countdown-now";
 import { AUTH } from "../../query/AUTH";
 import { useQuery } from "@apollo/react-hooks";
+import Modal from "react-modal";
+import io from "socket.io-client";
 
 import "./index.scss";
+
+const socket = io.connect("http://localhost:8080");
 
 export const About = () => {
   const [description, setDescription] = useState({});
   const [placeId, setPlaceId] = useState("");
+  const [placeRow, setPlaceRow] = useState();
+  const [placeColumn, setPlaceColumn] = useState();
   const [placeSchema, setPlaceSchema] = useState({});
+  const [bookedPlaces, setBookedPlaces] = useState([]);
+  const [modalStateBooking, setModalStateBooking] = useState(false);
   const queryUrl = window.location.href.split("/about/");
   const { loading, error, data } = useQuery(AUTH);
+  const time = Date.now() + 1000 * 60 * 15;
+
   useEffect(() => {
-    const socket = openSocket("http://localhost:8080");
     const fetchData = async () => {
       const concertData = await axios.get(
         `http://localhost:8080/about/${queryUrl[1]}`
@@ -43,7 +52,10 @@ export const About = () => {
         `http://localhost:8080/place/${concertData.data.concert.roomId}`
       );
       const bindUserToTicket = await axios.put(
-        `http://localhost:8080/place/${data.auth.id}/${placeId}`
+        `http://localhost:8080/booked/${data.auth.id}`,
+        {
+          bookedPlaces
+        }
       );
     };
     fetchData();
@@ -51,8 +63,59 @@ export const About = () => {
 
   const columns = placeSchema[0] && placeSchema[0].length;
 
+  const Completionist = () => <div>Time is over</div>;
+
+  const renderer = ({ minutes, seconds, completed }) => {
+    if (completed) {
+      setModalStateBooking(false);
+      placeSchema[placeColumn][placeRow].booked = false;
+      socket.emit("updateSchema", placeSchema);
+      return <Completionist />;
+    } else {
+      return (
+        <div>
+          {minutes}:{seconds}
+        </div>
+      );
+    }
+  };
+  socket.on("updateSchema", data => {
+    setPlaceSchema(data);
+  });
   return (
     <div className="about-overlap">
+      <button onClick={() => socket.emit("updateSchema", placeSchema)}>
+        +
+      </button>
+      <button
+        onClick={() => {
+          socket.emit("updateSchema", placeSchema);
+          setModalStateBooking(true);
+        }}
+      >
+        Book
+      </button>
+      <Modal isOpen={modalStateBooking} ariaHideApp={false}>
+        <form>
+          <Countdown date={time} renderer={renderer} />
+          <p>Current price : </p>
+          <select>
+            <option value="">Cola</option>
+            <option value="">Sprite</option>
+          </select>
+          <button onClick={handleSubmit}>Book this place</button>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              setModalStateBooking(false);
+              placeSchema[placeColumn][placeRow].booked = false;
+              socket.emit("updateSchema", placeSchema);
+            }}
+          >
+            Close
+          </button>
+        </form>
+      </Modal>
       <div className="place-schema-booking">
         {placeSchema[0] && (
           <div
@@ -68,8 +131,14 @@ export const About = () => {
                   key={`${i}-${k}`}
                   onClick={() => {
                     setPlaceId(placeSchema[i][k].id);
-                    placeSchema[i][k].booked = true;
                     setPlaceSchema(placeSchema);
+                    if (!placeSchema[i][k].booked) {
+                      placeSchema[i][k].booked = true;
+                      setPlaceColumn(i);
+                      setPlaceRow(k);
+                      socket.emit("updateSchema", placeSchema);
+                    }
+                    setBookedPlaces(state => [...state, placeSchema[i][k].id]);
                   }}
                   style={{
                     width: 20,
@@ -87,7 +156,6 @@ export const About = () => {
             )}
           </div>
         )}
-        <button onClick={handleSubmit}>Book this place</button>
       </div>
       <div className="concert-description">
         {description.concert && <p>{description.concert.description}</p>}
