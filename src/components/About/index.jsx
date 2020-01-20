@@ -38,8 +38,7 @@ export const About = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = () => {
     const fetchData = async () => {
       const concertData = await axios.get(
         `http://localhost:8080/about/${queryUrl[1]}`
@@ -106,12 +105,15 @@ export const About = () => {
       <Modal isOpen={modalStateBooking} ariaHideApp={false}>
         <form>
           <Countdown date={time} renderer={renderer} />
-          <p>Current price : </p>
-          <select>
-            <option value="">Cola</option>
-            <option value="">Sprite</option>
-          </select>
-          <button onClick={handleSubmit}>Book this place</button>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              handleSubmit();
+              setModalStateBooking(false);
+            }}
+          >
+            Book this place
+          </button>
           <button
             onClick={e => {
               e.preventDefault();
@@ -121,7 +123,6 @@ export const About = () => {
                   arrBookedPlaces[i].row
                 ].booked = false;
               }
-              // placeSchema[placeColumn][placeRow].booked = false;
               socket.emit("updateSchema", placeSchema);
             }}
           >

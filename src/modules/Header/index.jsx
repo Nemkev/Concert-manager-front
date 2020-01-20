@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./index.scss";
 
 export const Header = () => {
@@ -8,39 +9,39 @@ export const Header = () => {
         <h1 className="cite-name">Ticket paradise</h1>
       </div>
       <div className="router-bar">
-        <a
+        <Link
           className="link"
           style={
             `${window.location.href}` === "http://localhost:3000/home"
               ? { color: `#ff8b38` }
               : {}
           }
-          href="f"
+          to="/home"
         >
           Home
-        </a>
-        <a
+        </Link>
+        <Link
           className="link"
           style={
             `${window.location.href}` === "http://localhost:3000/concerts"
               ? { color: `#ff8b38` }
               : {}
           }
-          href="f"
+          to="/concerts"
         >
           Concerts
-        </a>
-        <a
+        </Link>
+        <Link
           className="link"
           style={
             `${window.location.href}` === "http://localhost:3000/login"
               ? { color: `#ff8b38` }
               : {}
           }
-          href="f"
+          to="/login"
         >
           Sign in
-        </a>
+        </Link>
       </div>
     </header>
   );

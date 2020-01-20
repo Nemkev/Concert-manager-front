@@ -19,7 +19,6 @@ export const Concerts = () => {
   );
 
   const [skip, setSkip] = useState(0);
-  const [currentId, setCurrentId] = useState("");
   const [uniqCity, setUniqCity] = useState([]);
   const [uniqDate, setUniqDate] = useState([]);
   const [limit] = useState(8);
@@ -134,17 +133,11 @@ export const Concerts = () => {
       ) : (
         <XMasonry maxColumns={3} className="masonry">
           {concertArr.map(item => (
-            <XBlock
-              width={widthRandomize(3)}
-              onClick={e => {
-                e.preventDefault();
-                setCurrentId(item.id);
-              }}
-            >
+            <XBlock width={widthRandomize(3)}>
               <div className="card" key={item.id}>
                 <h2>{item.buildingName}</h2>
                 <p>{item.name}</p>
-                <Link className="concert-link" to={`/about/${currentId}`}>
+                <Link className="concert-link" to={`/about/${item.id}`}>
                   About
                 </Link>
               </div>
