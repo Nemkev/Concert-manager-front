@@ -20,6 +20,7 @@ export const About = () => {
   const [modalStateBooking, setModalStateBooking] = useState(false);
   const queryUrl = window.location.href.split("/about/");
   const { loading, error, data } = useQuery(AUTH);
+  const time = Date.now() + 1000 * 60 * 15;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,9 +61,6 @@ export const About = () => {
     fetchData();
   };
 
-  console.log(placeSchema);
-  console.log(bookedPlaces, 11);
-
   const columns = placeSchema[0] && placeSchema[0].length;
 
   const Completionist = () => <div>Time is over</div>;
@@ -99,7 +97,7 @@ export const About = () => {
       </button>
       <Modal isOpen={modalStateBooking} ariaHideApp={false}>
         <form>
-          <Countdown date={Date.now() + 1000 * 60 * 15} renderer={renderer} />
+          <Countdown date={time} renderer={renderer} />
           <p>Current price : </p>
           <select>
             <option value="">Cola</option>
