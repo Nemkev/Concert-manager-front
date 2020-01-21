@@ -17,7 +17,6 @@ export const User = () => {
       variables: { userId: data && data.auth.id, limit, skip }
     }
   );
-  console.log(userData);
   if (loading) return <p>Loading ...</p>;
   return (
     <>

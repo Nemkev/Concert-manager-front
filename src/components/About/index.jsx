@@ -15,7 +15,6 @@ export const About = () => {
   const [placeId, setPlaceId] = useState("");
   const [placeRow, setPlaceRow] = useState();
   const [arrBookedPlaces, setArrBookedPlaces] = useState([]);
-  //{ id: placeSchema[i][k].id, column: i, row: k }
   const [placeColumn, setPlaceColumn] = useState();
   const [placeSchema, setPlaceSchema] = useState({});
   const [bookedPlaces, setBookedPlaces] = useState([]);
@@ -88,7 +87,7 @@ export const About = () => {
   socket.on("updateSchema", data => {
     setPlaceSchema(data);
   });
-  console.log(arrBookedPlaces);
+
   return (
     <div className="about-overlap">
       <button onClick={() => socket.emit("updateSchema", placeSchema)}>
