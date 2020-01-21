@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Countdown from "react-countdown-now";
 import { AUTH } from "../../query/AUTH";
+import { LIST_OF_ADDITIONAL } from "../../query/GET_ADDITIONAL";
 import { useQuery } from "@apollo/react-hooks";
 import Modal from "react-modal";
 import io from "socket.io-client";
@@ -15,15 +16,23 @@ export const About = () => {
   const [placeId, setPlaceId] = useState("");
   const [placeRow, setPlaceRow] = useState();
   const [arrBookedPlaces, setArrBookedPlaces] = useState([]);
-  //{ id: placeSchema[i][k].id, column: i, row: k }
   const [placeColumn, setPlaceColumn] = useState();
+  const [additionalArr, setAdditionalArr] = useState([]);
   const [placeSchema, setPlaceSchema] = useState({});
   const [bookedPlaces, setBookedPlaces] = useState([]);
   const [modalStateBooking, setModalStateBooking] = useState(false);
   const queryUrl = window.location.href.split("/about/");
   const { loading, error, data } = useQuery(AUTH);
-  const time = Date.now() + 5000;
+  const time = Date.now() + 1000 * 60 * 15;
 
+  const { loading: loadingAdditional, data: additionalData } = useQuery(
+    LIST_OF_ADDITIONAL,
+    {
+      variables: { name: "", limit: 0, skip: 0 }
+    }
+  );
+
+  console.log(additionalData);
   useEffect(() => {
     const fetchData = async () => {
       const concertData = await axios.get(
@@ -58,6 +67,13 @@ export const About = () => {
           bookedPlaces
         }
       );
+      const bindAdditionalToTicket = await axios.put(
+        `http://localhost:8080/ticket`,
+        {
+          bookedPlaces,
+          additionalArr
+        }
+      );
     };
     fetchData();
   };
@@ -88,7 +104,7 @@ export const About = () => {
   socket.on("updateSchema", data => {
     setPlaceSchema(data);
   });
-  console.log(arrBookedPlaces);
+
   return (
     <div className="about-overlap">
       <button onClick={() => socket.emit("updateSchema", placeSchema)}>
@@ -102,9 +118,33 @@ export const About = () => {
       >
         Book
       </button>
-      <Modal isOpen={modalStateBooking} ariaHideApp={false}>
+      <Modal
+        isOpen={modalStateBooking}
+        ariaHideApp={false}
+        className="Modal"
+        overlayClassName="Overlay"
+      >
         <form>
           <Countdown date={time} renderer={renderer} />
+          {loadingAdditional ? (
+            <p>Loading ...</p>
+          ) : (
+            <>
+              <select>
+                {additionalData.getAdditions.map(item => (
+                  <option
+                    key={String(item.id)}
+                    onClick={e => {
+                      e.preventDefault();
+                      setAdditionalArr(state => [...state, item.id]);
+                    }}
+                  >
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
           <button
             onClick={e => {
               e.preventDefault();

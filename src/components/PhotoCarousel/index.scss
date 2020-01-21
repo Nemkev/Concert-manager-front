@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
 
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .slider {
   position: absolute;
   height: 100%;
@@ -19,6 +28,11 @@
   padding: 5px;
   box-shadow: 0 0 30px rgba(226, 209, 209, 0.795);
   border-radius: 1.5%;
+  opacity: 0;
+  transition: 1s;
+  animation: show 1s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
 }
 
 .description {
@@ -30,6 +44,11 @@
   box-shadow: 0 0 30px rgb(226, 209, 209);
   border-radius: 1.5%;
   font-family: "Nanum Gothic", sans-serif;
+  opacity: 0;
+  transition: 1s;
+  animation: show 1s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
 }
 
 .concert-info-wrapper {
@@ -45,6 +64,11 @@
   right: 20px;
   font-family: "Nanum Gothic", sans-serif;
   cursor: pointer;
+  opacity: 0;
+  transition: 1s;
+  animation: show 1s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
 }
 
 .button-decoration {
