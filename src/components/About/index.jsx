@@ -14,13 +14,15 @@ export const About = () => {
   const [description, setDescription] = useState({});
   const [placeId, setPlaceId] = useState("");
   const [placeRow, setPlaceRow] = useState();
+  const [arrBookedPlaces, setArrBookedPlaces] = useState([]);
+  //{ id: placeSchema[i][k].id, column: i, row: k }
   const [placeColumn, setPlaceColumn] = useState();
   const [placeSchema, setPlaceSchema] = useState({});
   const [bookedPlaces, setBookedPlaces] = useState([]);
   const [modalStateBooking, setModalStateBooking] = useState(false);
   const queryUrl = window.location.href.split("/about/");
   const { loading, error, data } = useQuery(AUTH);
-  const time = Date.now() + 1000 * 60 * 15;
+  const time = Date.now() + 5000;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,8 +38,7 @@ export const About = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = () => {
     const fetchData = async () => {
       const concertData = await axios.get(
         `http://localhost:8080/about/${queryUrl[1]}`
@@ -68,7 +69,12 @@ export const About = () => {
   const renderer = ({ minutes, seconds, completed }) => {
     if (completed) {
       setModalStateBooking(false);
-      placeSchema[placeColumn][placeRow].booked = false;
+      for (let i = 0; i < arrBookedPlaces.length; i++) {
+        placeSchema[arrBookedPlaces[i].column][
+          arrBookedPlaces[i].row
+        ].booked = false;
+      }
+
       socket.emit("updateSchema", placeSchema);
       return <Completionist />;
     } else {
@@ -82,6 +88,7 @@ export const About = () => {
   socket.on("updateSchema", data => {
     setPlaceSchema(data);
   });
+  console.log(arrBookedPlaces);
   return (
     <div className="about-overlap">
       <button onClick={() => socket.emit("updateSchema", placeSchema)}>
@@ -98,17 +105,24 @@ export const About = () => {
       <Modal isOpen={modalStateBooking} ariaHideApp={false}>
         <form>
           <Countdown date={time} renderer={renderer} />
-          <p>Current price : </p>
-          <select>
-            <option value="">Cola</option>
-            <option value="">Sprite</option>
-          </select>
-          <button onClick={handleSubmit}>Book this place</button>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              handleSubmit();
+              setModalStateBooking(false);
+            }}
+          >
+            Book this place
+          </button>
           <button
             onClick={e => {
               e.preventDefault();
               setModalStateBooking(false);
-              placeSchema[placeColumn][placeRow].booked = false;
+              for (let i = 0; i < arrBookedPlaces.length; i++) {
+                placeSchema[arrBookedPlaces[i].column][
+                  arrBookedPlaces[i].row
+                ].booked = false;
+              }
               socket.emit("updateSchema", placeSchema);
             }}
           >
@@ -137,8 +151,15 @@ export const About = () => {
                       setPlaceColumn(i);
                       setPlaceRow(k);
                       socket.emit("updateSchema", placeSchema);
+                      setBookedPlaces(state => [
+                        ...state,
+                        placeSchema[i][k].id
+                      ]);
+                      setArrBookedPlaces(state => [
+                        ...state,
+                        { id: placeSchema[i][k].id, column: i, row: k }
+                      ]);
                     }
-                    setBookedPlaces(state => [...state, placeSchema[i][k].id]);
                   }}
                   style={{
                     width: 20,

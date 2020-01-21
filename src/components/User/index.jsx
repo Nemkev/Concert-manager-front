@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { AUTH } from "../../query/AUTH";
+import { GET_USER_TICKETS } from "../../query/GET_USER_TICKETS";
 import { useQuery } from "@apollo/react-hooks";
 
 import UserImage from "../../assets/4.jpg";
 import "./index.scss";
 
 export const User = () => {
-  const { loading, error, data } = useQuery(AUTH);
+  const { loading, data } = useQuery(AUTH);
+  const [skip, setSkip] = useState(0);
+  const [limit] = useState(8);
+  const { loading: loadingUserData, data: userData } = useQuery(
+    GET_USER_TICKETS,
+    {
+      variables: { userId: data && data.auth.id, limit, skip }
+    }
+  );
+  console.log(userData);
   if (loading) return <p>Loading ...</p>;
   return (
     <>
@@ -15,83 +25,42 @@ export const User = () => {
       <main className="user-page">
         <div className="tickets-list">
           <ul>
-            <li className="ticket-item">
-              <div className="item-description">
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
-            <li className="ticket-item">
-              <div>
-                <p>Name of Concert</p>
-                <p>date</p>
-                <p>status</p>
-              </div>
-            </li>
+            {loadingUserData ? (
+              <p>Loading...</p>
+            ) : (
+              <>
+                {userData.getUserTickets.map(ticket => (
+                  <li className="ticket-item">
+                    <div className="item-description">
+                      <p>{ticket.concertId.name}</p>
+                      <p>{ticket.concertId.date}</p>
+                      <p>{ticket.concertId.price}</p>
+                    </div>
+                  </li>
+                ))}
+                {skip !== 0 && (
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      setSkip(skip - limit);
+                    }}
+                  >
+                    Get back
+                  </button>
+                )}
+
+                {!loadingUserData && userData.getUserTickets.length >= limit && (
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      setSkip(skip + limit);
+                    }}
+                  >
+                    Show more
+                  </button>
+                )}
+              </>
+            )}
           </ul>
         </div>
         <div className="user-info">
@@ -99,7 +68,6 @@ export const User = () => {
           <div className="user-description">
             <p className="user-info-item">{data.auth.firstName}</p>
             <p className="user-info-item">{data.auth.lastName}</p>
-            <p className="user-info-item">Rating</p>
           </div>
         </div>
       </main>
