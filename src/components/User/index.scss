@@ -1,14 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Anton&display=swap");
 
-@keyframes show {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 .user-page {
   font-family: "Anton", sans-serif;
   display: flex;
@@ -33,12 +24,6 @@
   border: 2px black solid;
   padding: 7px;
   background: #fff;
-  box-shadow: 0 0 30px rgb(54, 48, 48);
-  opacity: 0;
-  transition: 1s;
-  animation: show 1s 1;
-  animation-fill-mode: forwards;
-  animation-delay: 0.7s;
 
   .user-info-item {
     padding-bottom: 10px;
@@ -47,24 +32,15 @@
 
 .tickets-list {
   display: flex;
-  flex-direction: column;
-  margin-left: 60px;
-  margin-top: 10px;
+  margin-left: 30px;
   border: 2px black solid;
   padding: 7px;
-  opacity: 0;
-  transition: 1s;
-  animation: show 1s 1;
-  animation-fill-mode: forwards;
-  animation-delay: 0.5s;
   background: #fff;
-  box-shadow: 0 0 30px rgb(54, 48, 48);
 
   .ticket-item {
     display: flex;
     list-style-type: none;
     padding-bottom: 10px;
-    padding-top: 10px;
     border-bottom: 2px black dotted;
     max-width: 650px;
     overflow: hidden;
@@ -76,27 +52,14 @@
   }
 }
 
-.button-search-zone {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.user-item-data {
-  margin-top: 5px;
-}
-
-.ticket-list-update-button {
-  margin-top: 4px;
-}
-
 @media screen and (max-width: 600px) {
   .user-page {
     flex-direction: column-reverse;
   }
   .user-info {
-    display: none;
+    margin-top: 400px;
+    margin-right: 0px;
+    margin-bottom: 10px;
   }
   .tickets-list {
     margin-left: 0px;

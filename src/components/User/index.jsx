@@ -17,54 +17,50 @@ export const User = () => {
       variables: { userId: data && data.auth.id, limit, skip }
     }
   );
+  console.log(userData);
   if (loading) return <p>Loading ...</p>;
   return (
     <>
+      {!data.auth && <Redirect to="/login" />}
       <main className="user-page">
         <div className="tickets-list">
           <ul>
-            <div className="button-search-zone">
-              {loadingUserData ? (
-                <p>Loading...</p>
-              ) : (
-                <>
-                  {userData.getUserTickets.map(ticket => (
-                    <li className="ticket-item">
-                      <div className="item-description">
-                        <p className="user-item-data">
-                          Concert: {ticket.concertId.name}
-                        </p>
-                        <p className="user-item-data">
-                          Date: {ticket.concertId.date}
-                        </p>
-                        <p className="user-item-data">
-                          Price: {ticket.concertId.price}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                  {skip !== 0 && (
-                    <span
-                      className="fas fa-backward ticket-list-update-button"
-                      onClick={e => {
-                        e.preventDefault();
-                        setSkip(skip - limit);
-                      }}
-                    />
-                  )}
+            {loadingUserData ? (
+              <p>Loading...</p>
+            ) : (
+              <>
+                {userData.getUserTickets.map(ticket => (
+                  <li className="ticket-item">
+                    <div className="item-description">
+                      <p>{ticket.concertId.name}</p>
+                      <p>{ticket.concertId.date}</p>
+                      <p>{ticket.concertId.price}</p>
+                    </div>
+                  </li>
+                ))}
+                {skip !== 0 && (
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      setSkip(skip - limit);
+                    }}
+                  >
+                    Get back
+                  </button>
+                )}
 
-                  {!loadingUserData && userData.getUserTickets.length >= limit && (
-                    <span
-                      className="fas fa-forward ticket-list-update-button"
-                      onClick={e => {
-                        e.preventDefault();
-                        setSkip(skip + limit);
-                      }}
-                    />
-                  )}
-                </>
-              )}
-            </div>
+                {!loadingUserData && userData.getUserTickets.length >= limit && (
+                  <button
+                    onClick={e => {
+                      e.preventDefault();
+                      setSkip(skip + limit);
+                    }}
+                  >
+                    Show more
+                  </button>
+                )}
+              </>
+            )}
           </ul>
         </div>
         <div className="user-info">
