@@ -33,6 +33,7 @@
 }
 
 .place-schema-booking {
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,10 +43,11 @@
   animation: show 1s 1;
   animation-fill-mode: forwards;
   animation-delay: 0.5s;
+  border: 5px solid white;
 }
 
 .square-schema {
-  box-shadow: 0 0 30px rgb(90, 80, 80);
+  margin: 4px;
 }
 
 .concert-description {
@@ -73,10 +75,10 @@
   background-color: #f5f5fa;
   border: 1px solid orange;
   border-radius: 3%;
-  top: 100px;
-  left: 100px;
-  right: 100px;
-  bottom: 100px;
+  top: 200px;
+  left: 350px;
+  right: 350px;
+  bottom: 200px;
   opacity: 0;
   transition: 1s;
   animation: show 1s 1;
@@ -86,6 +88,8 @@
 
 .booking-button-schema {
   margin-top: 20px;
+  width: 200px;
+  text-align: center;
   color: black;
   padding: 7px;
   border: 2px solid black;
@@ -94,14 +98,23 @@
   cursor: pointer;
   &:hover {
     transition: 0.3s;
-    border-color: #ff8b38;
-    color: #ff8b38;
+    border-color: #4cd3aa;
+    color: #4cd3aa;
   }
   &:not(:hover) {
     transition: 0.3s;
     border-color: black;
     color: black;
   }
+}
+
+.description-title {
+  font-size: 1.4em;
+  line-height: 2;
+}
+
+.concert-current-description {
+  line-height: 1.4;
 }
 
 .Overlay {
@@ -112,10 +125,34 @@
   bottom: 0;
 }
 
+.booking-description-zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+  opacity: 0;
+  transition: 1s;
+  animation: show 1s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
 @media screen and (max-width: 415px) {
   .user-attention-zone {
     flex-direction: column-reverse;
     width: 100vw;
+  }
+
+  .Modal {
+    top: 100px;
+    left: 50px;
+    right: 50px;
+    bottom: 100px;
+  }
+
+  .booking-description-zone {
+    margin-left: 0px;
   }
 
   .concert-description {
@@ -124,10 +161,5 @@
   }
 }
 
-.booking-description-zone {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-left: 100px;
+.booking-form {
 }

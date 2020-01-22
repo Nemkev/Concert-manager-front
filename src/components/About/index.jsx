@@ -114,7 +114,7 @@ export const About = () => {
           className="Modal"
           overlayClassName="Overlay"
         >
-          <form>
+          <form className="booking-form">
             <Countdown date={time} renderer={renderer} />
             {loadingAdditional ? (
               <p>Loading ...</p>
@@ -197,11 +197,12 @@ export const About = () => {
                       height: 20,
                       backgroundColor:
                         placeSchema[i][k] === 0
-                          ? "gray"
+                          ? "#f5f5fa"
                           : !placeSchema[i][k].booked
-                          ? "green"
-                          : placeSchema[i][k].booked && "blue",
-                      border: "solid 1px black"
+                          ? "#4cd3aa"
+                          : placeSchema[i][k].booked && "#989898",
+                      border: "solid 3px white",
+                      boxSizing: "border-box"
                     }}
                   />
                 ))
@@ -211,8 +212,12 @@ export const About = () => {
         </div>
         <div className="booking-description-zone">
           <div className="concert-description">
-            <p>Description:</p>
-            {description.concert && <p>{description.concert.description}</p>}
+            <p className="description-title">Description:</p>
+            {description.concert && (
+              <p className="concert-current-description">
+                {description.concert.description}
+              </p>
+            )}
           </div>
           <div className="booking-button-schema">
             <span
