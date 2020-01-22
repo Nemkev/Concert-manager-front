@@ -78,7 +78,6 @@
   max-height: 320px;
   background-color: #f5f5fa00;
   padding: 10px 5px 10px 20px;
-  box-shadow: 0 0 30px rgb(90, 80, 80);
   border-radius: 3%;
   opacity: 0;
   transition: 1s;
@@ -185,4 +184,19 @@
 }
 
 .booking-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-modal-button {
+  float: right;
+  color: black;
+  font-size: 34px;
+  line-height: 20px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
