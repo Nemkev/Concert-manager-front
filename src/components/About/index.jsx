@@ -107,119 +107,124 @@ export const About = () => {
 
   return (
     <div className="about-overlap">
-      <button onClick={() => socket.emit("updateSchema", placeSchema)}>
-        +
-      </button>
-      <button
-        onClick={() => {
-          socket.emit("updateSchema", placeSchema);
-          setModalStateBooking(true);
-        }}
-      >
-        Book
-      </button>
-      <Modal
-        isOpen={modalStateBooking}
-        ariaHideApp={false}
-        className="Modal"
-        overlayClassName="Overlay"
-      >
-        <form>
-          <Countdown date={time} renderer={renderer} />
-          {loadingAdditional ? (
-            <p>Loading ...</p>
-          ) : (
-            <>
-              <select>
-                {additionalData.getAdditions.map(item => (
-                  <option
-                    key={String(item.id)}
-                    onClick={e => {
-                      e.preventDefault();
-                      setAdditionalArr(state => [...state, item.id]);
-                    }}
-                  >
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </>
-          )}
-          <button
-            onClick={e => {
-              e.preventDefault();
-              handleSubmit();
-              setModalStateBooking(false);
-            }}
-          >
-            Book this place
-          </button>
-          <button
-            onClick={e => {
-              e.preventDefault();
-              setModalStateBooking(false);
-              for (let i = 0; i < arrBookedPlaces.length; i++) {
-                placeSchema[arrBookedPlaces[i].column][
-                  arrBookedPlaces[i].row
-                ].booked = false;
-              }
-              socket.emit("updateSchema", placeSchema);
-            }}
-          >
-            Close
-          </button>
-        </form>
-      </Modal>
-      <div className="place-schema-booking">
-        {placeSchema[0] && (
-          <div
-            style={{
-              display: "grid",
-              justifyContent: "center",
-              gridTemplateColumns: `repeat(${columns},20px)`
-            }}
-          >
-            {placeSchema.map((rowsArr, i) =>
-              rowsArr.map((_, k) => (
-                <div
-                  key={`${i}-${k}`}
-                  onClick={() => {
-                    setPlaceId(placeSchema[i][k].id);
-                    setPlaceSchema(placeSchema);
-                    if (!placeSchema[i][k].booked) {
-                      placeSchema[i][k].booked = true;
-                      setPlaceColumn(i);
-                      setPlaceRow(k);
-                      socket.emit("updateSchema", placeSchema);
-                      setBookedPlaces(state => [
-                        ...state,
-                        placeSchema[i][k].id
-                      ]);
-                      setArrBookedPlaces(state => [
-                        ...state,
-                        { id: placeSchema[i][k].id, column: i, row: k }
-                      ]);
-                    }
-                  }}
-                  style={{
-                    width: 20,
-                    height: 20,
-                    backgroundColor:
-                      placeSchema[i][k] === 0
-                        ? "gray"
-                        : !placeSchema[i][k].booked
-                        ? "green"
-                        : placeSchema[i][k].booked && "blue",
-                    border: "solid 1px black"
-                  }}
-                />
-              ))
+      <div className="user-attention-zone">
+        <Modal
+          isOpen={modalStateBooking}
+          ariaHideApp={false}
+          className="Modal"
+          overlayClassName="Overlay"
+        >
+          <form>
+            <Countdown date={time} renderer={renderer} />
+            {loadingAdditional ? (
+              <p>Loading ...</p>
+            ) : (
+              <>
+                <select>
+                  {additionalData.getAdditions.map(item => (
+                    <option
+                      key={String(item.id)}
+                      onClick={e => {
+                        e.preventDefault();
+                        setAdditionalArr(state => [...state, item.id]);
+                      }}
+                    >
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </>
             )}
+            <button
+              onClick={e => {
+                e.preventDefault();
+                handleSubmit();
+                setModalStateBooking(false);
+              }}
+            >
+              Book this place
+            </button>
+            <button
+              onClick={e => {
+                e.preventDefault();
+                setModalStateBooking(false);
+                for (let i = 0; i < arrBookedPlaces.length; i++) {
+                  placeSchema[arrBookedPlaces[i].column][
+                    arrBookedPlaces[i].row
+                  ].booked = false;
+                }
+                socket.emit("updateSchema", placeSchema);
+              }}
+            >
+              Close
+            </button>
+          </form>
+        </Modal>
+        <div className="place-schema-booking">
+          {placeSchema[0] && (
+            <div
+              className="square-schema"
+              style={{
+                display: "grid",
+                justifyContent: "center",
+                gridTemplateColumns: `repeat(${columns},20px)`
+              }}
+            >
+              {placeSchema.map((rowsArr, i) =>
+                rowsArr.map((_, k) => (
+                  <div
+                    key={`${i}-${k}`}
+                    onClick={() => {
+                      setPlaceId(placeSchema[i][k].id);
+                      setPlaceSchema(placeSchema);
+                      if (!placeSchema[i][k].booked) {
+                        placeSchema[i][k].booked = true;
+                        setPlaceColumn(i);
+                        setPlaceRow(k);
+                        socket.emit("updateSchema", placeSchema);
+                        setBookedPlaces(state => [
+                          ...state,
+                          placeSchema[i][k].id
+                        ]);
+                        setArrBookedPlaces(state => [
+                          ...state,
+                          { id: placeSchema[i][k].id, column: i, row: k }
+                        ]);
+                      }
+                    }}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      backgroundColor:
+                        placeSchema[i][k] === 0
+                          ? "gray"
+                          : !placeSchema[i][k].booked
+                          ? "green"
+                          : placeSchema[i][k].booked && "blue",
+                      border: "solid 1px black"
+                    }}
+                  />
+                ))
+              )}
+            </div>
+          )}
+        </div>
+        <div className="booking-description-zone">
+          <div className="concert-description">
+            <p>Description:</p>
+            {description.concert && <p>{description.concert.description}</p>}
           </div>
-        )}
-      </div>
-      <div className="concert-description">
-        {description.concert && <p>{description.concert.description}</p>}
+          <div className="booking-button-schema">
+            <span
+              onClick={() => {
+                socket.emit("updateSchema", placeSchema);
+                setModalStateBooking(true);
+              }}
+            >
+              Book
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -11,16 +11,32 @@
   height: 100vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   overflow: auto;
+  background: linear-gradient(
+    0deg,
+    rgba(233, 229, 223, 1) 0%,
+    rgba(230, 230, 230, 1) 50%
+  );
+}
+
+.user-attention-zone {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  width: 70vw;
+  height: 100vh;
+  background-color: #f5f5fa;
 }
 
 .place-schema-booking {
-  overflow: auto;
-  width: 40vw;
-  height: 40vh;
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   transition: 1s;
   animation: show 1s 1;
@@ -28,13 +44,17 @@
   animation-delay: 0.5s;
 }
 
+.square-schema {
+  box-shadow: 0 0 30px rgb(90, 80, 80);
+}
+
 .concert-description {
   width: 200px;
   max-height: 320px;
-  background-color: #ffffffa6;
+  background-color: #f5f5fa00;
   padding: 10px 5px 10px 20px;
-  box-shadow: 0 0 30px rgb(226, 209, 209);
-  border-radius: 1.5%;
+  box-shadow: 0 0 30px rgb(90, 80, 80);
+  border-radius: 3%;
   opacity: 0;
   transition: 1s;
   animation: show 1s 1;
@@ -64,10 +84,50 @@
   animation-delay: 0.5s;
 }
 
+.booking-button-schema {
+  margin-top: 20px;
+  color: black;
+  padding: 7px;
+  border: 2px solid black;
+  background: #f5f5fa;
+  font-size: 25px;
+  cursor: pointer;
+  &:hover {
+    transition: 0.3s;
+    border-color: #ff8b38;
+    color: #ff8b38;
+  }
+  &:not(:hover) {
+    transition: 0.3s;
+    border-color: black;
+    color: black;
+  }
+}
+
 .Overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+@media screen and (max-width: 415px) {
+  .user-attention-zone {
+    flex-direction: column-reverse;
+    width: 100vw;
+  }
+
+  .concert-description {
+    margin-left: 0;
+    margin-bottom: 30px;
+  }
+}
+
+.booking-description-zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
 }
