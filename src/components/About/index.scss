@@ -32,6 +32,29 @@
   background-color: #f5f5fa;
 }
 
+.square-booked {
+  width: 15px;
+  height: 15px;
+  background: #989898;
+  margin-right: 5px;
+  margin-left: 20px;
+}
+
+.square-free {
+  width: 15px;
+  height: 15px;
+  background: #4cd3aa;
+  margin-right: 5px;
+}
+
+.legend-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 10px 0px;
+}
+
 .place-schema-booking {
   margin-top: 15px;
   display: flex;

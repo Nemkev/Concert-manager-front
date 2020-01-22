@@ -161,6 +161,12 @@ export const About = () => {
           </form>
         </Modal>
         <div className="place-schema-booking">
+          <div className="legend-zone">
+            <p className="square-free"></p>
+            <p>Available</p>
+            <p className="square-booked"></p>
+            <p>Disable</p>
+          </div>
           {placeSchema[0] && (
             <div
               className="square-schema"
