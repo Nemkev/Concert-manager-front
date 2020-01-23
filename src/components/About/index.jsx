@@ -114,7 +114,18 @@ export const About = () => {
           className="Modal"
           overlayClassName="Overlay"
         >
-          <form className="booking-form">
+          <form
+            className="booking-form"
+            onSubmit={e => {
+              for (let i = 0; i < arrBookedPlaces.length; i++) {
+                placeSchema[arrBookedPlaces[i].column][
+                  arrBookedPlaces[i].row
+                ].price += additionalPrice;
+              }
+              handleSubmit();
+              setModalStateBooking(false);
+            }}
+          >
             <Countdown date={time} renderer={renderer} />
             <span
               className="fas fa-times close-modal-button"
@@ -153,20 +164,7 @@ export const About = () => {
                 </select>
               </>
             )}
-            <button
-              onClick={e => {
-                e.preventDefault();
-                for (let i = 0; i < arrBookedPlaces.length; i++) {
-                  placeSchema[arrBookedPlaces[i].column][
-                    arrBookedPlaces[i].row
-                  ].price += additionalPrice;
-                }
-                handleSubmit();
-                setModalStateBooking(false);
-              }}
-            >
-              Book this place
-            </button>
+            <button type="submit">Book this place</button>
           </form>
         </Modal>
         <div className="place-schema-booking">
@@ -212,12 +210,13 @@ export const About = () => {
                       height: 20,
                       backgroundColor:
                         placeSchema[i][k] === 0
-                          ? "#f5f5fa"
+                          ? "#DFDFDF"
                           : !placeSchema[i][k].booked
-                          ? "#4cd3aa"
-                          : placeSchema[i][k].booked && "#989898",
+                          ? "#4CD3AB"
+                          : placeSchema[i][k].booked && "#999999",
                       border: "solid 3px white",
-                      boxSizing: "border-box"
+                      boxSizing: "border-box",
+                      borderRadius: "30%"
                     }}
                   />
                 ))

@@ -38,6 +38,7 @@
   background: #989898;
   margin-right: 5px;
   margin-left: 20px;
+  border-radius: 30%;
 }
 
 .square-free {
@@ -45,6 +46,7 @@
   height: 15px;
   background: #4cd3aa;
   margin-right: 5px;
+  border-radius: 30%;
 }
 
 .legend-zone {
@@ -77,7 +79,6 @@
   width: 200px;
   max-height: 320px;
   background-color: #f5f5fa00;
-  padding: 10px 5px 10px 20px;
   border-radius: 3%;
   opacity: 0;
   transition: 1s;
@@ -113,7 +114,8 @@
   width: 200px;
   text-align: center;
   color: black;
-  padding: 7px;
+  padding-top: 7px;
+  padding-bottom: 7px;
   border: 2px solid black;
   background: #f5f5fa;
   font-size: 25px;
@@ -158,6 +160,57 @@
   animation: show 1s 1;
   animation-fill-mode: forwards;
   animation-delay: 0.5s;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #2c3e50;
+  background-image: none;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: #2c3e50;
+  overflow: hidden;
+  border-radius: 0.25em;
+}
+select {
+  flex: 1;
+  padding: 0 0.5em;
+  color: #fff;
+  cursor: pointer;
+}
+/* Arrow */
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: #34495e;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: 0.25s all ease;
+  -o-transition: 0.25s all ease;
+  transition: 0.25s all ease;
+}
+/* Transition */
+.select:hover::after {
+  color: #f39c12;
 }
 
 @media screen and (max-width: 415px) {
