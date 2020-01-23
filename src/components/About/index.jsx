@@ -126,7 +126,9 @@ export const About = () => {
               setModalStateBooking(false);
             }}
           >
-            <Countdown date={time} renderer={renderer} />
+            <div className="timer-block">
+              <Countdown date={time} renderer={renderer} />
+            </div>
             <span
               className="fas fa-times close-modal-button"
               onClick={e => {
@@ -145,7 +147,7 @@ export const About = () => {
               <p>Loading ...</p>
             ) : (
               <>
-                <select>
+                <select className="select">
                   <option selected disabled hidden>
                     Choose additional
                   </option>
@@ -164,65 +166,72 @@ export const About = () => {
                 </select>
               </>
             )}
-            <button type="submit">Book this place</button>
+            <button type="submit" className="submit-room-booking-button">
+              Book this place
+            </button>
           </form>
         </Modal>
-        <div className="place-schema-booking">
-          <div className="legend-zone">
-            <p className="square-free"></p>
-            <p>Available</p>
-            <p className="square-booked"></p>
-            <p>Disable</p>
-          </div>
-          {placeSchema[0] && (
-            <div
-              className="square-schema"
-              style={{
-                display: "grid",
-                justifyContent: "center",
-                gridTemplateColumns: `repeat(${columns},20px)`
-              }}
-            >
-              {placeSchema.map((rowsArr, i) =>
-                rowsArr.map((_, k) => (
-                  <div
-                    key={`${i}-${k}`}
-                    onClick={() => {
-                      setPlaceId(placeSchema[i][k].id);
-                      setPlaceSchema(placeSchema);
-                      if (!placeSchema[i][k].booked) {
-                        placeSchema[i][k].booked = true;
-                        setPlaceColumn(i);
-                        setPlaceRow(k);
-                        socket.emit("updateSchema", placeSchema);
-                        setBookedPlaces(state => [
-                          ...state,
-                          placeSchema[i][k].id
-                        ]);
-                        setArrBookedPlaces(state => [
-                          ...state,
-                          { id: placeSchema[i][k].id, column: i, row: k }
-                        ]);
-                      }
-                    }}
-                    style={{
-                      width: 20,
-                      height: 20,
-                      backgroundColor:
-                        placeSchema[i][k] === 0
-                          ? "#DFDFDF"
-                          : !placeSchema[i][k].booked
-                          ? "#4CD3AB"
-                          : placeSchema[i][k].booked && "#999999",
-                      border: "solid 3px white",
-                      boxSizing: "border-box",
-                      borderRadius: "30%"
-                    }}
-                  />
-                ))
-              )}
-            </div>
+        <div className="concert-place-view">
+          {description.concert && (
+            <h2 className="current-concert-name">{description.concert.name}</h2>
           )}
+          <div className="place-schema-booking">
+            <div className="legend-zone">
+              <p className="square-free"></p>
+              <p>Available</p>
+              <p className="square-booked"></p>
+              <p>Disable</p>
+            </div>
+            {placeSchema[0] && (
+              <div
+                className="square-schema"
+                style={{
+                  display: "grid",
+                  justifyContent: "center",
+                  gridTemplateColumns: `repeat(${columns},20px)`
+                }}
+              >
+                {placeSchema.map((rowsArr, i) =>
+                  rowsArr.map((_, k) => (
+                    <div
+                      key={`${i}-${k}`}
+                      onClick={() => {
+                        setPlaceId(placeSchema[i][k].id);
+                        setPlaceSchema(placeSchema);
+                        if (!placeSchema[i][k].booked) {
+                          placeSchema[i][k].booked = true;
+                          setPlaceColumn(i);
+                          setPlaceRow(k);
+                          socket.emit("updateSchema", placeSchema);
+                          setBookedPlaces(state => [
+                            ...state,
+                            placeSchema[i][k].id
+                          ]);
+                          setArrBookedPlaces(state => [
+                            ...state,
+                            { id: placeSchema[i][k].id, column: i, row: k }
+                          ]);
+                        }
+                      }}
+                      style={{
+                        width: 20,
+                        height: 20,
+                        backgroundColor:
+                          placeSchema[i][k] === 0
+                            ? "#DFDFDF"
+                            : !placeSchema[i][k].booked
+                            ? "#4CD3AB"
+                            : placeSchema[i][k].booked && "#999999",
+                        border: "solid 3px white",
+                        boxSizing: "border-box",
+                        borderRadius: "30%"
+                      }}
+                    />
+                  ))
+                )}
+              </div>
+            )}
+          </div>
         </div>
         <div className="booking-description-zone">
           <div className="concert-description">
