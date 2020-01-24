@@ -74,13 +74,14 @@ export const Concerts = () => {
     <div className="overlap">
       <div className="filter-zone">
         <input
+          placeholder="Search"
           type="text"
           name="concerts"
           onChange={e => {
             debouncedCallback(e.target.value);
             setSkip(0);
           }}
-          className="filter-input"
+          className="filter-input-concerts"
         />
       </div>
       <div className="select-bar">
@@ -88,7 +89,7 @@ export const Concerts = () => {
           <p>Loading ...</p>
         ) : (
           <select
-            className="city-select"
+            className="city-select select-concerts"
             name="city"
             value={city}
             onChange={handleChange}
@@ -104,7 +105,7 @@ export const Concerts = () => {
           <p>Loading ...</p>
         ) : (
           <select
-            className="date-select"
+            className="date-select select-concerts"
             name="date"
             value={date}
             onChange={handleChange}
