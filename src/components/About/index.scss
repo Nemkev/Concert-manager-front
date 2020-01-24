@@ -11,30 +11,75 @@
   height: 100vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   overflow: auto;
+  background: linear-gradient(
+    0deg,
+    rgb(238, 236, 233) 0%,
+    rgb(245, 244, 244) 50%
+  );
+}
+
+.user-attention-zone {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  width: 70vw;
+  height: 100vh;
+  background-color: #e5e5e5;
+}
+
+.square-booked {
+  width: 15px;
+  height: 15px;
+  background: #989898;
+  margin-right: 5px;
+  margin-left: 20px;
+  border-radius: 30%;
+}
+
+.square-free {
+  width: 15px;
+  height: 15px;
+  background: #4cd3aa;
+  margin-right: 5px;
+  border-radius: 30%;
+}
+
+.legend-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 10px 0px;
 }
 
 .place-schema-booking {
-  overflow: auto;
-  width: 40vw;
-  height: 40vh;
-  border: 1px solid black;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   transition: 1s;
   animation: show 1s 1;
   animation-fill-mode: forwards;
   animation-delay: 0.5s;
+  border: 5px solid white;
+}
+
+.square-schema {
+  margin: 4px;
 }
 
 .concert-description {
   width: 200px;
   max-height: 320px;
-  background-color: #ffffffa6;
-  padding: 10px 5px 10px 20px;
-  box-shadow: 0 0 30px rgb(226, 209, 209);
-  border-radius: 1.5%;
+  background-color: #f5f5fa00;
+  border-radius: 3%;
   opacity: 0;
   transition: 1s;
   animation: show 1s 1;
@@ -51,17 +96,48 @@
   outline: none;
   z-index: 4;
   background-color: #f5f5fa;
-  border: 1px solid orange;
+  border: 1px solid #4cd3aa;
   border-radius: 3%;
-  top: 100px;
-  left: 100px;
-  right: 100px;
-  bottom: 100px;
+  top: 200px;
+  left: 350px;
+  right: 350px;
+  bottom: 200px;
   opacity: 0;
-  transition: 1s;
-  animation: show 1s 1;
+  transition: 0.5s;
+  animation: show 0.5s 1;
   animation-fill-mode: forwards;
-  animation-delay: 0.5s;
+}
+
+.booking-button-schema {
+  margin-top: 20px;
+  width: 200px;
+  text-align: center;
+  color: black;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border: 2px solid black;
+  background: #f5f5fa;
+  font-size: 25px;
+  cursor: pointer;
+  &:hover {
+    transition: 0.3s;
+    border-color: #4cd3aa;
+    color: #4cd3aa;
+  }
+  &:not(:hover) {
+    transition: 0.3s;
+    border-color: black;
+    color: black;
+  }
+}
+
+.description-title {
+  font-size: 1.4em;
+  line-height: 2;
+}
+
+.concert-current-description {
+  line-height: 1.4;
 }
 
 .Overlay {
@@ -70,4 +146,136 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.booking-description-zone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+  opacity: 0;
+  transition: 1s;
+  animation: show 1s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
+select {
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #36414d;
+  background-image: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0 0.5em;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.current-concert-name {
+  text-align: center;
+  font-size: 2em;
+}
+
+.select {
+  outline: none;
+  position: relative;
+  display: flex;
+  width: 250px;
+  height: 3em;
+  line-height: 3;
+  background: #4cd3aa;
+  overflow: hidden;
+  border-radius: 0.25em;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 415px) {
+  .user-attention-zone {
+    flex-direction: column-reverse;
+    width: 100vw;
+  }
+
+  .current-concert-name {
+    display: none;
+  }
+
+  .Modal {
+    top: 100px;
+    left: 50px;
+    right: 50px;
+    bottom: 100px;
+  }
+
+  .booking-description-zone {
+    margin-left: 0px;
+  }
+
+  .concert-description {
+    margin-left: 0;
+    margin-bottom: 30px;
+  }
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-modal-button {
+  float: right;
+  color: black;
+  font-size: 34px;
+  line-height: 20px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.timer-block {
+  margin-top: 30px;
+  font-size: 1.3em;
+}
+
+.concert-place-view {
+  opacity: 0;
+  transition: 1s;
+  animation: show 1s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
+.submit-room-booking-button {
+  margin-top: 30px;
+  width: 250px;
+  text-align: center;
+  color: black;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border: 2px solid black;
+  background: #f5f5fa;
+  font-size: 25px;
+  cursor: pointer;
+  &:hover {
+    transition: 0.3s;
+    border-color: #4cd3aa;
+    color: #4cd3aa;
+  }
+  &:not(:hover) {
+    transition: 0.3s;
+    border-color: black;
+    color: black;
+  }
 }
