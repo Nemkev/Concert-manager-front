@@ -123,6 +123,7 @@ export const Registration = () => {
           placeholder="email"
           className="email-input"
           type="email"
+          required
           value={email}
           name="email"
           onChange={handleChange}
@@ -133,6 +134,7 @@ export const Registration = () => {
           className="password-input"
           type="password"
           name="hashPassword"
+          required
           value={hashPassword}
           onChange={handleChange}
         />
@@ -142,6 +144,7 @@ export const Registration = () => {
           className="first-name-input"
           type="text"
           name="firstName"
+          required
           value={firstName}
           onChange={handleChange}
         />
@@ -151,6 +154,7 @@ export const Registration = () => {
           className="last-name-input"
           type="text"
           pattern="[A-Za-z]{2,}"
+          required
           name="lastName"
           value={lastName}
           onChange={handleChange}

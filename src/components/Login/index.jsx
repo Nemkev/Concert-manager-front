@@ -50,6 +50,7 @@ export const Login = () => {
           className="email-input"
           type="email"
           name="email"
+          required
           value={email}
           onChange={handleChange}
         />
@@ -58,6 +59,7 @@ export const Login = () => {
           className="password-input"
           type="password"
           name="hashPassword"
+          required
           value={hashPassword}
           onChange={handleChange}
         />
