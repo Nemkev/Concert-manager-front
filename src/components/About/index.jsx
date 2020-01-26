@@ -213,14 +213,14 @@ export const About = () => {
                     <div
                       key={`${i}-${k}`}
                       onClick={() => {
-                        setState({
-                          placeId: placeSchema[i][k].id,
-                          placeSchema
-                        });
-
-                        if (!placeSchema[i][k].booked) {
+                        if (
+                          !placeSchema[i][k].booked &&
+                          placeSchema[i][k] != 0
+                        ) {
                           placeSchema[i][k].booked = true;
                           setState({
+                            placeId: placeSchema[i][k].id,
+                            placeSchema,
                             placeColumn: i,
                             placeRow: k,
                             bookedPlaces: [
