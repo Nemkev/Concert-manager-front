@@ -35,12 +35,10 @@ export const Login = () => {
       value.includes("@") !== true
         ? setState({
             correctEmail: 'You should write "@"',
-            errorMessage: "Incorrect email",
             [name]: value
           })
         : setState({
             correctEmail: "",
-            errorMessage: "",
             [name]: value
           });
     }
@@ -48,12 +46,10 @@ export const Login = () => {
       value.length !== 8 && value.length <= 8
         ? setState({
             correctPassword: `You should write ${8 - value.length}`,
-            errorMessage: "Password too small",
             [name]: value
           })
         : setState({
             correctPassword: "",
-            errorMessage: "",
             [name]: value
           });
     }
@@ -61,6 +57,7 @@ export const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
     try {
       const { data } = await login();
       setCookies("access-token", data.login.accessToken);

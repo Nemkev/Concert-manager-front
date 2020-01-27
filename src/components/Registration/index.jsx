@@ -55,12 +55,10 @@ export const Registration = () => {
       value.length !== 8 && value.length <= 8
         ? setState({
             correctPassword: `You should write ${8 - value.length}`,
-            errorMessage: "Incorrect password",
             [name]: value
           })
         : setState({
             correctPassword: "",
-            errorMessage: "",
             [name]: value
           });
     }
@@ -68,12 +66,10 @@ export const Registration = () => {
       value.length !== 2 && value.length < 2
         ? setState({
             correctFirstName: `You should write ${2 - value.length}`,
-            errorMessage: "Incorrect first name",
             [name]: value
           })
         : setState({
             correctFirstName: "",
-            errorMessage: "",
             [name]: value
           });
     }
@@ -81,12 +77,10 @@ export const Registration = () => {
       value.length !== 2 && value.length < 2
         ? setState({
             correctLastName: `You should write ${2 - value.length}`,
-            errorMessage: "Incorrect last name",
             [name]: value
           })
         : setState({
             correctLastName: "",
-            errorMessage: "",
             [name]: value
           });
     }
