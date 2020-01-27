@@ -160,7 +160,8 @@ export const Concerts = () => {
             className="fas fa-backward"
             onClick={e => {
               e.preventDefault();
-              setSkip(skip - 3);
+              setSkip(skip - 8);
+              setLimit(limit - 8);
             }}
           />
         )}
@@ -170,7 +171,8 @@ export const Concerts = () => {
             className="fas fa-forward next"
             onClick={e => {
               e.preventDefault();
-              setSkip(skip + 3);
+              setSkip(skip + 8);
+              setLimit(limit + 8);
             }}
           />
         )}
