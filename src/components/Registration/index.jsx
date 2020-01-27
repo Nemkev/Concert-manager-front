@@ -18,7 +18,8 @@ export const Registration = () => {
       correctEmail,
       correctFirstName,
       correctLastName,
-      correctPassword
+      correctPassword,
+      errorMessage
     },
     setState
   ] = useReducer((s, a) => ({ ...s, ...a }), {
@@ -30,7 +31,8 @@ export const Registration = () => {
     correctEmail: "",
     correctFirstName: "",
     correctLastName: "",
-    correctPassword: ""
+    correctPassword: "",
+    errorMessage: ""
   });
 
   const handleChange = e => {
@@ -40,10 +42,12 @@ export const Registration = () => {
       value.includes("@") !== true
         ? setState({
             correctEmail: 'You should write "@"',
+            errorMessage: "Incorrect email",
             [name]: value
           })
         : setState({
             correctEmail: "",
+            errorMessage: "",
             [name]: value
           });
     }
@@ -51,10 +55,12 @@ export const Registration = () => {
       value.length !== 8 && value.length <= 8
         ? setState({
             correctPassword: `You should write ${8 - value.length}`,
+            errorMessage: "Incorrect password",
             [name]: value
           })
         : setState({
             correctPassword: "",
+            errorMessage: "",
             [name]: value
           });
     }
@@ -62,10 +68,12 @@ export const Registration = () => {
       value.length !== 2 && value.length < 2
         ? setState({
             correctFirstName: `You should write ${2 - value.length}`,
+            errorMessage: "Incorrect first name",
             [name]: value
           })
         : setState({
             correctFirstName: "",
+            errorMessage: "",
             [name]: value
           });
     }
@@ -73,10 +81,12 @@ export const Registration = () => {
       value.length !== 2 && value.length < 2
         ? setState({
             correctLastName: `You should write ${2 - value.length}`,
+            errorMessage: "Incorrect last name",
             [name]: value
           })
         : setState({
             correctLastName: "",
+            errorMessage: "",
             [name]: value
           });
     }
@@ -94,7 +104,6 @@ export const Registration = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     try {
       await registration();
       const { data } = await login();
@@ -105,7 +114,8 @@ export const Registration = () => {
       });
     } catch (error) {
       setState({
-        isLoged: false
+        isLoged: false,
+        errorMessage: "Please, check and input all fields"
       });
       console.log(error);
     }
@@ -128,7 +138,7 @@ export const Registration = () => {
           name="email"
           onChange={handleChange}
         />
-        {correctEmail && <p>{correctEmail}</p>}
+        {correctEmail && <p className="error-message">{correctEmail}</p>}
         <input
           placeholder="password"
           className="password-input"
@@ -138,7 +148,7 @@ export const Registration = () => {
           value={hashPassword}
           onChange={handleChange}
         />
-        {correctPassword && <p>{correctPassword}</p>}
+        {correctPassword && <p className="error-message">{correctPassword}</p>}
         <input
           placeholder="first name"
           className="first-name-input"
@@ -148,7 +158,9 @@ export const Registration = () => {
           value={firstName}
           onChange={handleChange}
         />
-        {correctFirstName && <p>{correctFirstName}</p>}
+        {correctFirstName && (
+          <p className="error-message">{correctFirstName}</p>
+        )}
         <input
           placeholder="second name"
           className="last-name-input"
@@ -159,10 +171,11 @@ export const Registration = () => {
           value={lastName}
           onChange={handleChange}
         />
-        {correctLastName && <p>{correctLastName}</p>}
+        {correctLastName && <p className="error-message">{correctLastName}</p>}
         <button className="register-button" onClick={handleSubmit}>
           Submit
         </button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
     </div>
   );
