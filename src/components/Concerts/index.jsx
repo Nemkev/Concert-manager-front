@@ -19,15 +19,16 @@ export const Concerts = () => {
   );
 
   const [skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(8);
   const [uniqCity, setUniqCity] = useState([]);
   const [uniqDate, setUniqDate] = useState([]);
-  const [limit] = useState(8);
   const [concertArr, setConcertArr] = useState([]);
   const [debouncedCallback] = useDebouncedCallback(concerts => {
     setState({ concerts });
   }, 400);
+
   const { loading, data } = useQuery(GET_FILTER, {
-    variables: { name: concerts, date, city, limit, skip }
+    variables: { name: concerts, date, city, limit: 0, skip: 0 }
   });
 
   const { loading: loadingAdditionalFilters } = useQuery(GET_FILTER, {
@@ -69,6 +70,8 @@ export const Concerts = () => {
       setUniqCity(city);
     }
   }, [data]);
+
+  console.log(skip, limit);
 
   return (
     <div className="overlap">
@@ -129,15 +132,20 @@ export const Concerts = () => {
           Clean filters
         </button>
       </div>
+
       {loading || loadingAdditionalFilters ? (
         <p>Loading ...</p>
       ) : (
         <XMasonry maxColumns={3} className="masonry">
-          {concertArr.map(item => (
-            <XBlock width={widthRandomize(3)}>
+          {concertArr.slice(skip, limit).map(item => (
+            <XBlock width={widthRandomize(1)}>
               <div className="card" key={item.id}>
-                <h2>{item.buildingName}</h2>
-                <p>{item.name}</p>
+                <div className="card-list-description">
+                  <h2 className="building-name-list-item">
+                    {item.buildingName}
+                  </h2>
+                  <p className="concert-name-list-item">{item.name}</p>
+                </div>
                 <Link className="concert-link" to={`/about/${item.id}`}>
                   About
                 </Link>
@@ -146,27 +154,27 @@ export const Concerts = () => {
           ))}
         </XMasonry>
       )}
-      {skip !== 0 && (
-        <button
-          onClick={e => {
-            e.preventDefault();
-            setSkip(skip - limit);
-          }}
-        >
-          Get back
-        </button>
-      )}
+      <div className="navigation-arrow-bar">
+        {skip !== 0 && (
+          <span
+            className="fas fa-backward"
+            onClick={e => {
+              e.preventDefault();
+              setSkip(skip - 3);
+            }}
+          />
+        )}
 
-      {!loading && data.getFilter.length >= limit && (
-        <button
-          onClick={e => {
-            e.preventDefault();
-            setSkip(skip + limit);
-          }}
-        >
-          Show more
-        </button>
-      )}
+        {!loading && data.getFilter.length >= limit && (
+          <span
+            className="fas fa-forward next"
+            onClick={e => {
+              e.preventDefault();
+              setSkip(skip + 3);
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };
