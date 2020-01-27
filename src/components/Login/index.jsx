@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 import "./index.scss";
 
 export const Login = () => {
-  const [_, setCookies] = useCookies("");
+  const [_, setCookies] = useCookies(["access-token", "refresh-token"]);
   const [
     {
       email,
