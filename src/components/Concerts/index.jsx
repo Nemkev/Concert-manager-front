@@ -13,13 +13,15 @@ const mainData = {
   concerts: ""
 };
 export const Concerts = () => {
-  const [{ city, date, concerts }, setState] = useReducer(
+  const [{ city, date, concerts, limit, skip }, setState] = useReducer(
     (s, a) => ({ ...s, ...a }),
-    mainData
+    {
+      mainData,
+      limit: 8,
+      skip: 0
+    }
   );
 
-  const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(8);
   const [uniqCity, setUniqCity] = useState([]);
   const [uniqDate, setUniqDate] = useState([]);
   const [concertArr, setConcertArr] = useState([]);
@@ -71,8 +73,6 @@ export const Concerts = () => {
     }
   }, [data]);
 
-  console.log(skip, limit);
-
   return (
     <div className="overlap">
       <div className="filter-zone">
@@ -82,7 +82,7 @@ export const Concerts = () => {
           name="concerts"
           onChange={e => {
             debouncedCallback(e.target.value);
-            setSkip(0);
+            setState({ skip: 0 });
           }}
           className="filter-input-concerts"
         />
@@ -160,8 +160,7 @@ export const Concerts = () => {
             className="fas fa-backward"
             onClick={e => {
               e.preventDefault();
-              setSkip(skip - 8);
-              setLimit(limit - 8);
+              setState({ skip: skip - 8, limit: limit - 8 });
             }}
           />
         )}
@@ -171,8 +170,7 @@ export const Concerts = () => {
             className="fas fa-forward next"
             onClick={e => {
               e.preventDefault();
-              setSkip(skip + 8);
-              setLimit(limit + 8);
+              setState({ skip: skip + 8, limit: limit + 8 });
             }}
           />
         )}

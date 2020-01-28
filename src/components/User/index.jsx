@@ -20,6 +20,7 @@ export const User = () => {
   if (loading) return <p>Loading ...</p>;
   return (
     <>
+      {!data.auth && <Redirect to="/login" />}
       <main className="user-page">
         <div className="tickets-list">
           <ul>
