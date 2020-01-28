@@ -1,4 +1,5 @@
 @import "../../mixins/input-animation.scss";
+
 @keyframes comeIn {
   0% {
     transform: scale(0);
@@ -17,12 +18,37 @@
   transition: left 0.3s ease, top 0.3s ease;
 }
 
+.next {
+  margin-left: 10px;
+}
+
+.navigation-arrow-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.building-name-list-item {
+  margin-top: 10px;
+}
+
+.concert-name-list-item {
+  margin-top: 10px;
+}
+
+.card-list-description {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card {
-  background: url(../../assets/9.jpg);
+  background: url(../../assets/14.jpg);
+  background-size: cover;
   height: 200px;
   border: solid 2px black;
   margin: 7px;
   padding: 5px;
+  color: white;
   border-radius: 3px;
   box-shadow: 0 1px 3px darkgray;
 }
@@ -35,17 +61,20 @@
 
 .concert-link {
   text-decoration: none;
-  color: black;
+  color: white;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
 }
 
-.filter-input {
+.filter-input-concerts {
   margin: 10px;
   width: 30vw;
   border: 0px;
   color: gray;
   background: #e6e6e600;
-  border-bottom: 2px solid black;
-  @include input-animation(0.3s, #e6e6e6, #ff8b38);
+  border-bottom: 3px solid #ff8b38;
+  padding-bottom: 4px;
   margin-top: 30px;
   font-size: 20px;
 }
@@ -61,36 +90,60 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
+  margin: 7px;
 }
 
 .city-select {
   appearance: none;
   background-color: white;
   border: 2px solid #e6e6e6;
-  color: gray;
+  color: black;
   margin-right: 20px;
   padding: 3px;
 }
 
-.date-select {
+select::-ms-expand {
+  display: none;
+}
+
+.select-concerts {
+  cursor: pointer;
+  padding: 0 0.5em;
+  background-image: none;
+  outline: none;
   appearance: none;
-  background-color: white;
-  border: 2px solid #e6e6e6;
-  color: gray;
-  margin-right: 20px;
-  padding: 3px;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  position: relative;
+  display: flex;
+  width: 250px;
+  height: 3em;
+  line-height: 3;
+  background: white;
+  overflow: hidden;
+  border-radius: 0.25em;
+  margin-top: 30px;
 }
 
 .clear-button {
+  border-radius: 0.25em;
+  margin-top: 30px;
   appearance: none;
+  border: 0 !important;
   background-color: white;
-  border: 2px solid #e6e6e6;
-  color: gray;
+  width: 250px;
+  height: 3em;
   padding: 4px;
+  margin-left: 20px;
+  color: black;
 }
 
 @media screen and (max-width: 415px) {
-  .filter-input {
+  .filter-input-concerts {
     width: 70vw;
+  }
+  .select-concerts {
+    text-overflow: ellipsis;
   }
 }

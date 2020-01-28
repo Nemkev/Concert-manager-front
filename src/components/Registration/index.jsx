@@ -18,7 +18,8 @@ export const Registration = () => {
       correctEmail,
       correctFirstName,
       correctLastName,
-      correctPassword
+      correctPassword,
+      errorMessage
     },
     setState
   ] = useReducer((s, a) => ({ ...s, ...a }), {
@@ -30,7 +31,8 @@ export const Registration = () => {
     correctEmail: "",
     correctFirstName: "",
     correctLastName: "",
-    correctPassword: ""
+    correctPassword: "",
+    errorMessage: ""
   });
 
   const handleChange = e => {
@@ -40,10 +42,12 @@ export const Registration = () => {
       value.includes("@") !== true
         ? setState({
             correctEmail: 'You should write "@"',
+            errorMessage: "Incorrect email",
             [name]: value
           })
         : setState({
             correctEmail: "",
+            errorMessage: "",
             [name]: value
           });
     }
@@ -94,7 +98,6 @@ export const Registration = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     try {
       await registration();
       const { data } = await login();
@@ -105,7 +108,8 @@ export const Registration = () => {
       });
     } catch (error) {
       setState({
-        isLoged: false
+        isLoged: false,
+        errorMessage: "Please, check and input all fields"
       });
       console.log(error);
     }
@@ -123,42 +127,49 @@ export const Registration = () => {
           placeholder="email"
           className="email-input"
           type="email"
+          required
           value={email}
           name="email"
           onChange={handleChange}
         />
-        {correctEmail && <p>{correctEmail}</p>}
+        {correctEmail && <p className="error-message">{correctEmail}</p>}
         <input
           placeholder="password"
           className="password-input"
           type="password"
           name="hashPassword"
+          required
           value={hashPassword}
           onChange={handleChange}
         />
-        {correctPassword && <p>{correctPassword}</p>}
+        {correctPassword && <p className="error-message">{correctPassword}</p>}
         <input
           placeholder="first name"
           className="first-name-input"
           type="text"
           name="firstName"
+          required
           value={firstName}
           onChange={handleChange}
         />
-        {correctFirstName && <p>{correctFirstName}</p>}
+        {correctFirstName && (
+          <p className="error-message">{correctFirstName}</p>
+        )}
         <input
           placeholder="second name"
           className="last-name-input"
           type="text"
           pattern="[A-Za-z]{2,}"
+          required
           name="lastName"
           value={lastName}
           onChange={handleChange}
         />
-        {correctLastName && <p>{correctLastName}</p>}
+        {correctLastName && <p className="error-message">{correctLastName}</p>}
         <button className="register-button" onClick={handleSubmit}>
           Submit
         </button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
     </div>
   );

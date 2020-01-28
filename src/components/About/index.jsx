@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import Countdown from "react-countdown-now";
 import { AUTH } from "../../query/AUTH";
@@ -13,14 +13,6 @@ const socket = io.connect("http://localhost:8080");
 
 export const About = () => {
   const [description, setDescription] = useState({});
-  const [placeId, setPlaceId] = useState("");
-  const [placeRow, setPlaceRow] = useState();
-  let [additionalPrice, setAdditionalPrice] = useState(0);
-  const [arrBookedPlaces, setArrBookedPlaces] = useState([]);
-  const [placeColumn, setPlaceColumn] = useState();
-  const [additionalArr, setAdditionalArr] = useState([]);
-  const [placeSchema, setPlaceSchema] = useState({});
-  const [bookedPlaces, setBookedPlaces] = useState([]);
   const [modalStateBooking, setModalStateBooking] = useState(false);
   const queryUrl = window.location.href.split("/about/");
   const { loading, error, data } = useQuery(AUTH);
@@ -33,6 +25,29 @@ export const About = () => {
     }
   );
 
+  const [
+    {
+      additionalArr,
+      additionalPrice,
+      placeId,
+      placeColumn,
+      placeRow,
+      placeSchema,
+      bookedPlaces,
+      arrBookedPlaces
+    },
+    setState
+  ] = useReducer((s, a) => ({ ...s, ...a }), {
+    additionalArr: [],
+    additionalPrice: 0,
+    placeSchema: {},
+    placeId: "",
+    placeColumn: "",
+    placeRow: "",
+    bookedPlaces: [],
+    arrBookedPlaces: []
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       const concertData = await axios.get(
@@ -42,7 +57,7 @@ export const About = () => {
       const roomData = await axios.get(
         `http://localhost:8080/place/${concertData.data.concert.roomId}`
       );
-      setPlaceSchema(roomData.data.schema.placeSchema);
+      setState({ placeSchema: roomData.data.schema.placeSchema });
     };
     fetchData();
   }, []);
@@ -102,7 +117,7 @@ export const About = () => {
     }
   };
   socket.on("updateSchema", data => {
-    setPlaceSchema(data);
+    setState({ placeSchema: data });
   });
 
   return (
@@ -156,8 +171,10 @@ export const About = () => {
                       key={String(item.id)}
                       onClick={e => {
                         e.preventDefault();
-                        setAdditionalArr(state => [...state, item.id]);
-                        setAdditionalPrice((additionalPrice += item.price));
+                        setState({
+                          additionalArr: [...additionalArr, item.id],
+                          additionalPrice: additionalPrice + item.price
+                        });
                       }}
                     >
                       {item.name}
@@ -196,21 +213,27 @@ export const About = () => {
                     <div
                       key={`${i}-${k}`}
                       onClick={() => {
-                        setPlaceId(placeSchema[i][k].id);
-                        setPlaceSchema(placeSchema);
-                        if (!placeSchema[i][k].booked) {
+                        if (
+                          !placeSchema[i][k].booked &&
+                          placeSchema[i][k] != 0
+                        ) {
                           placeSchema[i][k].booked = true;
-                          setPlaceColumn(i);
-                          setPlaceRow(k);
+                          setState({
+                            placeId: placeSchema[i][k].id,
+                            placeSchema,
+                            placeColumn: i,
+                            placeRow: k,
+                            bookedPlaces: [
+                              ...bookedPlaces,
+                              placeSchema[i][k].id
+                            ],
+                            arrBookedPlaces: [
+                              ...arrBookedPlaces,
+                              { id: placeSchema[i][k].id, column: i, row: k }
+                            ]
+                          });
+
                           socket.emit("updateSchema", placeSchema);
-                          setBookedPlaces(state => [
-                            ...state,
-                            placeSchema[i][k].id
-                          ]);
-                          setArrBookedPlaces(state => [
-                            ...state,
-                            { id: placeSchema[i][k].id, column: i, row: k }
-                          ]);
                         }
                       }}
                       style={{

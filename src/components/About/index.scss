@@ -161,22 +161,6 @@
   animation-delay: 0.5s;
 }
 
-select {
-  outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  outline: 0;
-  box-shadow: none;
-  border: 0 !important;
-  background: #36414d;
-  background-image: none;
-  color: #fff;
-  cursor: pointer;
-  padding: 0 0.5em;
-}
-
 select::-ms-expand {
   display: none;
 }
@@ -188,6 +172,16 @@ select::-ms-expand {
 
 .select {
   outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  padding: 0 0.5em;
+  background-image: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
   position: relative;
   display: flex;
   width: 250px;

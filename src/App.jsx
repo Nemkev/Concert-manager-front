@@ -1,4 +1,5 @@
 import React from "react";
+import { CookiesProvider } from "react-cookie";
 import { Header } from "./modules/Header";
 import { Footer } from "./modules/Footer";
 import { Routers } from "./Router";
@@ -9,11 +10,13 @@ import "./App.css";
 
 export const App = () => {
   return (
-    <Router>
-      <Header />
-      <Routers />
-      <Footer />
-    </Router>
+    <CookiesProvider>
+      <Router>
+        <Header />
+        <Routers />
+        <Footer />
+      </Router>
+    </CookiesProvider>
   );
 };
 
