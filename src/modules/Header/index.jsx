@@ -51,28 +51,6 @@ export const Header = () => {
         >
           Concerts
         </Link>
-        {/* <Link
-          className="link"
-          style={
-            `${window.location.href}` === "http://localhost:3000/registration"
-              ? { color: `#ff8b38` }
-              : {}
-          }
-          to="/registration"
-        >
-          Registration
-        </Link>
-        <Link
-          className="link"
-          style={
-            `${window.location.href}` === "http://localhost:3000/user"
-              ? { color: `#ff8b38` }
-              : {}
-          }
-          to="/user"
-        >
-          User
-        </Link> */}
         <Link
           className="link"
           onClick={logOut}
