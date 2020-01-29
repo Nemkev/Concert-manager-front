@@ -13,6 +13,7 @@
 
 .xmasonry .xblock {
   animation: comeIn ease 0.5s;
+  position: static;
   animation-iteration-count: 1;
   transition: left 0.3s ease, top 0.3s ease;
 }
@@ -143,7 +144,6 @@ select::-ms-expand {
   outline: 0;
   box-shadow: none;
   border: 0 !important;
-  position: relative;
   display: flex;
   width: 250px;
   height: 3em;
