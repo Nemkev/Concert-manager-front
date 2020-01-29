@@ -19,7 +19,7 @@ export const Header = () => {
 
   const [unLogged] = useMutation(UNLOGIN);
 
-  const unLogin = async () => {
+  const logOut = async () => {
     await unLogged();
   };
 
@@ -53,29 +53,7 @@ export const Header = () => {
         </Link>
         <Link
           className="link"
-          style={
-            `${window.location.href}` === "http://localhost:3000/registration"
-              ? { color: `#ff8b38` }
-              : {}
-          }
-          to="/registration"
-        >
-          Registration
-        </Link>
-        <Link
-          className="link"
-          style={
-            `${window.location.href}` === "http://localhost:3000/user"
-              ? { color: `#ff8b38` }
-              : {}
-          }
-          to="/user"
-        >
-          User
-        </Link>
-        <Link
-          className="link"
-          onClick={unLogin}
+          onClick={logOut}
           style={
             `${window.location.href}` === "http://localhost:3000/login"
               ? { color: `#ff8b38` }

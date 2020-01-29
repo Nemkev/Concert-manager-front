@@ -159,7 +159,12 @@ export const About = () => {
             />
 
             {loadingAdditional ? (
-              <p>Loading ...</p>
+              <div className="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             ) : (
               <>
                 <select className="select">

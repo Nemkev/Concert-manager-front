@@ -1,5 +1,4 @@
 @import "../../mixins/input-animation.scss";
-
 @keyframes comeIn {
   0% {
     transform: scale(0);
@@ -18,6 +17,19 @@
   transition: left 0.3s ease, top 0.3s ease;
 }
 
+.loading-block {
+  width: 250px;
+  height: 3em;
+  background-color: #e6e6e6;
+  margin-top: 30px;
+}
+
+.loading-spin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .next {
   margin-left: 10px;
 }
@@ -34,6 +46,18 @@
 
 .concert-name-list-item {
   margin-top: 10px;
+}
+
+.void-message {
+  margin-top: 200px;
+  font-size: 3em;
+  rotate: -45deg;
+}
+
+.void-zone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-list-description {
@@ -99,6 +123,7 @@
   border: 2px solid #e6e6e6;
   color: black;
   margin-right: 20px;
+  text-align: center;
   padding: 3px;
 }
 
@@ -112,6 +137,7 @@ select::-ms-expand {
   background-image: none;
   outline: none;
   appearance: none;
+  text-align: center;
   outline: 0;
   box-shadow: none;
   border: 0 !important;
