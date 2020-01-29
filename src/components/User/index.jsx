@@ -18,6 +18,10 @@ export const User = () => {
     }
   );
   if (loading) return <p>Loading ...</p>;
+
+  if (!data.auth) {
+    return <Redirect to="/login" />;
+  }
   return (
     <>
       {!data.auth && <Redirect to="/login" />}

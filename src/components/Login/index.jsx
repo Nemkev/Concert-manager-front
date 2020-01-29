@@ -2,11 +2,12 @@ import React, { useState, useReducer } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../../mutation/LOGIN";
 import { useCookies } from "react-cookie";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 import "./index.scss";
 
 export const Login = () => {
+  const history = useHistory();
   const [_, setCookies] = useCookies(["access-token", "refresh-token"]);
   const [
     {
@@ -57,23 +58,18 @@ export const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     try {
-      const { data } = await login();
-      setCookies("access-token", data.login.accessToken);
-      setCookies("refresh-token", data.login.refreshToken);
-      setState({
-        isLoged: true
-      });
+      await login();
+
+      history.push("/user");
+      console.log(1111);
     } catch (error) {
       console.log(error);
-      setState({ errorMessage: "Incorrect password or email", isLoged: false });
+      setState({ errorMessage: "Incorrect password or email" });
     }
   };
 
-  return isLoged ? (
-    <Redirect to="/user" />
-  ) : (
+  return (
     <main className="login-layer">
       <form className="login-form">
         <h2 className="title">Login</h2>
