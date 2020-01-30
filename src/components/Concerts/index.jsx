@@ -35,10 +35,8 @@ export const Concerts = () => {
       PlaceImage11,
       PlaceImage12
     ];
-    return arrOfImage[Math.floor(Math.random() * 11)];
+    return arrOfImage[Math.floor(Math.random() * arrOfImage.length)];
   };
-
-  console.log(Math.floor(Math.random() * 8));
 
   const [{ city, date, concerts, limit, skip }, setState] = useReducer(
     (s, a) => ({ ...s, ...a }),
@@ -112,7 +110,6 @@ export const Concerts = () => {
       setListOfCity(uniqCity);
     }
   }, [mounted]);
-  console.log(listOfDate, listOfCity);
 
   return (
     <div className="overlap">

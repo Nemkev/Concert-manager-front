@@ -170,6 +170,14 @@ select::-ms-expand {
   font-size: 2em;
 }
 
+.list-of-additional-items {
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 .lds-ring {
   display: inline-block;
   position: relative;
@@ -204,6 +212,19 @@ select::-ms-expand {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.list-of-additional {
+  display: flex;
+  width: 10vw;
+  flex-direction: row;
+  margin-top: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-additional-button {
+  margin-left: 10px;
 }
 
 .select {
@@ -311,6 +332,12 @@ select::-ms-expand {
     border-color: black;
     color: black;
   }
+}
+
+.login-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 415px) {

@@ -57,7 +57,6 @@ export const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     try {
       const { data } = await login();
       setCookies("access-token", data.login.accessToken);
@@ -71,9 +70,7 @@ export const Login = () => {
     }
   };
 
-  return isLoged ? (
-    <Redirect to="/user" />
-  ) : (
+  return (
     <main className="login-layer">
       <form className="login-form">
         <h2 className="title">Login</h2>

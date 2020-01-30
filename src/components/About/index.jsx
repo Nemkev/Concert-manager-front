@@ -14,8 +14,10 @@ const socket = io.connect("http://localhost:8080");
 export const About = () => {
   const [description, setDescription] = useState({});
   const [modalStateBooking, setModalStateBooking] = useState(false);
+  const [modalStateLogin, setModalStateLogin] = useState(false);
   const queryUrl = window.location.href.split("/about/");
   const { loading, error, data } = useQuery(AUTH);
+  const [additionIds, setAdditionIds] = useState([]);
   const time = Date.now() + 1000 * 60 * 15;
 
   const { loading: loadingAdditional, data: additionalData } = useQuery(
@@ -86,7 +88,9 @@ export const About = () => {
         `http://localhost:8080/ticket`,
         {
           bookedPlaces,
-          additionalArr
+          additionIds: additionIds.map(item => {
+            return item.id;
+          })
         }
       );
     };
@@ -123,6 +127,27 @@ export const About = () => {
   return (
     <div className="about-overlap">
       <div className="user-attention-zone">
+        <Modal
+          isOpen={modalStateLogin}
+          ariaHideApp={false}
+          className="Modal login-message"
+          overlayClassName="Overlay"
+        >
+          <h1>Login please</h1>
+          <span
+            className="fas fa-times close-modal-button"
+            onClick={e => {
+              e.preventDefault();
+              setModalStateLogin(false);
+              for (let i = 0; i < arrBookedPlaces.length; i++) {
+                placeSchema[arrBookedPlaces[i].column][
+                  arrBookedPlaces[i].row
+                ].booked = false;
+              }
+              socket.emit("updateSchema", placeSchema);
+            }}
+          />
+        </Modal>
         <Modal
           isOpen={modalStateBooking}
           ariaHideApp={false}
@@ -176,6 +201,12 @@ export const About = () => {
                       key={String(item.id)}
                       onClick={e => {
                         e.preventDefault();
+                        if (additionIds.length <= 4) {
+                          setAdditionIds(state => [
+                            ...state,
+                            { id: String(item.id), name: String(item.name) }
+                          ]);
+                        }
                         setState({
                           additionalArr: [...additionalArr, item.id],
                           additionalPrice: additionalPrice + item.price
@@ -188,6 +219,22 @@ export const About = () => {
                 </select>
               </>
             )}
+            <ul className="list-of-additional-items">
+              {additionIds.map(item => (
+                <li key={String(item.id)} className="list-of-additional">
+                  <p>{item.name}</p>
+                  <i
+                    className="fas fa-times close-additional-button"
+                    onClick={e => {
+                      e.preventDefault();
+                      setAdditionIds(
+                        additionIds.filter(el => el.id !== item.id)
+                      );
+                    }}
+                  ></i>
+                </li>
+              ))}
+            </ul>
             <button type="submit" className="submit-room-booking-button">
               Book this place
             </button>
@@ -220,7 +267,7 @@ export const About = () => {
                       onClick={() => {
                         if (
                           !placeSchema[i][k].booked &&
-                          placeSchema[i][k] != 0
+                          placeSchema[i][k] !== 0
                         ) {
                           placeSchema[i][k].booked = true;
                           setState({
@@ -273,8 +320,12 @@ export const About = () => {
           <div className="booking-button-schema">
             <span
               onClick={() => {
-                socket.emit("updateSchema", placeSchema);
-                setModalStateBooking(true);
+                if (!data.auth) {
+                  setModalStateLogin(true);
+                } else {
+                  socket.emit("updateSchema", placeSchema);
+                  setModalStateBooking(true);
+                }
               }}
             >
               Book
