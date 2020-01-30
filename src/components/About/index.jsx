@@ -88,7 +88,9 @@ export const About = () => {
         `http://localhost:8080/ticket`,
         {
           bookedPlaces,
-          additionalArr
+          additionIds: additionIds.map(item => {
+            return item.id;
+          })
         }
       );
     };
